@@ -82,9 +82,12 @@ class _FretboardAppState extends State<FretboardApp> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('C♯  D♭  F♯  B♭', style: spikeTitle(text)),
+                            MusicText(
+                              'C♯  D♭  F♯  B♭',
+                              style: spikeTitle(text),
+                            ),
                             const SizedBox(height: 12),
-                            Text(
+                            MusicText(
                               'Notas: C♯ e D♭',
                               style: TextStyle(
                                 color: text,
@@ -134,4 +137,43 @@ class _FretboardAppState extends State<FretboardApp> {
       },
     ),
   );
+}
+
+/// Alinha os glifos musicais da fonte de fallback às letras da fonte principal.
+class MusicText extends StatelessWidget {
+  const MusicText(this.data, {required this.style, super.key});
+
+  final String data;
+  final TextStyle style;
+
+  @override
+  Widget build(BuildContext context) {
+    final spans = <InlineSpan>[];
+    final symbols = RegExp('[♯♭]');
+    var start = 0;
+    for (final match in symbols.allMatches(data)) {
+      if (match.start > start) {
+        spans.add(TextSpan(text: data.substring(start, match.start)));
+      }
+      spans.add(
+        WidgetSpan(
+          alignment: PlaceholderAlignment.baseline,
+          baseline: TextBaseline.alphabetic,
+          child: Transform.translate(
+            offset: Offset(0, -(style.fontSize ?? 14) * 0.16),
+            child: Text(
+              match.group(0)!,
+              style: style.copyWith(fontFamily: 'Noto Music'),
+            ),
+          ),
+        ),
+      );
+      start = match.end;
+    }
+    if (start < data.length) spans.add(TextSpan(text: data.substring(start)));
+    return Text.rich(
+      TextSpan(style: style, children: spans),
+      semanticsLabel: data,
+    );
+  }
 }

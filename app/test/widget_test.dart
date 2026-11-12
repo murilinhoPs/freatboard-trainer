@@ -76,12 +76,28 @@ void main() {
 
   testWidgets('troca entre claro, escuro e sistema', (tester) async {
     await tester.pumpWidget(const FretboardApp());
-    expect(find.text('C♯  D♭  F♯  B♭'), findsOneWidget);
+    expect(
+      find.byWidgetPredicate(
+        (widget) => widget is MusicText && widget.data == 'C♯  D♭  F♯  B♭',
+      ),
+      findsOneWidget,
+    );
     ThemeData theme() => Theme.of(tester.element(find.text('Caderno neon')));
     expect(theme().brightness, Brightness.dark);
+    expect(
+      tester.widget<Text>(find.text('Alvo')).style!.color,
+      AppTokens.escuro['onTarget'],
+    );
+    final semantics = tester.ensureSemantics();
+    expect(find.bySemanticsLabel('C♯  D♭  F♯  B♭'), findsOneWidget);
+    semantics.dispose();
     await tester.tap(find.text('Claro'));
     await tester.pumpAndSettle();
     expect(theme().brightness, Brightness.light);
+    expect(
+      tester.widget<Text>(find.text('Alvo')).style!.color,
+      AppTokens.claro['onTarget'],
+    );
     await tester.tap(find.text('Escuro'));
     await tester.pumpAndSettle();
     expect(theme().brightness, Brightness.dark);
