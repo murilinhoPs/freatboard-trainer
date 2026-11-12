@@ -1,12 +1,10 @@
-# Design system
-
-Fonte de tokens: [tokens.json](tokens.json).
-
 # Design system — Fretboard Trainer · "Caderno neon"
 
-Versão completa do design system: cores, tokens, tipografia, espaçamento, forma, efeitos, componentes, ícones, braço, movimento e acessibilidade. É a fonte de verdade para implementar o tema; as telas estão em `telas.md` / `Telas.md`.
+Versão completa do design system: cores, tokens, tipografia, espaçamento, forma, efeitos, componentes, ícones, braço, movimento e acessibilidade. Valores estruturados em [tokens.json](tokens.json); telas nas specs de cada feature.
 
-Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escuro.png`, `ds-02-sistema-claro.png`, `ds-03-braco-escuro.png`, `ds-04-braco-claro.png`.
+Referências visuais: [PDF do design system](design-system.pdf) e telas em `../assets/design/`.
+
+> **Revisão 2026-11-12 (polimento "unslop").** Rótulos de seção em caixa baixa, 13/400 e `muted`; tags neutras (`surface` + tinta); `target` no alvo do braço, streak e estrelas da lição; borda das opções em `ink`; borda de card igual a `line`; brilho reduzido; escala de espaço em passos de 4; Atkinson em 400, com exceções para texto forte e marca-texto; sem exclamação na interface. As pranchas de direção A–D no canvas são histórico e não seguem esta revisão.
 
 ## Sumário
 
@@ -32,6 +30,7 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 3. **Feedback nunca depende só de cor.** Acerto e erro mudam forma + ícone + texto.
 4. **Dois temas de primeira classe.** Escuro é o padrão. Nenhum componente tem cor fixa: tudo sai dos tokens.
 5. **Contraste AA mínimo** e alvos de toque de pelo menos 44 × 44.
+6. **Uma cor viva por tela.** O amarelo (`target`) pertence ao alvo do braço (o "?"), ao streak e às estrelas da lição. O lilás (`accent`) marca a ação principal, a seleção e a barra de progresso. Rótulos, tags e bordas de card ficam neutros: a ênfase no chrome vem do contorno de tinta e da sombra dura, não de cor.
 
 ---
 
@@ -43,28 +42,28 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 |---|---|---|---|
 | `color.bg` | `#0D0F1A` | `#FAFAFD` | Fundo da tela |
 | `color.grid` | `#181C32` | `#E4E6F4` | Linhas do quadriculado do fundo |
-| `color.surface` | `#171A2B` | `#FFFFFF` | Cards, botões secundários, barras de navegação, inputs |
+| `color.surface` | `#171A2B` | `#FFFFFF` | Cards, botões secundários, tags, barras de navegação, inputs |
 | `color.text` | `#EEF0FF` | `#16183A` | Texto principal |
-| `color.muted` | `#9AA0C3` | `#555A80` | Texto secundário, rótulos de corda, números de casa, abas inativas |
-| `color.line` | `#2A2E4A` | `#C9CCE6` | Divisórias, borda de chip não selecionado |
+| `color.muted` | `#9AA0C3` | `#555A80` | Texto secundário, rótulos de seção, rótulos de corda, números de casa, abas inativas |
+| `color.line` | `#2A2E4A` | `#C9CCE6` | Divisórias, borda de chip não selecionado, borda de card |
 | `color.ink` | `#EEF0FF` | `#16183A` | "Tinta": contornos de 2 px, sombra dura, pestana |
-| `color.card-border` | `#3A4070` | `#16183A` | Borda de card |
+| `color.card-border` | `#2A2E4A` | `#C9CCE6` | Borda de card padrão (igual a `line`). Card em destaque usa `ink` |
 
 ### 2.2 Acento
 
 | Token | Escuro | Claro | Uso |
 |---|---|---|---|
-| `color.accent` | `#B9A6FF` | `#5B3FE0` | Botão primário, seleção, barra de progresso, rótulos de seção, links |
+| `color.accent` | `#B9A6FF` | `#5B3FE0` | Botão primário, seleção (chip, segmento, aba ativa), barra de progresso, links |
 | `color.on-accent` | `#120A33` | `#FFFFFF` | Texto e ícone sobre `accent` |
 | `color.pop` | `#B9A6FF` | `#5B3FE0` | Sombra dura colorida (opções de resposta, card em destaque) |
-| `color.option-border` | `#B9A6FF` | `#16183A` | Borda dos botões de resposta |
+| `color.option-border` | `#EEF0FF` | `#16183A` | Borda dos botões de resposta (igual a `ink`) |
 
 ### 2.3 Braço
 
 | Token | Escuro | Claro | Uso |
 |---|---|---|---|
 | `color.board` | `#121526` | `#FFFFFF` | Fundo das casas |
-| `color.board-hi` | `#2A3370` | `#FFF3A6` | Corda-alvo destacada; marca-texto no texto |
+| `color.board-hi` | `#2A3370` | `#FFF3A6` | Corda-alvo destacada; marca-texto no texto; quadrado de ícone das linhas de lista |
 | `color.fret` | `#5A6296` | `#16183A` | Trastes |
 | `color.string` | `#AEB5DD` | `#16183A` | Cordas |
 | `color.inlay` | `#2A3058` | `#D9DCF0` | Marcadores (dots) |
@@ -73,9 +72,9 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 
 | Token | Escuro | Claro | Uso |
 |---|---|---|---|
-| `color.target` | `#FFD84D` | `#FFD84D` | Alvo "?"; tags de destaque ("~5 min", "Foco"); streak |
+| `color.target` | `#FFD84D` | `#FFD84D` | Alvo "?" no braço; chama do streak; estrelas da lição |
 | `color.on-target` | `#221A00` | `#221A00` | Texto sobre `target` |
-| `color.ok` | `#5CF08A` | `#12A150` | Acerto; nota conhecida |
+| `color.ok` | `#5CF08A` | `#12A150` | Acerto; nota conhecida; tag "Feito" |
 | `color.on-ok` | `#06210F` | `#06210F` | Texto sobre `ok` |
 | `color.ok-soft` | `#12281F` | `#DFF7E8` | Fundo do painel de acerto e do card "Feito" |
 | `color.err` | `#FF6B8B` | `#F0476E` | Erro (também usado como destrutivo) |
@@ -87,6 +86,8 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 
 - Texto sobre fundo colorido usa sempre o par `on-*` correspondente.
 - `target` (amarelo) é o mesmo nos dois temas: o texto sobre ele é sempre escuro.
+- `target` é reservado ao alvo do braço, ao streak e às estrelas da lição. Tags ("~5 min", "Foco") e quadrados de ícone de lista são neutros (`surface` / `board-hi` + tinta).
+- `accent` não é cor de texto de rótulo. Rótulos de seção usam `muted`.
 - `ok`, `err` e `learn` ficam mais escuros no claro para manter contraste com o fundo branco.
 - Não existe cor de "aviso" separada; não crie uma sem antes rever o sistema.
 
@@ -102,8 +103,8 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
     "escuro": {
       "bg": "#0D0F1A", "grid": "#181C32", "surface": "#171A2B",
       "text": "#EEF0FF", "muted": "#9AA0C3", "line": "#2A2E4A",
-      "ink": "#EEF0FF", "cardBorder": "#3A4070",
-      "accent": "#B9A6FF", "onAccent": "#120A33", "pop": "#B9A6FF", "optionBorder": "#B9A6FF",
+      "ink": "#EEF0FF", "cardBorder": "#2A2E4A",
+      "accent": "#B9A6FF", "onAccent": "#120A33", "pop": "#B9A6FF", "optionBorder": "#EEF0FF",
       "board": "#121526", "boardHi": "#2A3370", "fret": "#5A6296", "string": "#AEB5DD", "inlay": "#2A3058",
       "target": "#FFD84D", "onTarget": "#221A00",
       "ok": "#5CF08A", "onOk": "#06210F", "okSoft": "#12281F",
@@ -113,7 +114,7 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
     "claro": {
       "bg": "#FAFAFD", "grid": "#E4E6F4", "surface": "#FFFFFF",
       "text": "#16183A", "muted": "#555A80", "line": "#C9CCE6",
-      "ink": "#16183A", "cardBorder": "#16183A",
+      "ink": "#16183A", "cardBorder": "#C9CCE6",
       "accent": "#5B3FE0", "onAccent": "#FFFFFF", "pop": "#5B3FE0", "optionBorder": "#16183A",
       "board": "#FFFFFF", "boardHi": "#FFF3A6", "fret": "#16183A", "string": "#16183A", "inlay": "#D9DCF0",
       "target": "#FFD84D", "onTarget": "#221A00",
@@ -141,15 +142,16 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
     "bodyLg":     { "family": "body", "size": 16, "weight": 400, "lineHeight": 1.5 },
     "body":       { "family": "body", "size": 15, "weight": 400, "lineHeight": 1.45 },
     "bodySm":     { "family": "body", "size": 14, "weight": 400, "lineHeight": 1.45 },
-    "chip":       { "family": "body", "size": 14, "weight": 700, "lineHeight": 1 },
+    "chip":       { "family": "body", "size": 14, "weight": 400, "lineHeight": 1 },
+    "tag":        { "family": "body", "size": 13, "weight": 400, "lineHeight": 1 },
     "caption":    { "family": "body", "size": 13, "weight": 400, "lineHeight": 1.3 },
-    "label":      { "family": "body", "size": 12, "weight": 700, "lineHeight": 1, "letterSpacing": 0.12, "uppercase": true },
-    "tab":        { "family": "body", "size": 12, "weight": 700, "lineHeight": 1 }
+    "label":      { "family": "body", "size": 13, "weight": 400, "lineHeight": 1 },
+    "tab":        { "family": "body", "size": 12, "weight": 400, "lineHeight": 1 }
   },
-  "space": { "1": 2, "2": 4, "3": 6, "4": 8, "5": 10, "6": 12, "7": 14, "8": 16, "9": 20, "10": 24, "11": 28, "12": 32, "13": 40 },
+  "space": { "0": 2, "1": 4, "2": 8, "3": 12, "4": 16, "5": 20, "6": 24, "7": 28, "8": 32, "9": 40 },
   "radius": { "tag": 6, "control": 8, "feedbackBadge": 10, "card": 12, "switch": 16, "chip": 22, "full": 999 },
   "border": { "ink": 2, "nut": 6, "fret": 2 },
-  "size": { "touchMin": 44, "button": 52, "option": 60, "chip": 44, "tag": 28, "infoChip": 32, "icon": 20, "iconSm": 16, "marker": 30, "stringRow": 40, "openStringCol": 44, "stringLabelCol": 26, "gridStep": 20 },
+  "size": { "touchMin": 44, "button": 52, "option": 60, "chip": 44, "tag": 28, "infoChip": 32, "icon": 20, "iconSm": 16, "marker": 30, "stringRow": 40, "listRow": 56, "openStringCol": 44, "stringLabelCol": 26, "gridStep": 20 },
   "shadow": { "hard": "3 3 0 ink", "pop": "3 3 0 pop", "popLg": "4 4 0 pop" },
   "motion": { "maxMs": 250 },
   "breakpoint": { "expanded": 600 }
@@ -161,19 +163,19 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 ```css
 :root, [data-theme="escuro"] {
   --bg:#0D0F1A; --grid:#181C32; --surface:#171A2B; --text:#EEF0FF; --muted:#9AA0C3; --line:#2A2E4A;
-  --ink:#EEF0FF; --card-border:#3A4070;
-  --accent:#B9A6FF; --on-accent:#120A33; --pop:#B9A6FF; --option-border:#B9A6FF;
+  --ink:#EEF0FF; --card-border:#2A2E4A;
+  --accent:#B9A6FF; --on-accent:#120A33; --pop:#B9A6FF; --option-border:#EEF0FF;
   --board:#121526; --board-hi:#2A3370; --fret:#5A6296; --string:#AEB5DD; --inlay:#2A3058;
   --target:#FFD84D; --on-target:#221A00;
   --ok:#5CF08A; --on-ok:#06210F; --ok-soft:#12281F;
   --err:#FF6B8B; --on-err:#33030F; --err-soft:#2B1420;
   --learn:#4DE2FF;
-  --glow-target:0 0 0 2px var(--ink), 0 0 18px rgba(255,216,77,.6);
-  --glow-ok:0 0 18px rgba(92,240,138,.5);
+  --glow-target:0 0 0 2px var(--ink), 0 0 12px rgba(255,216,77,.4);
+  --glow-ok:0 0 12px rgba(92,240,138,.35);
 }
 [data-theme="claro"] {
   --bg:#FAFAFD; --grid:#E4E6F4; --surface:#FFFFFF; --text:#16183A; --muted:#555A80; --line:#C9CCE6;
-  --ink:#16183A; --card-border:#16183A;
+  --ink:#16183A; --card-border:#C9CCE6;
   --accent:#5B3FE0; --on-accent:#FFFFFF; --pop:#5B3FE0; --option-border:#16183A;
   --board:#FFFFFF; --board-hi:#FFF3A6; --fret:#16183A; --string:#16183A; --inlay:#D9DCF0;
   --target:#FFD84D; --on-target:#221A00;
@@ -194,6 +196,8 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
   --touch-min:44px;
 }
 .screen {
+  font-family:var(--font-body);
+  font-variant-numeric:tabular-nums;
   background-color:var(--bg);
   background-image:linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size:20px 20px;
@@ -208,37 +212,43 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 
 | Família | Pesos | Uso | Fallback |
 |---|---|---|---|
-| **Space Grotesk** | 500, 700 | Títulos, nomes de nota, números grandes, botões | Trebuchet MS, sans-serif |
-| **Atkinson Hyperlegible** | 400, 700 | Texto corrido, rótulos de seção, chips, abas, legendas | Verdana, sans-serif |
+| **Space Grotesk** | 700 | Títulos, nomes de nota, números grandes, botões, títulos de linha de lista | Trebuchet MS, sans-serif |
+| **Atkinson Hyperlegible** | 400 | Texto corrido, rótulos de seção, chips, tags, abas, legendas, rótulos de corda e casa | Verdana, sans-serif |
 
 As duas estão no Google Fonts (licença OFL). Nenhuma das duas tem os glifos ♯ e ♭: eles caem na fonte do sistema. Teste a altura e o alinhamento em cada plataforma.
+
+A hierarquia vem de tamanho, família e cor, não de peso: o 700 é exclusivo da Space Grotesk. Atkinson fica em 400; as exceções são `<strong>` dentro de texto corrido (ex.: "42 de 78" no cabeçalho de Progresso em paisagem) e o marca-texto `.hl` no Aprender.
 
 ### 4.2 Escala
 
 | Token | Família | Tam. / peso / altura | Onde aparece |
 |---|---|---|---|
 | `display` | Space Grotesk | 40 / 700 / 1.1 | "2 dias" no Fim da sessão |
-| `titleXl` | Space Grotesk | 32 / 700 / 1.15 | "Lição concluída!" |
-| `titleLg` | Space Grotesk | 30 / 700 / 1.15 | Pergunta ("Que nota é essa?"), título de feedback ("Isso!", "Quase") |
-| `title` | Space Grotesk | 28 / 700 / 1.15 | Título de tela ("Praticar"), título da explicação em Aprender |
+| `titleXl` | Space Grotesk | 32 / 700 / 1.15 | "Lição concluída" |
+| `titleLg` | Space Grotesk | 30 / 700 / 1.15 | Pergunta ("Que nota é essa?"), título de feedback ("Certo", "Quase") |
+| `title` | Space Grotesk | 28 / 700 / 1.15 | Título de tela ("Hoje", "Praticar"), título da explicação em Aprender |
 | `titleMd` | Space Grotesk | 24 / 700 / 1.2 | Título de tela com voltar ("Monte o seu"), números dos cards de Progresso |
 | `titleSm` | Space Grotesk | 22 / 700 / 1.2 | Título do card da sessão |
-| `heading` | Space Grotesk | 20 / 700 / 1.2 | "É um D♯." / "Você tocou D." |
+| `heading` | Space Grotesk | 20 / 700 / 1.2 | "É um D♯" / "Você tocou D" |
 | `subheading` | Space Grotesk | 18 / 700 / 1.25 | Título de card ("Notas"), "Próxima" |
 | `button` | Space Grotesk | 16 / 700 | Botões, nomes de linha em listas |
 | `noteOption` | Space Grotesk | 22 / 700 | Nome da nota nas opções de resposta |
 | `noteMarker` | Space Grotesk | 13 / 700 | Nome da nota nos marcadores do braço |
 | `bodyLg` | Atkinson | 16 / 400 / 1.5 | Explicações (feedback, Aprender) |
-| `body` | Atkinson | 15 / 400 / 1.45 | Texto padrão, subtítulo de pergunta |
+| `body` | Atkinson | 15 / 400 / 1.45 | Texto padrão, subtítulo de pergunta, link "Dica" |
 | `bodySm` | Atkinson | 14 / 400 / 1.45 | Subtítulo do card da sessão, descrições curtas |
-| `chip` | Atkinson | 14 / 700 | Chips de seleção, segmentado |
-| `caption` | Atkinson | 13 / 400 | Descrições de linhas, legendas, detalhes |
-| `label` | Atkinson | 12 / 700, caixa alta, `letter-spacing: 0.12em`, cor `accent` | Rótulos de seção ("TREINO", "CORDAS") |
-| `tab` | Atkinson | 12 / 700 | Rótulos das abas, números de casa |
+| `chip` | Atkinson | 14 / 400 | Chips de seleção, segmentado |
+| `tag` | Atkinson | 13 / 400 | Tags ("~5 min", "Foco", "Feito"), chips informativos |
+| `caption` | Atkinson | 13 / 400 | Descrições de linhas, legendas, detalhes, rótulos de corda |
+| `label` | Atkinson | 13 / 400, caixa baixa (sentence case), cor `muted` | Rótulos de seção ("Treino", "Cordas", "Seu braço") |
+| `tab` | Atkinson | 12 / 400 | Rótulos das abas, números de casa |
 
 ### 4.3 Regras
 
 - Texto nunca abaixo de 12 px.
+- Sem caixa alta com tracking em texto pequeno. Rótulos de seção são frases curtas em caixa baixa ("Treinar uma habilidade"), 13 px, `muted`.
+- `letter-spacing` só em texto grande de exibição (ex.: a fila de glifos "C D E F G A B ♯ ♭" a 26 px na prancha do sistema). Nunca negativo abaixo de 40 px.
+- Números em `tabular-nums`, um formato só por tela ("13 de 25 lições", "90% de acerto de primeira").
 - Textos em PT-BR são cerca de 20–30% mais longos que em inglês: botões e chips crescem em largura e quebram linha no grupo, nunca truncam.
 - Use `text-wrap: pretty` (ou equivalente) em títulos e parágrafos curtos.
 
@@ -248,21 +258,20 @@ As duas estão no Google Fonts (licença OFL). Nenhuma das duas tem os glifos �
 
 ### 5.1 Escala
 
+Tudo em passos de 4. O 2 existe só como nudge interno (ícone + rótulo de aba, padding do switch). Um valor fora da escala é aceito só quando centraliza exatamente um controle: o botão ⋯ de 44 dentro da linha de lista de 56 leva padding vertical 6.
+
 | Token | Valor | Uso típico |
 |---|---|---|
-| `space.1` | 2 px | Entre ícone e rótulo da aba |
-| `space.2` | 4 px | Entre ícone e texto em tags |
-| `space.3` | 6 px | Ícone + texto em chips informativos e botões de link |
-| `space.4` | 8 px | Entre chips; entre ✕ e barra de progresso |
-| `space.5` | 10 px | Entre itens de um painel de feedback; entre cards de listas |
-| `space.6` | 12 px | Entre opções de 4 colunas; padding de linha de lista |
-| `space.7` | 14 px | Entre opções 2 × 2; entre seções da Início |
-| `space.8` | 16 px | Margem lateral das telas de aba; padding de card |
-| `space.9` | 20 px | Margem lateral de painéis de pergunta e feedback |
-| `space.10` | 24 px | Topo das telas de aba; padding superior do painel de feedback |
-| `space.11` | 28 px | Padding inferior dos painéis de pergunta |
-| `space.12` | 32 px | Respiro grande (Fim da lição) |
-| `space.13` | 40 px | Margem das pranchas de documentação |
+| `space.0` | 2 px | Entre ícone e rótulo da aba; padding interno do switch |
+| `space.1` | 4 px | Entre ícone e texto em tags; `margin-top` de botão dentro de card |
+| `space.2` | 8 px | Entre chips; entre ✕ e barra de progresso; ícone + texto em chips, botões e links; entre rótulo de seção e seu bloco; entre itens de um painel de pergunta; padding vertical das linhas de lista (ícone de 40) |
+| `space.3` | 12 px | Entre opções de 4 colunas; entre cards de uma lista; entre itens de um painel de feedback; padding horizontal de tags e chips informativos; margem lateral do painel (abas) em cima |
+| `space.4` | 16 px | Entre opções 2 × 2; entre seções da Início; margem lateral das telas de aba; padding de card; padding horizontal de chips |
+| `space.5` | 20 px | Margem lateral de painéis de pergunta e feedback; padding horizontal de botão; entre grupos em "Mais opções" |
+| `space.6` | 24 px | Topo das telas de aba; padding superior do painel de feedback; entre grupos do Monte o seu |
+| `space.7` | 28 px | Padding inferior dos painéis de pergunta |
+| `space.8` | 32 px | Respiro grande (Fim da lição) |
+| `space.9` | 40 px | Margem das pranchas de documentação; entre blocos da prancha do braço |
 
 ### 5.2 Layout
 
@@ -273,12 +282,12 @@ As duas estão no Google Fonts (licença OFL). Nenhuma das duas tem os glifos �
 | Referência expandida | 844 × 390 pt |
 | Margem lateral (abas) | 16 px |
 | Margem lateral (pergunta, feedback) | 20 px |
-| Barra de abas | 4 colunas iguais, padding 6 px em cima e 12 px embaixo |
+| Barra de abas | 4 colunas iguais, padding 8 px em cima e 12 px embaixo |
 | Rail lateral | 76 px de largura |
 | Pergunta em paisagem | Braço 60% à esquerda, painel 40% à direita |
 | Fundo quadriculado | Linha de 1 px `grid` a cada 20 px |
 
-Agrupe irmãos com flex ou grid e `gap`; não use margens soltas entre elementos.
+Agrupe irmãos com flex ou grid e `gap`; não use margens soltas entre elementos. Irmãos iguais têm o mesmo padding: todas as linhas de uma lista medem 56 de altura.
 
 ---
 
@@ -300,8 +309,8 @@ Agrupe irmãos com flex ou grid e `gap`; não use margens soltas entre elementos
 
 | Uso | Espessura | Cor |
 |---|---|---|
-| Contorno "tinta" (botões, inputs, segmentado, switch, barra de progresso, borda da barra de abas) | 2 px | `ink` |
-| Card | 2 px | `card-border` |
+| Contorno "tinta" (botões, opções de resposta, inputs, segmentado, switch, barra de progresso, tags, borda da barra de abas) | 2 px | `ink` |
+| Card | 2 px | `card-border` (= `line`) |
 | Card em destaque | 2 px | `ink` |
 | Chip não selecionado | 2 px | `line` (tracejada se desativado) |
 | Divisória entre linhas de card | 2 px | `line` |
@@ -315,11 +324,11 @@ Agrupe irmãos com flex ou grid e `gap`; não use margens soltas entre elementos
 | `shadow.hard` | `3px 3px 0 ink` | igual | Botão primário |
 | `shadow.pop` | `3px 3px 0 pop` | igual | Opções de resposta |
 | `shadow.popLg` | `4px 4px 0 pop` | igual | Card da sessão, card Revisar, círculo do streak |
-| `glow.target` | anel 2 px `ink` + `0 0 18px rgba(255,216,77,.6)` | só anel 2 px `ink` | Alvo "?" |
-| `glow.ok` | `0 0 18px rgba(92,240,138,.5)` | anel 2 px `ink` | Acerto no braço |
+| `glow.target` | anel 2 px `ink` + `0 0 12px rgba(255,216,77,.4)` | só anel 2 px `ink` | Alvo "?" |
+| `glow.ok` | `0 0 12px rgba(92,240,138,.35)` | anel 2 px `ink` | Acerto no braço |
 | Seleção no mapa | anel 3 px `bg` + 5 px `ink` | igual | Posição selecionada no Progresso |
 
-Brilho só existe no escuro. Não há sombras suaves (blur) em nenhum outro lugar.
+Brilho só existe no escuro e só no braço. Não há sombras suaves (blur) em nenhum outro lugar. A sombra dura deslocada é a assinatura do produto e a única fonte de ênfase fora do braço.
 
 ---
 
@@ -334,9 +343,9 @@ Medidas em px. "Tinta" = borda 2 px `ink`.
 | Primário | 52 | `accent` | `on-accent`, `button` | tinta | `shadow.hard` | "Começar sessão de hoje", "Continuar", "Entendi", "Concluir" |
 | Secundário | 52 | `surface` | `text`, `button` | tinta | — | "Ouvir", "Salvar", "Continuar aprendendo" |
 | Ícone | 44 × 44 | — | ícone 20 `text` | — | — | ✕, voltar, ⋯ |
-| Link | ≥ 44 de altura | — | `accent`, 15/700 | — | — | "Dica", "Aprender primeiro" |
+| Link | ≥ 44 de altura | — | `accent`, `body` (15/400) | — | — | "Dica", "Aprender primeiro" |
 
-- Padding horizontal 18; ícone opcional à esquerda com gap 8.
+- Padding horizontal 20; ícone opcional à esquerda com gap 8.
 - Botão de rodapé ocupa a largura toda.
 - Botão de ícone sempre tem rótulo de acessibilidade.
 
@@ -346,11 +355,11 @@ Medidas em px. "Tinta" = borda 2 px `ink`.
 |---|---|
 | Altura | 60 |
 | Fundo | `surface` |
-| Borda | 2 px `option-border` |
+| Borda | 2 px `option-border` (= `ink`) |
 | Sombra | `shadow.pop` |
 | Raio | 8 |
 | Texto | `noteOption` |
-| Grade | 4 opções: 2 × 2, gap 14 · 7 opções: 4 colunas, gap 12 · 12 opções: 4 × 3, gap 12, ordem cromática |
+| Grade | 4 opções: 2 × 2, gap 16 · 7 opções: 4 colunas, gap 12 · 12 opções: 4 × 3, gap 12, ordem cromática |
 
 Um toque = uma resposta, sem confirmação.
 
@@ -362,29 +371,29 @@ Um toque = uma resposta, sem confirmação.
 | Selecionado | `accent` | `on-accent` | 2 px `ink` |
 | Desativado / "em breve" | `surface` | `muted` | 2 px `line` **tracejada** |
 
-Altura mínima 44, largura mínima 48, padding 14, raio 22, texto `chip`. Gap 8 entre chips; o grupo quebra linha.
+Altura mínima 44, largura mínima 48, padding 16, raio 22, texto `chip`. Gap 8 entre chips; o grupo quebra linha. No máximo dois chips "em breve" por grupo (os próximos da fila), não a lista inteira do roadmap.
 
 ### 7.4 Tag
 
-Altura 28, padding 10, raio 6, tinta, fundo `target`, texto `on-target` 12/700. Ex.: "~5 min", "Foco". Variante "Feito": fundo `ok`, texto `on-ok`, ícone ✓ de 14.
+Altura 28, padding 12, raio 6, tinta, fundo `surface`, texto `text` em `tag`. Ex.: "~5 min", "Foco". Variante "Feito": fundo `ok`, texto `on-ok`, ícone ✓ de 14 — é a única tag com cor, porque carrega estado.
 
 ### 7.5 Chip informativo
 
-Não clicável. Altura 32, padding 10, raio 16, borda 2 px `line`, texto 13/700 `text`, ícone 16. Ex.: "8 para revisar", "1 lição nova".
+Não clicável. Altura 32, padding 12, raio 16, borda 2 px `line`, texto `tag` (13/400) `text`, ícone 16 com gap 8. Ex.: "8 para revisar", "1 lição nova".
 
 ### 7.6 Card
 
 | Variante | Fundo | Borda | Sombra |
 |---|---|---|---|
-| Padrão | `surface` | 2 px `card-border` | — |
+| Padrão | `surface` | 2 px `card-border` (= `line`) | — |
 | Em destaque | `surface` | 2 px `ink` | `shadow.popLg` |
 | Concluído | `ok-soft` | 2 px `card-border` | — |
 
-Raio 12, padding 16 (12–14 em cards compactos). Linhas de lista dentro de card: altura ≥ 56, divisória de 2 px `line`.
+Raio 12, padding 16 (12 vertical em cards compactos de número). Linhas de lista dentro de card: altura 56, divisória de 2 px `line`.
 
 ### 7.7 Linha de lista (drills)
 
-Quadrado de ícone 40 × 40 (raio 8, tinta, fundo `board-hi`; no Revisar, fundo `target`), título `button`, descrição `caption` `muted`, chevron ou botão ⋯ à direita. Gap 12.
+Altura 56. Quadrado de ícone 40 × 40 (raio 8, tinta, fundo `board-hi`, inclusive no Revisar), título `button`, descrição `caption` `muted`, chevron ou botão ⋯ (44) à direita. Gap 12. Padding 8 12; quando a linha tem o botão ⋯ de 44, padding vertical 6 para fechar nos mesmos 56.
 
 ### 7.8 Controle segmentado
 
@@ -396,7 +405,7 @@ Tinta, raio 8, segmentos iguais com altura ≥ 44 e texto `chip`. Ativo: fundo `
 
 ### 7.10 Campo de texto
 
-Altura 52, padding 12, fundo `surface`, tinta, raio 8, texto `bodyLg`. Rótulo em `label` acima. Mensagem de sucesso abaixo: ✓ `ok` + texto 14. Mensagem de erro: ✕ `err` + texto 14, borda do campo em `err` [a confirmar: não desenhado].
+Altura 52, padding 12, fundo `surface`, tinta, raio 8, texto `bodyLg`. Rótulo em `label` acima. Mensagem de sucesso abaixo: ✓ `ok` + texto 14, sem ponto final. Mensagem de erro: ✕ `err` + texto 14, borda do campo em `err` [a confirmar: não desenhado].
 
 ### 7.11 Barra de progresso
 
@@ -404,8 +413,8 @@ Altura 12, tinta, raio 6, fundo `surface`, preenchimento `accent` sem raio inter
 
 ### 7.12 Semana e streak
 
-- Bolinhas de 36 com a inicial do dia (13/700). Praticado: fundo `accent`, texto `on-accent`, borda `ink`. Hoje não praticado: borda tracejada `ink`. Futuro: borda `line`, texto `muted`.
-- Streak: ícone de chama 20 em `target` + número 18/700.
+- Bolinhas de 36 com a inicial do dia (13/400). Praticado: fundo `accent`, texto `on-accent`, borda `ink`. Hoje não praticado: borda tracejada `ink`. Futuro: borda `line`, texto `muted`.
+- Streak: ícone de chama 20 em `target` + número 18/700 Space Grotesk.
 - Fim da sessão: círculo de 96 em `target`, tinta, `shadow.popLg`, chama de 52.
 
 ### 7.13 Estrelas (Fim da lição)
@@ -414,21 +423,21 @@ Altura 12, tinta, raio 6, fundo `surface`, preenchimento `accent` sem raio inter
 
 ### 7.14 Painel de feedback
 
-Ocupa a parte de baixo da tela de pergunta, com borda superior de tinta. Padding 24 / 20 / 28.
+Ocupa a parte de baixo da tela de pergunta, com borda superior de tinta. Padding 24 / 20 / 28, gap 12.
 
 | | Acerto | Erro |
 |---|---|---|
 | Fundo | `ok-soft` | `err-soft` |
 | Selo 44 × 44 | círculo `ok`, ✓ 24 em `on-ok`, tinta | quadrado raio 10 `err`, ✕ 24 em `on-err`, tinta |
-| Título (`titleLg`) | varia: "Isso!", "Certo!", "Boa!", "Mandou bem!" | "Quase" |
-| Linha 2 (`heading`) | "É um D♯." | "Você tocou D." ou "É um A." (tempo esgotado) |
+| Título (`titleLg`) | varia, sem exclamação: "Certo", "Boa", "Isso aí", "Mandou bem" | "Quase" |
+| Linha 2 (`heading`) | "É um D♯" | "Você tocou D" ou "É um A" (tempo esgotado) |
 | Explicação (`bodyLg`) | só na fase Treinar | sempre |
 | Botão primário | "Continuar" | "Entendi" |
 
 ### 7.15 Navegação
 
-- **Barra inferior** (compacto): fundo `surface`, borda superior tinta, 4 abas. Aba: altura ≥ 48, ícone 20 dentro de uma pílula de 52 × 28 + rótulo `tab`. Ativa: pílula `accent` com borda `ink`, rótulo `text`. Inativa: sem pílula, ícone e rótulo `muted`.
-- **Rail lateral** (expandido): mesma aba empilhada, largura 76, borda direita tinta, abas com altura ≥ 56.
+- **Barra inferior** (compacto): fundo `surface`, borda superior tinta, 4 abas, padding 8 em cima e 12 embaixo. Aba: altura ≥ 48, ícone 20 dentro de uma pílula de 52 × 28 + rótulo `tab` (12/400). Ativa: pílula `accent` com borda `ink`, rótulo `text`. Inativa: sem pílula, ícone e rótulo `muted`.
+- **Rail lateral** (expandido): mesma aba empilhada, largura 76, borda direita tinta, abas com altura ≥ 56, gap 8.
 - **Topo de lição/drill:** ✕ (44) + barra de progresso; sem barra de abas.
 
 ---
@@ -489,11 +498,11 @@ Exemplo completo:
 | Cordas | 6, de cima para baixo: e · B · G · D · A · E (E grave embaixo) |
 | Altura de cada corda (linha) | 40 |
 | Espessura das cordas | e, B = 1 · G, D = 2 · A, E = 3 (cor `string`) |
-| Coluna de rótulos | 26 à esquerda, `muted` 13/700 |
+| Coluna de rótulos | 26 à esquerda, `muted` 13/400 |
 | Coluna de corda solta | 44, antes da pestana, sem fundo, tocável |
 | Pestana | 6 px `ink` |
 | Trastes | 2 px `fret`; fundo das casas `board` |
-| Números das casas | Embaixo, `tab` `muted`, padding superior 6 |
+| Números das casas | Embaixo, `tab` `muted`, padding superior 8 |
 | Marcadores | Círculo 12 `inlay`, na linha entre G e D, nas casas 3, 5, 7, 9, 15, 17, 19, 21; duplo na 12 (entre B/G e entre D/A) |
 | Casas existentes | 0–22 (21 ou 24 conforme Ajustes); desenho padrão até a 15 |
 
@@ -555,14 +564,18 @@ Marcadores de 30 com o nome da nota em `noteMarker`.
 
 ## 12. Escrita e notação
 
-- Interface em PT-BR; i18n pronta para inglês.
+- Interface em português e inglês no MVP, conforme decisões da entrevista.
 - Notas: C D E F G A B, com ♯ (U+266F) e ♭ (U+266D) tipográficos, nunca "#" ou "b". Sustenidos ou bemóis conforme Ajustes.
-- Tom curto e direto, segunda pessoa ("Você tocou D.", "Toque no braço").
-- Títulos de acerto variam; o de erro é sempre "Quase" (nunca "Errado").
+- Tom curto e direto, segunda pessoa ("Você tocou D", "Toque no braço").
+- Sem exclamação em texto de interface. Títulos de acerto variam ("Certo", "Boa", "Isso aí", "Mandou bem"); o de erro é sempre "Quase" (nunca "Errado").
+- Títulos, subtítulos, rótulos, botões, tags e linhas de estado não terminam em ponto ("É um D♯", "Lição concluída", "Salvo nos seus drills"). Só parágrafos de explicação levam ponto.
+- O título de uma tela nomeia o contexto, não cumprimenta: a Início abre com "Hoje" e a saudação ("Boa tarde · terça-feira") fica em `body` `muted` acima. Nada de "Pronto para praticar?" como título.
+- Rótulos de seção em caixa baixa: "Treinar uma habilidade", "Seus drills", "Seu braço".
 - Números: "13 de 25 lições", "90% de acerto de primeira", horários em 24 h ("19:00").
 - Sem emoji na interface; ícones de traço no lugar.
 
 ## Decisões da entrevista
 
 - Telas Must ainda sem mockup podem seguir este design system.
-- Escolha da fonte de fallback para símbolos musicais fica para o spike; priorizar suporte ao símbolo musical ♯; a notação usa F♯, não F#.
+- Fonte de fallback para símbolos musicais fica para o spike; priorizar suporte ao símbolo ♯, como em F♯.
+- Temas Escuro, Claro e Seguir o sistema; idiomas português e inglês no MVP.

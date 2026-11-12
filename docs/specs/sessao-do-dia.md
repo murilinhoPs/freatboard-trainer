@@ -12,21 +12,77 @@ updated: 2026-11-11
 
 ## Rotas/Telas
 
-### 2.1 Início · sessão pendente
+## 01 · Início
 
-![Início pendente](../assets/design/inicio-pendente-escuro.png)
+Tema escuro · Sessão pendente · pág. 2
 
-**O que é:** a tela de entrada do app. Mostra se o usuário já praticou hoje e leva direto para a sessão do dia.
+![Início · Sessão pendente · tema escuro](../assets/design/inicio-pendente-escuro.png)
 
-**Como funciona:**
-- Saudação conforme a hora ("Bom dia / Boa tarde / Boa noite") + "Pronto para praticar?".
-- **Semana:** 7 bolinhas S T Q Q S S D. Dia praticado = preenchido em `accent`; **hoje** ainda não praticado = contorno tracejado. À direita, a chama + número do **streak**.
-- **Card da sessão do dia** (em destaque, com sombra colorida):
-  - tag com a duração estimada ("~5 min", conforme Ajustes → Tamanho da sessão);
-  - título e subtítulo da lição nova ("Sustenidos na corda A" · "Notas · Os espaços entre as notas da corda A");
-  - chips "↻ 8 para revisar" e "+ 1 lição nova" (escondem quando o número é 0);
-  - botão **▶ Começar sessão de hoje** → abre a sessão (primeiro as revisões, depois a lição).
-- **Treinar uma habilidade:** card de Notas com barra de progresso, "13 de 25 lições" e tag **Foco** (a habilidade atual). As outras habilidades aparecem como chips desativados "em breve".
+**Objetivo**
+
+- Ponto de entrada do app: mostrar a semana e o streak e levar direto à sessão do dia.
+
+**Elementos**
+
+- Saudação "Boa tarde · terça-feira" (15 px, texto secundário) e título "Hoje" (28 px).
+- Card da semana: 7 bolinhas de 36 px com "S T Q Q S S D"; à direita, ícone de chama amarelo e o número do streak "1".
+- Card da sessão do dia, em destaque (contorno de 2 px e sombra roxa de 4 px): tag neutra "~5 min" (28 px de altura, fundo de superfície e contorno de tinta); título "Sustenidos na corda A" (22 px); subtítulo "Notas · Os espaços entre as notas da corda A" (14 px); chips informativos "8 para revisar" (ícone de revisar) e "1 lição nova" (ícone +), 32 px de altura; botão primário "Começar sessão de hoje" com ícone play, 52 px de altura, largura total.
+- Rótulo de seção "Treinar uma habilidade" (13 px, cinza).
+- Card "Notas" com tag neutra "Foco", barra de progresso de 12 px preenchida em 52% e "13 de 25 lições".
+- Dois chips desativados, com borda tracejada: "Intervalos · em breve" e "Tríades · em breve" (44 px). Só as duas próximas habilidades da fila aparecem.
+- Barra de abas inferior: "Início" (ativa), "Praticar", "Progresso", "Ajustes".
+
+**Estado e comportamento**
+
+- Hoje é terça e ainda não houve prática: a bolinha "S" está preenchida em acento e a "T" tem contorno tracejado. Streak de 1 dia.
+- A tag "~5 min" segue Ajustes → Tamanho da sessão.
+- Os chips "8 para revisar" e "1 lição nova" somem quando o número é 0.
+- "Começar sessão de hoje" abre a sessão: primeiro as revisões (formato de 10), depois a lição nova (07).
+- Os chips "em breve" não respondem ao toque. As abas levam a 03, 05 e 06.
+
+## 02 · Início
+
+Tema escuro · Sessão concluída · pág. 3
+
+![Início · Sessão concluída · tema escuro](../assets/design/inicio-concluido-escuro.png)
+
+**Objetivo**
+
+- Mostrar que a sessão do dia já foi feita e oferecer continuar aprendendo.
+
+**Elementos**
+
+- Mesmo topo de 01; na semana, "S" e "T" preenchidas e streak "2".
+- Card da sessão em estado concluído: fundo verde-escuro (`#12281F`), tag verde "Feito" com ícone ✓ (a única tag com cor, porque indica estado), título "Tudo certo por hoje" (22 px), texto "Seu streak está garantido. Volte amanhã para revisar e aprender a próxima lição." e botão secundário "Continuar aprendendo" com ícone +.
+- Card "Notas" com barra em 56% e "14 de 25 lições"; chips "em breve" e barra de abas iguais a 01.
+
+**Estado e comportamento**
+
+- Aparece depois de 13 Fim da sessão → "Concluir".
+- "Continuar aprendendo" abre a próxima lição (07) fora da sessão diária.
+
+## 13 · Fim da sessão
+
+Tema escuro · Streak mantido · pág. 17
+
+![Fim da sessão · Streak mantido · tema escuro](../assets/design/fim-da-sessao-streak-escuro.png)
+
+**Objetivo**
+
+- Resumir a sessão do dia e mostrar o que vem amanhã.
+
+**Elementos**
+
+- Círculo amarelo de 96 px com chama, contorno de 2 px e sombra roxa.
+- Título "2 dias" (40 px) e "Streak mantido" (16 px).
+- Card "Próxima" · "D, E e F na corda G".
+- Três cards de números: "24" · "Respondidas", "88%" · "De primeira", "5" · "Minutos".
+- Botão primário "Concluir" no rodapé.
+
+**Estado e comportamento**
+
+- "Concluir" leva a 02.
+- Ao terminar um drill aparece também o botão "De novo", que refaz o mesmo drill [a confirmar: variante não desenhada].
 
 ## Estados e ações
 

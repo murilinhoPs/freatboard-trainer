@@ -12,20 +12,33 @@ updated: 2026-11-11
 
 ## Rotas/Telas
 
-### 2.6 Ajustes
+## 06 · Ajustes
 
-![Ajustes](../assets/design/ajustes-padrao-escuro.png)
+Tema escuro · Padrão · pág. 8
 
-**O que é:** preferências do app. Lista simples em cards agrupados; tela com rolagem.
+![Ajustes · Padrão · tema escuro](../assets/design/ajustes-padrao-escuro.png)
 
-**Como funciona:**
-- **Preferências:** Instrumento (Guitarra, abre seleção) · Casas 21 / **22** / 24 · Nomes das notas Sustenidos F♯ / Bemóis G♭ · Sons (switch) · Canhoto (switch).
-- **Sessão:** Tamanho da sessão 2 / **5** / 10 min (muda a estimativa do card do Início).
-- **Lembretes (P1):** Lembrete diário (switch) · Horário (abre seletor).
-- **Idioma:** Português / English.
+A tela rola; a imagem mostra a tela inteira.
+
+**Objetivo**
+
+- Ajustar preferências do instrumento, da sessão, dos lembretes e do idioma.
+
+**Elementos**
+
+- Título "Ajustes" (28 px). A tela rola; a imagem mostra a tela inteira em duas partes.
+- "Preferências" (card com linhas de 56 px): "Instrumento" · "Guitarra" com chevron; "Casas" com segmentado "21 / 22 / 24" (22 ativo); "Nomes das notas" com segmentado "Sustenidos F♯ / Bemóis G♭" (Sustenidos ativo); "Sons" com switch ligado; "Canhoto" com switch desligado.
+- "Sessão": "Tamanho da sessão" com segmentado "2 min / 5 min / 10 min" (5 min ativo).
+- "Lembretes": "Lembrete diário" com switch ligado; "Horário" · "19:00" com chevron.
+- "Idioma": segmentado "Português / English" (Português ativo).
+- Barra de abas com "Ajustes" ativa.
+
+**Estado e comportamento**
+
 - Tudo salva na hora, sem botão de salvar.
-
----
+- "Instrumento" e "Horário" abrem seletores [a confirmar: seletores não desenhados].
+- "Canhoto" espelha o braço em todas as telas. "Nomes das notas" muda a grafia em todo o app. "Tamanho da sessão" muda a tag de 01.
+- Lembretes são P1.
 
 ## Estados e ações
 

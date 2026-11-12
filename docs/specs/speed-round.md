@@ -12,20 +12,32 @@ updated: 2026-11-11
 
 ## Rotas/Telas
 
-### 2.3 Praticar
+## 03 · Praticar
 
-![Praticar](../assets/design/praticar-padrao-escuro.png)
+Tema escuro · Padrão · pág. 4
 
-**O que é:** a central de prática livre e da revisão.
+![Praticar · Padrão · tema escuro](../assets/design/praticar-padrao-escuro.png)
 
-**Como funciona:**
-- **Revisar · 8 notas para hoje** (card em destaque): abre só as revisões pendentes, no formato "Sua vez". Máximo de 20 por sessão. Com 0 pendentes, o card mostra que está em dia.
-- **Praticar uma habilidade:** chips de habilidade. No MVP só **Notas** está ativa.
-- **Drills:**
-  - ⚡ **Rodada rápida** · "Contra o relógio" → tela de intro (20 perguntas, 3 s cada) → perguntas com barra de tempo. *(tela de intro e timer ainda não desenhadas)*
-  - ▦ **Ache todas** · "Pelo braço todo" (P1) *(não desenhada)*
-  - ≡ **Monte o seu** → tela 2.4.
-- **Seus drills:** lista dos drills salvos com ícone, nome e "Notas · 3 vezes" (quantas vezes foi feito). Tocar na linha começa o drill; o botão **⋯** abre Editar / Duplicar / Apagar.
+**Objetivo**
+
+- Reunir a revisão do dia e a prática livre (drills prontos e drills salvos).
+
+**Elementos**
+
+- Título "Praticar" (28 px).
+- Card em destaque (contorno de tinta e sombra roxa) "Revisar" · "8 notas para hoje", com ícone de revisar num quadrado de 40 px (fundo `#2A3370`) e chevron à direita.
+- Rótulo "Praticar uma habilidade" e chips: "Notas" (selecionado), "Intervalos · em breve" e "Tríades · em breve" (desativados).
+- Rótulo "Drills" e três linhas em card de 56 px de altura, cada uma com ícone de 40 px, nome (16 px) e descrição (13 px): "Rodada rápida" · "Contra o relógio" (ícone de raio); "Ache todas" · "Pelo braço todo" (ícone de grade); "Monte o seu" · "Escolha cordas, casas e tempo" (ícone de lista).
+- Rótulo "Seus drills" e duas linhas: "Cordas graves até a 5" · "Notas · 3 vezes" e "Sustenidos em Drop D" · "Notas · 1 vez", cada uma com botão "⋯" de 44 px.
+- Barra de abas com "Praticar" ativa.
+
+**Estado e comportamento**
+
+- "Revisar" abre as revisões pendentes no formato de 10 (máximo de 20 por sessão).
+- "Rodada rápida" abre a intro do drill (20 perguntas, 3 s cada) [a confirmar: tela de intro e barra de tempo ainda não desenhadas].
+- "Ache todas" é P1 [a confirmar: tela não desenhada]. "Monte o seu" abre 04.
+- Tocar numa linha de "Seus drills" começa o drill; o "⋯" abre o menu Editar / Duplicar / Apagar.
+- Drills são prática livre: não alteram a repetição espaçada nem o progresso.
 
 ## Estados e ações
 
