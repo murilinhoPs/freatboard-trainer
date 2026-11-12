@@ -53,9 +53,14 @@ PR só de docs (`./scripts/docs-only.sh`) não precisa de prints.
 |---|---|---|
 | Web | Navegador headless (Playwright) | 1280×800 |
 | Android | `adb exec-out screencap -p > print.png` | Tela do emulador |
+| iOS | Captura do simulador pelo Device Hub ou `xcrun simctl io <device> screenshot <arquivo>` | Tela do simulador |
 | Desktop/Linux | Ferramenta de screenshot do sistema | Janela do app |
 
 Remova as linhas que não se aplicam ao projeto.
+
+Em QA local no Mac, o simulador iOS pode substituir o Android solicitado pela issue. Registre a
+plataforma efetivamente testada; outras plataformas exigidas continuam necessárias. O agente pode
+abrir o simulador pelo Device Hub.
 
 ## O que conferir
 
