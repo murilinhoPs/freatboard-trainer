@@ -28,6 +28,7 @@
 - **Qual fonte manda:** este README é o guia para pessoas; o agente segue o [`CLAUDE.md`](CLAUDE.md)
   e os comandos de `.claude/commands/`. Guias, tutoriais ou docs fora do repo são resumos; se
   divergirem, vale o que está no `CLAUDE.md` e nos comandos.
+- **Outros agentes** podem descobrir as nove fases em `.agents/skills/` e invocá-las como `$preparar`, `$planejar` etc. Essas skills seguem os comandos canônicos em `.claude/commands/`.
 - **O Claude Code trabalha por comandos** (`.claude/commands/`), um por fase, e segue o
   [`CLAUDE.md`](CLAUDE.md). Outras ferramentas (Codex, opencode, Hermes, Cursor) leem o
   [`AGENTS.md`](AGENTS.md), um arquivo curto que manda seguir o `CLAUDE.md` e os arquivos dos
@@ -336,7 +337,7 @@ URL como argumento ou em `TEMPLATE_URL`.
 
 | | Caminhos |
 |---|---|
-| **Pode trazer inteiro** | `.claude/`, `scripts/` (menos `scripts/board.conf`), `.github/` (menos `.github/workflows/ci.yml`), `CLAUDE.md`, `AGENTS.md`, `docs/guia.md` |
+| **Pode trazer inteiro** | `.agents/`, `.claude/`, `scripts/` (menos `scripts/board.conf`), `.github/` (menos `.github/workflows/ci.yml`), `CLAUDE.md`, `AGENTS.md`, `docs/guia.md` |
 | **Mesclar à mão, se personalizou** | `docs/README.md`, `docs/qa/print-rules.md`, `docs/prompts/`, os `_template.md`, `docs/adr/README.md` (o índice é do projeto; só o texto de cima vem do template) |
 | **Nunca sobrescrever** | `docs/prd.md`, `docs/roadmap.md`, `docs/preparo.md`, `docs/overview.md`, `docs/specs/*` (menos o template), `docs/adr/0*`, `docs/milestones/m*`, `docs/design/*`, `docs/assets/*`, `scripts/board.conf`, `.github/workflows/ci.yml` |
 

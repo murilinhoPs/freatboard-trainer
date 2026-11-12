@@ -43,7 +43,7 @@ bootstrap.sh (local, uma vez)
 
 ## 3. Os comandos
 
-Cada comando, em `.claude/commands/`, tem papel, argumentos, passos, onde parar e o que nunca fazer.
+As skills portáveis em `.agents/skills/` apontam para os comandos canônicos. Cada comando, em `.claude/commands/`, tem papel, argumentos, passos, onde parar e o que nunca fazer.
 
 | Comando | O que faz |
 |---|---|

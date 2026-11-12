@@ -4,3 +4,7 @@ Leia e siga o [`CLAUDE.md`](CLAUDE.md): são as regras do processo deste reposit
 comando (`/preparar`, `/planejar`, `/implementar`, `/qa`, `/abrir-pr`, `/revisar`, `/corrigir`,
 `/fechar`, `/ciclo`), abra e siga `.claude/commands/<comando>.md`. Se você não tem slash commands nem
 subagentes, veja a seção "Em outros agentes" do `CLAUDE.md`.
+
+As skills portáveis em `.agents/skills/<comando>/SKILL.md` expõem as mesmas fases aos
+agentes que descobrem skills nesse diretório. Elas apontam para os comandos canônicos em
+`.claude/commands/`, sem duplicar o processo. Invoque `$<comando>` ou peça a fase por nome.

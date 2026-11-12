@@ -723,7 +723,7 @@ ln -s "$SRC/README.md" _import/link-fora
 o="$(./scripts/limpar-import.sh)"
 check "sem --apagar: lista com tamanhos e total, sem apagar" \
   bash -c 'grep -q "_import/Design System.pdf" <<<"$0" && grep -q "_import/telas/login.png" <<<"$0" && grep -q "^total: 4 arquivo(s)" <<<"$0" && grep -q "nada apagado" <<<"$0" && test -f "_import/Design System.pdf" && test -f _import/telas/login.png' "$o"
-for d in . .. docs scripts .claude .github "$WORK" nao-existe; do
+for d in . .. docs scripts .agents .claude .github "$WORK" nao-existe; do
   check "recusa '$(basename "$d")' (saída 1)" bash -c '! ./scripts/limpar-import.sh --apagar "$0" >/dev/null 2>&1; test $? -eq 0 && test "$(./scripts/limpar-import.sh --apagar "$0" >/dev/null 2>&1; echo $?)" = 1' "$d"
 done
 mkdir -p _import/outro && git init -q _import/outro
@@ -786,6 +786,9 @@ check "templates da Parte A: spec, índice de ADR, Features no PRD, PR template 
   bash -c 'grep -qx "## Critérios de aceite vigentes" docs/specs/_template.md && grep -q "^feature: F<n>" docs/specs/_template.md && grep -q "^| .Proposta. |" docs/adr/README.md && grep -q "^| ID | Feature | Prioridade | Spec | Área |" docs/prd.md && grep -q "^\*\*Head:\*\*" .github/pull_request_template.md && grep -qx "## Registro" .github/pull_request_template.md'
 check "nenhum arquivo solto na raiz (CA-H5)" \
   bash -c 'test "$(git ls-files | grep -v / | sort | paste -sd " ")" = ".gitignore AGENTS.md CLAUDE.md README.md"'
+
+check "skills portáveis encaminham cada fase ao comando canônico" \
+  bash -c 'for c in preparar planejar implementar qa abrir-pr revisar corrigir fechar ciclo; do f=.agents/skills/$c/SKILL.md; [ -f "$f" ] && grep -q "^name: $c$" "$f" && grep -qF ".claude/commands/$c.md" "$f" || exit 1; done'
 
 echo "fumaça ponta a ponta, com e sem board (CA-H3, CA-M5)"
 for v in "" --sem-board; do

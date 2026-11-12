@@ -5,7 +5,7 @@
 #   sem --apagar: só lista o que há na pasta, com tamanhos, e o total (não apaga nada);
 #   --apagar: apaga tudo dentro da pasta, menos o .gitkeep, e imprime o que apagou.
 #
-# Recusa (saída 1) pasta que não existe, a raiz do repo, ., .., docs, scripts, .claude,
+# Recusa (saída 1) pasta que não existe, a raiz do repo, ., .., docs, scripts, .agents, .claude,
 # .github, pasta que contém .git e caminho que resolve para fora do repo. Não segue links
 # simbólicos: um link dentro da pasta é apagado como link, sem tocar no destino.
 # Arquivo rastreado pelo git é removido com git rm (e o script avisa).
@@ -39,7 +39,7 @@ esac
 REL="${ABS#"$ROOT"}"; REL="${REL#/}"
 [ -n "$REL" ] || recusa "'$DIR' é a raiz do repositório."
 case "$REL" in
-  docs|scripts|.claude|.github|docs/*|scripts/*|.claude/*|.github/*|.git|.git/*)
+  docs|scripts|.agents|.claude|.github|docs/*|scripts/*|.agents/*|.claude/*|.github/*|.git|.git/*)
     recusa "'$DIR' é uma pasta do processo ($REL), não a pasta de entrada." ;;
 esac
 if [ -e "$ABS/.git" ] || [ -n "$(find "$ABS" -mindepth 1 -name .git -print -quit 2>/dev/null)" ]; then

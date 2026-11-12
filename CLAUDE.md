@@ -53,6 +53,11 @@ cada comando encadeado continuam valendo.
 
 ## Em outros agentes
 
+As skills em `.agents/skills/<comando>/SKILL.md` expõem as nove fases a agentes que
+descobrem skills nesse diretório. São entradas portáveis: o conteúdo canônico continua em
+`.claude/commands/`. Invoque `$<comando>` ou peça a fase por nome; reinicie a sessão se
+a ferramenta precisar redescobrir skills.
+
 O `AGENTS.md` aponta para este arquivo. Para agentes sem os recursos do Claude Code:
 
 - **Sem slash commands:** quando o usuário pedir `/<comando> [args]` (ou a frase equivalente da
