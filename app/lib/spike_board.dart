@@ -141,6 +141,7 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
             ),
             child: Center(
               child: Container(
+                width: fret == 0 ? width * 0.35 : width,
                 height: row < 2
                     ? 1
                     : row < 4
