@@ -4,7 +4,7 @@ Versão completa do design system: cores, tokens, tipografia, espaçamento, form
 
 Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escuro.png`, `ds-02-sistema-claro.png`, `ds-03-braco-escuro.png`, `ds-04-braco-claro.png`.
 
-> **Revisão 2026-11-12 (polimento "unslop").** Rótulos de seção em caixa baixa, 13/400 e `muted`; tags neutras (`surface` + tinta); `target` só no braço e no streak; borda das opções em `ink`; borda de card igual a `line`; brilho reduzido; escala de espaço em passos de 4; Atkinson sempre em 400; sem exclamação na interface. As pranchas de direção A–D no canvas são histórico e não seguem esta revisão.
+> **Revisão 2026-11-12 (polimento "unslop").** Rótulos de seção em caixa baixa, 13/400 e `muted`; tags neutras (`surface` + tinta); `target` no alvo do braço, streak e estrelas da lição; borda das opções em `ink`; borda de card igual a `line`; brilho reduzido; escala de espaço em passos de 4; Atkinson em 400, com exceções para texto forte e marca-texto; sem exclamação na interface. As pranchas de direção A–D no canvas são histórico e não seguem esta revisão.
 
 ## Sumário
 
@@ -30,7 +30,7 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 3. **Feedback nunca depende só de cor.** Acerto e erro mudam forma + ícone + texto.
 4. **Dois temas de primeira classe.** Escuro é o padrão. Nenhum componente tem cor fixa: tudo sai dos tokens.
 5. **Contraste AA mínimo** e alvos de toque de pelo menos 44 × 44.
-6. **Uma cor viva por tela.** O amarelo (`target`) pertence ao braço (o "?") e ao streak. O lilás (`accent`) marca a ação principal, a seleção e a barra de progresso. Rótulos, tags e bordas de card ficam neutros: a ênfase no chrome vem do contorno de tinta e da sombra dura, não de cor.
+6. **Uma cor viva por tela.** O amarelo (`target`) pertence ao alvo do braço (o "?"), ao streak e às estrelas da lição. O lilás (`accent`) marca a ação principal, a seleção e a barra de progresso. Rótulos, tags e bordas de card ficam neutros: a ênfase no chrome vem do contorno de tinta e da sombra dura, não de cor.
 
 ---
 
@@ -86,7 +86,7 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 
 - Texto sobre fundo colorido usa sempre o par `on-*` correspondente.
 - `target` (amarelo) é o mesmo nos dois temas: o texto sobre ele é sempre escuro.
-- `target` não sai do braço e do streak. Tags ("~5 min", "Foco") e quadrados de ícone de lista são neutros (`surface` / `board-hi` + tinta).
+- `target` é reservado ao alvo do braço, ao streak e às estrelas da lição. Tags ("~5 min", "Foco") e quadrados de ícone de lista são neutros (`surface` / `board-hi` + tinta).
 - `accent` não é cor de texto de rótulo. Rótulos de seção usam `muted`.
 - `ok`, `err` e `learn` ficam mais escuros no claro para manter contraste com o fundo branco.
 - Não existe cor de "aviso" separada; não crie uma sem antes rever o sistema.
@@ -217,7 +217,7 @@ Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escur
 
 As duas estão no Google Fonts (licença OFL). Nenhuma das duas tem os glifos ♯ e ♭: eles caem na fonte do sistema. Teste a altura e o alinhamento em cada plataforma.
 
-A hierarquia vem de tamanho, família e cor, não de peso: o 700 é exclusivo da Space Grotesk. Atkinson fica em 400; a única exceção é `<strong>` dentro de texto corrido (ex.: "42 de 78" no cabeçalho de Progresso em paisagem) e o marca-texto `.hl` no Aprender.
+A hierarquia vem de tamanho, família e cor, não de peso: o 700 é exclusivo da Space Grotesk. Atkinson fica em 400; as exceções são `<strong>` dentro de texto corrido (ex.: "42 de 78" no cabeçalho de Progresso em paisagem) e o marca-texto `.hl` no Aprender.
 
 ### 4.2 Escala
 
@@ -579,6 +579,3 @@ Marcadores de 30 com o nome da nota em `noteMarker`.
 - Telas Must ainda sem mockup podem seguir este design system.
 - Fonte de fallback para símbolos musicais fica para o spike; priorizar suporte ao símbolo ♯, como em F♯.
 - Temas Escuro, Claro e Seguir o sistema; idiomas português e inglês no MVP.
-
-> Pendente: esclarecer uso de Atkinson 700 nas exceções de texto forte e marca-texto, diante da regra geral de peso 400.
-> Pendente: esclarecer limite de uso de `target` nas estrelas, diante da regra que menciona apenas braço e streak.

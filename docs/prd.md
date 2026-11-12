@@ -101,7 +101,7 @@ Não existe cor de "aviso". Os valores por tema estão no JSON de tokens do desi
 
 ### 8.3 Tipografia
 - **Space Grotesk** (700): títulos, nomes de nota, números, botões
-- **Atkinson Hyperlegible** (400): texto corrido, chips, rótulos, abas
+- **Atkinson Hyperlegible** (400; 700 apenas para texto forte e marca-texto): texto corrido, chips, rótulos, abas
 - As duas têm licença OFL e vão **embutidas como assets** (sem baixar em runtime). Escala de 12 a 40 px; nada abaixo de 12.
 - ⚠️ Nenhuma das duas tem os glifos **♯ ♭**: é preciso definir uma fonte de fallback com esses símbolos.
 

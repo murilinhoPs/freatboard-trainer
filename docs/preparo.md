@@ -93,4 +93,6 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 
 - 2026-11-11: rodada 5 — notação F♯ com símbolo musical; sem APIs externas, autenticação ou serviços online; glossário inicial aceito; sons, fallback, textos e detalhes de telas ficam para spike ou implementação.
 
-- 2026-11-12: revisão de design importada; pendentes interpretação das exceções de peso Atkinson e uso de `target` nas estrelas.
+- 2026-11-12: revisão de design importada; divergências de peso Atkinson e uso de `target` registradas para entrevista.
+
+- 2026-11-12: entrevista de revisão visual — Atkinson 400, com exceções para texto forte e marca-texto; `target` também nas estrelas da lição.
