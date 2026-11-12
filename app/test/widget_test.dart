@@ -109,4 +109,40 @@ void main() {
       contains('Noto Music'),
     );
   });
+
+  for (final (size, layout) in [
+    (const Size(390, 844), 'compacto'),
+    (const Size(844, 390), 'expandido'),
+  ]) {
+    testWidgets('conteúdo sem overflow no layout $layout e nos dois temas', (
+      tester,
+    ) async {
+      tester.view.devicePixelRatio = 1;
+      tester.view.physicalSize = size;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await tester.pumpWidget(const FretboardApp());
+      for (final mode in ['Escuro', 'Claro']) {
+        await tester.ensureVisible(find.text(mode));
+        await tester.tap(find.text(mode));
+        await tester.pumpAndSettle();
+        for (final label in [
+          'Caderno neon',
+          'Acento',
+          'Alvo',
+          'Acerto',
+          'Erro',
+        ]) {
+          expect(find.text(label), findsOneWidget, reason: '$layout / $mode');
+        }
+        expect(
+          find.byWidgetPredicate(
+            (widget) => widget is MusicText && widget.data == 'C♯  D♭  F♯  B♭',
+          ),
+          findsOneWidget,
+        );
+        expect(tester.takeException(), isNull, reason: '$layout / $mode');
+      }
+    });
+  }
 }
