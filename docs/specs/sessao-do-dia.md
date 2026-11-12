@@ -67,3 +67,7 @@ Nenhum comportamento implementado confirmado.
 ## Decisões da entrevista — estados
 
 Quando todas as lições estiverem concluídas e não houver revisões pendentes, oferecer prática livre ou revisão, dando destaque à revisão.
+
+## Decisões da entrevista — rodada 3
+
+Enquanto dados locais carregam, mostrar shimmer de carregamento.

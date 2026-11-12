@@ -48,3 +48,7 @@ Nenhum comportamento implementado confirmado.
 ## Pendências
 
 > Pendente: confirmar estados vazios, carregamento e erros aplicáveis.
+
+## Decisões da entrevista — rodada 3
+
+Antes da primeira lição, mostrar o braço vazio com convite para começar a sessão.

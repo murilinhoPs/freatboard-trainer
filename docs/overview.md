@@ -136,3 +136,7 @@ class SessionResult { int answered; double firstTryRate; Duration time; }
 ## Falha de persistência
 
 Se progresso ou ajustes não puderem ser salvos, mostrar erro e permitir tentar novamente. Verificar possível falta de permissão do usuário ou do sistema.
+
+## Dados locais
+
+Progresso, configurações e treinos salvos ficam no dispositivo; o MVP não possui conta nem sincronização. Enquanto os dados locais carregam, mostrar shimmer.

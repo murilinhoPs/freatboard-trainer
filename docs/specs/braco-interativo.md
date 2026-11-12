@@ -30,3 +30,7 @@ Nenhum comportamento implementado confirmado.
 ## Pendências
 
 > Pendente: confirmar estados vazios, carregamento e erros aplicáveis.
+
+## Decisões da entrevista — rodada 3
+
+Se o áudio estiver indisponível, permitir continuar sem som e avisar que o app está sem som.

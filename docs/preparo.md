@@ -86,3 +86,5 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 - 2026-11-11: rodada 1 — Ache todas pós-MVP; tema também segue sistema; português e inglês no MVP, escolha do mecanismo de idioma conforme simplicidade; F1–F11 Must.
 
 - 2026-11-11: rodada 2 — sessão concluída oferece revisão em destaque e prática livre; revisão sem pendências vira prática livre; lista vazia oferece Monte o seu; falha ao salvar informa erro, permite nova tentativa e verifica possíveis permissões.
+
+- 2026-11-11: rodada 3 — progresso inicial vazio com convite; shimmer no carregamento; aviso de áudio indisponível sem impedir uso; progresso, configurações e treinos locais, sem conta nem sincronização.

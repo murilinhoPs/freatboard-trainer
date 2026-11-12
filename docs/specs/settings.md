@@ -51,3 +51,7 @@ Nenhum comportamento implementado confirmado.
 ## Decisões da entrevista — estados
 
 Se ajustes não puderem ser salvos, mostrar erro e permitir tentar novamente. Verificar possível falta de permissão do usuário ou do sistema.
+
+## Decisões da entrevista — rodada 3
+
+Progresso, configurações e treinos salvos ficam localmente no dispositivo, sem conta ou sincronização no MVP.
