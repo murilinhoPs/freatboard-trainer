@@ -36,6 +36,13 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
+                  if (MediaQuery.orientationOf(context) ==
+                      Orientation.landscape)
+                    IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.arrow_back),
+                      tooltip: 'Voltar',
+                    ),
                   IconButton(
                     onPressed: start == 0
                         ? null

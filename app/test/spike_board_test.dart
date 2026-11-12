@@ -4,6 +4,34 @@ import 'package:fretboard_trainer/spike_board.dart';
 import 'package:material_ui/material_ui.dart';
 
 void main() {
+  testWidgets('voltar em paisagem retorna à tela anterior', (tester) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(844, 390);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: spikeTheme(Brightness.dark),
+        home: Builder(
+          builder: (context) => Scaffold(
+            body: TextButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (_) => const SpikeBoardPage()),
+              ),
+              child: const Text('Abrir'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Abrir'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Voltar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Abrir'), findsOneWidget);
+    expect(find.byType(SpikeBoardPage), findsNothing);
+  });
+
   for (final size in [const Size(390, 844), const Size(844, 390)]) {
     testWidgets('seleciona bordas e espelha em $size', (tester) async {
       tester.view.devicePixelRatio = 1;
