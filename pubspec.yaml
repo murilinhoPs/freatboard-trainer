@@ -1,0 +1,7 @@
+name: fretboard_workspace
+publish_to: none
+environment:
+  sdk: ^3.14.0
+workspace:
+  - app
+  - packages/fretboard_core

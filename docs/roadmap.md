@@ -82,7 +82,7 @@ sempre a próxima. Linhas são criadas por `./scripts/new-issue.sh` e o status m
 
 | Ordem | Issue | Título | Status | Spec | PR |
 |---|---|---|---|---|---|
-| 1 | #1 | [chore] Setup do projeto | todo | — | |
+| 1 | #1 | [chore] Setup do projeto | done | — | #9 |
 | 2 | #5 | [feat] Preparar temas, tokens e fontes para o spike | todo | specs/braco-interativo.md | |
 | 3 | #6 | [feat] Prototipar interação com o braço | todo | specs/braco-interativo.md | |
 | 4 | #7 | [feat] Validar áudio e registrar evidências do spike | todo | specs/braco-interativo.md | |

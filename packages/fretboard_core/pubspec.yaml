@@ -1,0 +1,9 @@
+name: fretboard_core
+description: Pure Dart core for Fretboard Trainer.
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.14.0
+
+dev_dependencies:
+  test: ^1.26.0

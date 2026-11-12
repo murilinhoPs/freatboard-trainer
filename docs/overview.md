@@ -39,6 +39,16 @@ Referência principal: Fretboard Trainer (iOS).
 | Design system | **Tema próprio "Caderno neon"** sobre o **`material_ui`** (pacote standalone) | O Material entra só como base estrutural (Scaffold, navegação, acessibilidade). Os componentes visuais (botões com sombra dura, chips, cards, opções, braço) são widgets próprios lidos dos tokens |
 | Lint | `flutter_lints` + regras estritas (`strict-casts`, `strict-raw-types`) | Padrão oficial; o código gerado por agente fica consistente |
 
+### Desenvolvimento local
+
+Instale FVM, o Flutter 3.50.0 (`fvm install`) e as dependências da plataforma escolhida. Com um dispositivo ou emulador disponível, no diretório `app/` execute:
+
+```bash
+fvm flutter run
+```
+
+O Flutter resolve as dependências do workspace ao iniciar. Para escolher um dispositivo, acrescente `-d <id>`; liste-os com `fvm flutter devices`.
+
 ### 11.2 App
 | Área | Pacote | Notas |
 |---|---|---|
