@@ -16,7 +16,7 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 | # | Item | Nível | Status | Evidência (arquivo §seção) | Destino | Em aberto |
 |---|------|-------|--------|----------------------------|---------|-----------|
 | 1 | Visão, problema e público | trava | tem | PRD.md §§1–3 | prd.md |  |
-| 2 | Features com IDs e MoSCoW | trava | parcial | PRD.md §§5–7 | prd.md (Features) | Prioridades MoSCoW |
+| 2 | Features com IDs e MoSCoW | trava | tem | PRD.md §§5–7; entrevista rodada 1 | prd.md (Features) | |
 | 3 | Decisões técnicas: stack, plataformas, hospedagem, banco | trava | parcial | PRD.md §§10–11 | overview.md + ADRs | Fonte de áudio e fallback |
 | 4 | Fluxos de usuário com erros e estados vazios | trava | parcial | notes-practice.md §§2–8; telas.md §§2–3 | specs/ | Estados vazios e carregamento |
 | 5 | Modelo de dados e glossário | trava | parcial | notes-practice.md §13 | overview.md + specs | Glossário e persistência |
@@ -47,20 +47,20 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 
 | # | O que o material diz | Fonte (arquivo §seção) | Features (F#) |
 |---|----------------------|------------------------|---------------|
-| 1 | | **M0** | **Spike de risco** (go/no-go) | Monorepo (pub workspaces + FVM) e CI mínima. Protótipo descartável do **braço em Flutter**: desenho com CustomPainter, toque na célula inteira, janela dinâmica de 6 casas, retrato e paisagem, modo canhoto, som da nota (`flutter_soloud`), rodando em **Android, Linux e macOS desktop** (mouse/hover). **Tokens do design system** como `ThemeExtension` (escuro e claro) + fontes embutidas com fallback para ♯/♭. Decidir a fonte dos samples. **Ao fechar o M0: escrever `README.md` (visão, stack, como rodar, comandos) e `CLAUDE.md` (comandos, estrutura, convenções) com os comandos já testados** | **Go** se o toque for preciso em retrato num celular pequeno, sem toques errados por casa apertada; se o som sair com latência imperceptível no Android e no Linux; e se o app rodar igual nos 3 alvos. **No-go** → repensar o layout (ex.: só paisagem) ou trocar a biblioteca de áudio | | roadmap-inicial.md §MVP | |
-| 2 | | **M1** | Núcleo de teoria | Pacote `fretboard_core` (Dart puro, sem dependências): notas, afinações, `noteAt`, `positionsOf`, oitavas, marcadores, contagem e **gerador de explicações** | Testes cobrem as 6 cordas × 23 casas na afinação padrão, e as explicações batem com os exemplos da spec | | roadmap-inicial.md §MVP | |
-| 3 | | **M2** | Motor de lição | Fases LEARN → PRACTICE → YOUR TURN, os 4 tipos de pergunta, feedback, fila de erros, **currículo de Notes 0–12** (corda por corda, naturais e sustenidos), Lesson complete com estrelas · **Telas 07–12, 14** | Dá para fazer todas as lições de Notes do começo ao fim, sem persistência | | roadmap-inicial.md §MVP | |
-| 4 | | **M3** | SRS e progresso | Persistência local (`drift`), cartões por posição (1d/3d/7d/30d), **Review** (até 20), tela **Progress** (mapa + contadores + filtro + detalhe por posição) · **Telas 05, 15** | Fechar e reabrir o app mantém o progresso; as revisões vencem nas datas certas | | roadmap-inicial.md §MVP | |
-| 5 | | **M4** | Home e sessão diária | Card Today's Session (pendente/concluído), sessão de 2, 5 ou 10 min, streak semanal, Session done, **Settings**, navegação responsiva (barra inferior / lateral) · **Telas 01, 02, 06, 13** | O fluxo diário completo funciona: abrir → Start → revisões → lição → Done → streak | | roadmap-inicial.md §MVP | |
-| 6 | | **M5** | Drills | **Build your own** (todas as opções), **Speed round**, **Your drills** (menu ⋯), prática livre sem SRS · **Telas 03, 04** | Criar, salvar, editar, apagar e rodar drills; o Speed round funciona com o timer | | roadmap-inicial.md §MVP | |
-| 7 | | **M6** | Afinações alternativas | Drop D, meio tom abaixo, DADGAD, Open G nos drills de notas; explicações ajustadas por afinação | Os drills rodam em cada afinação com notas e explicações corretas; o progresso não é afetado | | roadmap-inicial.md §MVP | |
-| 8 | | **M7** | Release do MVP | Polimento visual, ícone, nome, i18n revisado, CI de release (runner macOS para iOS/macOS), beta fechado (Play teste interno + TestFlight) | O app está instalado no seu celular e em alguns testers, rodando o uso diário por 2 semanas | | roadmap-inicial.md §MVP | |
-| 9 | | **P1** | Notes completo | **Find every** (já especificado), currículo das casas **13–22** (truque "casa + 12"), lembretes diários, tour "How it works" | | roadmap-inicial.md §Pós-MVP | |
-| 10 | | **P2** | Intervalos | m2 a oitava, shapes de intervalo no braço, achar e nomear intervalos | | roadmap-inicial.md §Pós-MVP | |
-| 11 | | **P3** | Tríades e inversões | Maior, menor, diminuta, aumentada; fundamental, 1ª e 2ª inversão por grupo de cordas | | roadmap-inicial.md §Pós-MVP | |
-| 12 | | **P4** | CAGED | Os 5 shapes, como eles se conectam no braço, tríades dentro de cada shape | | roadmap-inicial.md §Pós-MVP | |
-| 13 | | **P5** | Escalas e modos | Pentatônicas, blues, maior e menor natural, modos, tudo dentro dos shapes CAGED | | roadmap-inicial.md §Pós-MVP | |
-| 14 | | **P6+** | A definir | Arpejos, afinações alternativas no currículo, microfone para conferir a nota tocada, outros instrumentos | | roadmap-inicial.md §Pós-MVP | |
+| 1 | **M0** — **Spike de risco** (go/no-go): Monorepo (pub workspaces + FVM) e CI mínima. Protótipo descartável do **braço em Flutter**: desenho com CustomPainter, toque na célula inteira, janela dinâmica de 6 casas, retrato e paisagem, modo canhoto, som da nota (`flutter_soloud`), rodando em **Android, Linux e macOS desktop** (mouse/hover). **Tokens do design system** como `ThemeExtension` (escuro e claro) + fontes embutidas com fallback para ♯/♭. Decidir a fonte dos samples. **Ao fechar o M0: escrever `README.md` (visão, stack, como rodar, comandos) e `CLAUDE.md` (comandos, estrutura, convenções) com os comandos já testados** | roadmap-inicial.md §MVP | |
+| 2 | **M1** — Núcleo de teoria: Pacote `fretboard_core` (Dart puro, sem dependências): notas, afinações, `noteAt`, `positionsOf`, oitavas, marcadores, contagem e **gerador de explicações** | roadmap-inicial.md §MVP | |
+| 3 | **M2** — Motor de lição: Fases LEARN → PRACTICE → YOUR TURN, os 4 tipos de pergunta, feedback, fila de erros, **currículo de Notes 0–12** (corda por corda, naturais e sustenidos), Lesson complete com estrelas · **Telas 07–12, 14** | roadmap-inicial.md §MVP | |
+| 4 | **M3** — SRS e progresso: Persistência local (`drift`), cartões por posição (1d/3d/7d/30d), **Review** (até 20), tela **Progress** (mapa + contadores + filtro + detalhe por posição) · **Telas 05, 15** | roadmap-inicial.md §MVP | |
+| 5 | **M4** — Home e sessão diária: Card Today's Session (pendente/concluído), sessão de 2, 5 ou 10 min, streak semanal, Session done, **Settings**, navegação responsiva (barra inferior / lateral) · **Telas 01, 02, 06, 13** | roadmap-inicial.md §MVP | |
+| 6 | **M5** — Drills: **Build your own** (todas as opções), **Speed round**, **Your drills** (menu ⋯), prática livre sem SRS · **Telas 03, 04** | roadmap-inicial.md §MVP | |
+| 7 | **M6** — Afinações alternativas: Drop D, meio tom abaixo, DADGAD, Open G nos drills de notas; explicações ajustadas por afinação | roadmap-inicial.md §MVP | |
+| 8 | **M7** — Release do MVP: Polimento visual, ícone, nome, i18n revisado, CI de release (runner macOS para iOS/macOS), beta fechado (Play teste interno + TestFlight) | roadmap-inicial.md §MVP | |
+| 9 | **P1** — Notes completo: **Find every** (já especificado), currículo das casas **13–22** (truque "casa + 12"), lembretes diários, tour "How it works" | roadmap-inicial.md §Pós-MVP | |
+| 10 | **P2** — Intervalos: m2 a oitava, shapes de intervalo no braço, achar e nomear intervalos | roadmap-inicial.md §Pós-MVP | |
+| 11 | **P3** — Tríades e inversões: Maior, menor, diminuta, aumentada; fundamental, 1ª e 2ª inversão por grupo de cordas | roadmap-inicial.md §Pós-MVP | |
+| 12 | **P4** — CAGED: Os 5 shapes, como eles se conectam no braço, tríades dentro de cada shape | roadmap-inicial.md §Pós-MVP | |
+| 13 | **P5** — Escalas e modos: Pentatônicas, blues, maior e menor natural, modos, tudo dentro dos shapes CAGED | roadmap-inicial.md §Pós-MVP | |
+| 14 | **P6+** — A definir: Arpejos, afinações alternativas no currículo, microfone para conferir a nota tocada, outros instrumentos | roadmap-inicial.md §Pós-MVP | |
 | 15 | Currículo 0–12, depois 13–22; habilidades posteriores | notes-practice.md §§11, 12.1 | F2 |
 
 ### Trabalho a construir
@@ -82,3 +82,5 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 <!-- uma linha por rodada: data, itens tratados, decisões, o que virou Pendente -->
 
 - 2026-11-11: inventário e plano de organização aprovados; entrevista iniciada.
+
+- 2026-11-11: rodada 1 — Ache todas pós-MVP; tema também segue sistema; português e inglês no MVP, escolha do mecanismo de idioma conforme simplicidade; F1–F11 Must.

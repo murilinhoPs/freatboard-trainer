@@ -77,3 +77,5 @@ Nenhum comportamento implementado confirmado.
 ## Pendências
 
 > Pendente: confirmar estados vazios, carregamento e erros aplicáveis.
+
+> Ache todas é pós-MVP; a tela pode reservar espaço para ativação futura.

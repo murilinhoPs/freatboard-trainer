@@ -19,7 +19,7 @@ Referência principal: Fretboard Trainer (iOS).
 
 - **Primário:** guitarristas iniciantes e intermediários que tocam acordes e tablaturas, mas não sabem onde ficam as notas.
 - **Secundário:** quem estuda teoria (escalas, campo harmônico) e quer ligar a teoria ao braço.
-- Brasileiros primeiro (PT-BR), com inglês preparado.
+- Brasileiros primeiro; interface em português e inglês no MVP.
 
 ## 4. Objetivos do MVP
 
@@ -46,23 +46,33 @@ Referência principal: Fretboard Trainer (iOS).
 
 ## Escopo (MoSCoW)
 
-> Pendente: confirmar prioridade MoSCoW de cada feature.
+### Must
+
+- F1–F11.
+
+### Should / Could
+
+- Nenhuma feature definida nesta rodada.
+
+### Won’t no MVP
+
+- Ache todas (Find every); telas podem reservar espaço para ativação futura.
 
 ## Features
 
 | ID | Feature | Prioridade | Spec | Área |
 |---|---|---|---|---|
-| F1 | Braço interativo | Pendente | [specs/braco-interativo.md](specs/braco-interativo.md) | Pendente |
-| F2 | Lições de Notes | Pendente | [specs/licoes-notes.md](specs/licoes-notes.md) | Pendente |
-| F3 | Tipos de pergunta | Pendente | [specs/tipos-pergunta.md](specs/tipos-pergunta.md) | Pendente |
-| F4 | Revisão espaçada | Pendente | [specs/revisao-espacada.md](specs/revisao-espacada.md) | Pendente |
-| F5 | Sessão do dia | Pendente | [specs/sessao-do-dia.md](specs/sessao-do-dia.md) | Pendente |
-| F6 | Progresso | Pendente | [specs/progresso.md](specs/progresso.md) | Pendente |
-| F7 | Build your own | Pendente | [specs/build-your-own.md](specs/build-your-own.md) | Pendente |
-| F8 | Speed round | Pendente | [specs/speed-round.md](specs/speed-round.md) | Pendente |
-| F9 | Your drills | Pendente | [specs/your-drills.md](specs/your-drills.md) | Pendente |
-| F10 | Settings | Pendente | [specs/settings.md](specs/settings.md) | Pendente |
-| F11 | Afinações alternativas | Pendente | [specs/afinacoes-alternativas.md](specs/afinacoes-alternativas.md) | Pendente |
+| F1 | Braço interativo | Must | [specs/braco-interativo.md](specs/braco-interativo.md) | Pendente |
+| F2 | Lições de Notes | Must | [specs/licoes-notes.md](specs/licoes-notes.md) | Pendente |
+| F3 | Tipos de pergunta | Must | [specs/tipos-pergunta.md](specs/tipos-pergunta.md) | Pendente |
+| F4 | Revisão espaçada | Must | [specs/revisao-espacada.md](specs/revisao-espacada.md) | Pendente |
+| F5 | Sessão do dia | Must | [specs/sessao-do-dia.md](specs/sessao-do-dia.md) | Pendente |
+| F6 | Progresso | Must | [specs/progresso.md](specs/progresso.md) | Pendente |
+| F7 | Build your own | Must | [specs/build-your-own.md](specs/build-your-own.md) | Pendente |
+| F8 | Speed round | Must | [specs/speed-round.md](specs/speed-round.md) | Pendente |
+| F9 | Your drills | Must | [specs/your-drills.md](specs/your-drills.md) | Pendente |
+| F10 | Settings | Must | [specs/settings.md](specs/settings.md) | Pendente |
+| F11 | Afinações alternativas | Must | [specs/afinacoes-alternativas.md](specs/afinacoes-alternativas.md) | Pendente |
 
 ## Design, métricas e plataformas
 
@@ -174,9 +184,14 @@ Medidas localmente no MVP, sem analytics remoto.
 - [ ] Nome do app
 - [ ] Monetização pós-MVP (grátis, compra única ou assinatura)
 - [ ] Publicação nas lojas: Play Store primeiro, ou as duas juntas?
-- [ ] Tema: além de Escuro (padrão) e Claro, oferecer "Seguir o sistema"? (não está no design system)
 - [ ] Campo de texto com erro: o design system marca como "a confirmar" (não desenhado)
 
 ## Milestones
 
 Ver [roadmap](roadmap.md).
+
+## Decisões da entrevista
+
+- Ache todas fica para pós-MVP; telas podem preparar espaço para a funcionalidade futura.
+- Tema: Escuro, Claro e Seguir o sistema.
+- Idiomas do MVP: português e inglês, com internacionalização. Escolha entre seletor de idioma e idioma do sistema depende da opção mais simples na stack.

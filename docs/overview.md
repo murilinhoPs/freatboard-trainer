@@ -46,7 +46,7 @@ Referência principal: Fretboard Trainer (iOS).
 | Navegação | **`go_router`** | Shell com as 4 abas; rotas das sessões em tela cheia |
 | Persistência | **`drift`** (+ `drift_flutter`, SQLite) | Tipado, com migrations e streams reativos; roda em Android, iOS, Linux e macOS sem setup extra |
 | Áudio | **`flutter_soloud`** | Baixa latência, Android/iOS/Linux/macOS; samples pré-carregados na memória |
-| i18n | **`flutter_localizations` + `gen-l10n` (ARB)** | Oficial. `app_pt.arb` agora, `app_en.arb` depois |
+| i18n | **`flutter_localizations` + `gen-l10n` (ARB)** | Oficial. `app_pt.arb` e `app_en.arb` no MVP |
 | Haptics | `HapticFeedback` (SDK) | No-op no desktop |
 | Notificações (P1) | `flutter_local_notifications` | Lembrete diário |
 | Tokens de design | **`ThemeExtension`** (`AppTokens`: cores por tema, espaçamentos, raios, bordas, sombras, tipografia) | Gerados a partir do **JSON de tokens** do design system (script simples ou escritos à mão no M0); o tema escuro/claro só troca a extensão |

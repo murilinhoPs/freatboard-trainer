@@ -42,3 +42,8 @@ Nenhum comportamento implementado confirmado.
 ## Pendências
 
 > Pendente: confirmar estados vazios, carregamento e erros aplicáveis.
+
+## Decisões da entrevista
+
+- Oferecer temas Escuro, Claro e Seguir o sistema.
+- Disponibilizar português e inglês com internacionalização. Definir na implementação se o idioma será selecionável ou seguirá o sistema, conforme a opção mais simples na stack.
