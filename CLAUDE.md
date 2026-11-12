@@ -173,9 +173,10 @@ usa `gh project` e só roda onde o board é acessível.
 
 ## Regras gerais
 
-- QA executado localmente em um Mac pode usar simulador iOS no lugar de Android quando a issue
-  pedir teste em Android. Essa substituição não dispensa outras plataformas exigidas; registre no
-  relatório qual plataforma foi testada. O agente está autorizado a abrir o simulador pelo Device Hub.
+- QA executado localmente em um Mac pode usar simulador iOS no lugar de Android e macOS desktop
+  no lugar de Linux quando a issue pedir essas plataformas. Em cloud, teste Linux em uma VM Linux.
+  Registre no relatório as plataformas efetivamente testadas; outras exigências continuam válidas.
+  O agente está autorizado a abrir o simulador pelo Device Hub.
 - Decisão técnica nova e duradoura → proponha um ADR (`Proposta`) em `docs/adr/` e pergunte antes
   de criar. ADR `Aceita` não é editado: um novo ADR o substitui (`Superada por NNNN`).
 - Mudou comportamento? Atualize a spec no mesmo commit.

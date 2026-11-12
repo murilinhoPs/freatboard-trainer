@@ -58,9 +58,9 @@ PR só de docs (`./scripts/docs-only.sh`) não precisa de prints.
 
 Remova as linhas que não se aplicam ao projeto.
 
-Em QA local no Mac, o simulador iOS pode substituir o Android solicitado pela issue. Registre a
-plataforma efetivamente testada; outras plataformas exigidas continuam necessárias. O agente pode
-abrir o simulador pelo Device Hub.
+Em QA local no Mac, o simulador iOS pode substituir Android e macOS desktop pode substituir Linux.
+Em cloud, teste Linux em uma VM Linux. Registre as plataformas efetivamente testadas; outras
+exigências continuam válidas. O agente pode abrir o simulador pelo Device Hub.
 
 ## O que conferir
 
