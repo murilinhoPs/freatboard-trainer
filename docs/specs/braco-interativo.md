@@ -1,14 +1,14 @@
 ---
 feature: F1
 area: pendente
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 
 # F1 · Braço interativo
 
 ## Resumo
 
-> Pendente: confirmar comportamento vigente; material descreve produto proposto.
+> O braço definitivo ainda não está implementado. O spike atual oferece uma amostra de tokens e fontes com temas escuro, claro e sistema; veja [avaliação das fontes](../spike-fontes.md). O material abaixo descreve o produto proposto.
 
 ## Rotas/Telas
 
