@@ -49,8 +49,30 @@ void main() {
       await tester.tapAt(rect.topLeft + const Offset(2, 2));
       await tester.pump();
       expect(find.text('Corda e · casa 0'), findsOneWidget);
+      Border cellBorder() =>
+          (tester
+                          .widget<Container>(
+                            find
+                                .descendant(
+                                  of: cell,
+                                  matching: find.byWidgetPredicate(
+                                    (widget) =>
+                                        widget is Container &&
+                                        widget.decoration is BoxDecoration,
+                                  ),
+                                )
+                                .first,
+                          )
+                          .decoration!
+                      as BoxDecoration)
+                  .border!
+              as Border;
+      expect(cellBorder().right.width, 6);
+      expect(cellBorder().left.width, 0);
       await tester.tap(find.byType(Switch));
       await tester.pumpAndSettle();
+      expect(cellBorder().left.width, 6);
+      expect(cellBorder().right.width, 0);
       expect(
         tester.getTopLeft(cell).dx,
         greaterThan(

@@ -142,10 +142,18 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
                   ? tokens.color('boardHi')
                   : tokens.color('board'),
               border: Border(
-                right: BorderSide(
-                  color: tokens.color('fret'),
-                  width: fret == 0 ? 6 : 2,
-                ),
+                left: leftHanded
+                    ? BorderSide(
+                        color: tokens.color('fret'),
+                        width: fret == 0 ? 6 : 2,
+                      )
+                    : BorderSide.none,
+                right: leftHanded
+                    ? BorderSide.none
+                    : BorderSide(
+                        color: tokens.color('fret'),
+                        width: fret == 0 ? 6 : 2,
+                      ),
               ),
             ),
             child: Center(
