@@ -142,7 +142,7 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 | Name the note | "What note is this?" + marcador **?** | Botões: 4 (PRACTICE) ou 7 (demais) |
 
 **Feedback**
-- **Acerto**: card verde com título variado ("That's it!", "Yes!", "Correct!", "Nice!") e "That's X." A nota fica verde, e uma linha sai da pestana até ela.
+- **Acerto**: card verde com título variado sem exclamação ("Certo", "Boa", "Isso aí", "Mandou bem") e "É um X" A nota fica verde, e uma linha sai da pestana até ela.
 - **Erro (tocou errado)**: "Not quite · You tapped G♯." A tocada aparece em vermelho e a correta em verde.
 - **Erro (tempo esgotado)**: "Not quite · It's A." (sem "You tapped")
 - **Explicação do erro**, gerada a partir de 3 padrões:

@@ -2,7 +2,7 @@
 
 Versão completa do design system: cores, tokens, tipografia, espaçamento, forma, efeitos, componentes, ícones, braço, movimento e acessibilidade. Valores estruturados em [tokens.json](tokens.json); telas nas specs de cada feature.
 
-Imagens de referência (no zip anterior, pasta `imagens/`): `ds-01-sistema-escuro.png`, `ds-02-sistema-claro.png`, `ds-03-braco-escuro.png`, `ds-04-braco-claro.png`.
+Referências visuais: [PDF do design system](design-system.pdf) e telas em `../assets/design/`.
 
 > **Revisão 2026-11-12 (polimento "unslop").** Rótulos de seção em caixa baixa, 13/400 e `muted`; tags neutras (`surface` + tinta); `target` no alvo do braço, streak e estrelas da lição; borda das opções em `ink`; borda de card igual a `line`; brilho reduzido; escala de espaço em passos de 4; Atkinson em 400, com exceções para texto forte e marca-texto; sem exclamação na interface. As pranchas de direção A–D no canvas são histórico e não seguem esta revisão.
 
