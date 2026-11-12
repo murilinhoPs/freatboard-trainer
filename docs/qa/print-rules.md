@@ -61,3 +61,9 @@ Remova as linhas que não se aplicam ao projeto.
 
 - O print mostra o estado descrito no CA, não só a tela.
 - Nenhum dado pessoal real aparece.
+
+## Referências do material
+
+- Compacto: 390 × 844 dp; expandido: 844 × 390 dp.
+- Temas claro e escuro; Android e desktop Linux; iOS e macOS quando disponíveis.
+- Referência: material de telas e PRD §§8.4, 10 e 11.4.
