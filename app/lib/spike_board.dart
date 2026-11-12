@@ -24,7 +24,9 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
     final frets = List.generate(6, (index) => start + index);
     final displayed = leftHanded ? frets.reversed.toList() : frets;
     return Scaffold(
-      appBar: AppBar(title: const Text('Spike · braço')),
+      appBar: MediaQuery.orientationOf(context) == Orientation.portrait
+          ? AppBar(title: const Text('Spike · braço'))
+          : null,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(12),
