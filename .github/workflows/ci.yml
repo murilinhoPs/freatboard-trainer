@@ -51,6 +51,11 @@ jobs:
         if: steps.docs.outputs.only != 'true'
         run: flutter analyze
 
+      - name: Testes do núcleo
+        if: steps.docs.outputs.only != 'true'
+        working-directory: packages/fretboard_core
+        run: dart test
+
       - name: Testes de widgets
         if: steps.docs.outputs.only != 'true'
         working-directory: app
