@@ -84,5 +84,5 @@ sempre a próxima. Linhas são criadas por `./scripts/new-issue.sh` e o status m
 |---|---|---|---|---|---|
 | 1 | #1 | [chore] Setup do projeto | done | — | #9 |
 | 2 | #5 | [feat] Preparar temas, tokens e fontes para o spike | done | specs/braco-interativo.md | #10 |
-| 3 | #6 | [feat] Prototipar interação com o braço | todo | specs/braco-interativo.md | |
+| 3 | #6 | [feat] Prototipar interação com o braço | doing | specs/braco-interativo.md | |
 | 4 | #7 | [feat] Validar áudio e registrar evidências do spike | todo | specs/braco-interativo.md | |
