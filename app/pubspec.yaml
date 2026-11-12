@@ -19,3 +19,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Space Grotesk
+      fonts:
+        - asset: assets/fonts/SpaceGrotesk.ttf
+          weight: 700
+    - family: Atkinson Hyperlegible
+      fonts:
+        - asset: assets/fonts/AtkinsonHyperlegible-Regular.ttf
+          weight: 400
+    - family: Noto Music
+      fonts:
+        - asset: assets/fonts/NotoMusic-Regular.ttf

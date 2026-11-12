@@ -41,7 +41,8 @@ Dev. Entrega a branch da task como PR, com o head aprovado no corpo.
    prints da `pr-assets` que valem para o head, Registro), grava o número do PR no roadmap num
    commit seguinte (só `docs/roadmap.md`), dá push e atualiza o `**Head:**`.
    PR já existe e está aberto (`pr=<P>`, `pr_state=open`): `./scripts/open-pr.sh --update <P>`,
-   sem o usuário informar nada.
+   sem o usuário informar nada. O script também anexa os prints QA do head para exibi-los inline
+   na descrição do PR.
 6. Leia o head final: `git rev-parse HEAD`.
 7. Pare.
 

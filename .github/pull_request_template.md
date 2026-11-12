@@ -15,6 +15,8 @@ Closes #
 ## Prints
 pr-assets/issue-<N>/<sha7>/ (ou `n/a: <motivo>`)
 
+<!-- O script /abrir-pr embute os prints QA abaixo desta referência. -->
+
 ## Registro
 - Arquivos alterados:
 - Testado por: usuário / usuário + Claude
