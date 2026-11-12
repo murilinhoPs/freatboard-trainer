@@ -132,3 +132,7 @@ class SessionResult { int answered; double firstTryRate; Duration time; }
 ## Glossário
 
 > Pendente: confirmar termos e definições do domínio.
+
+## Falha de persistência
+
+Se progresso ou ajustes não puderem ser salvos, mostrar erro e permitir tentar novamente. Verificar possível falta de permissão do usuário ou do sistema.

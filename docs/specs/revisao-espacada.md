@@ -77,3 +77,7 @@ Nenhum comportamento implementado confirmado.
 ## Pendências
 
 > Pendente: confirmar estados vazios, carregamento e erros aplicáveis.
+
+## Decisões da entrevista — estados
+
+Ao abrir Revisar sem notas pendentes, oferecer revisão como prática livre. A prática livre não altera SRS nem progresso.

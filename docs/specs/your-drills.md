@@ -79,3 +79,7 @@ Nenhum comportamento implementado confirmado.
 > Pendente: confirmar estados vazios, carregamento e erros aplicáveis.
 
 > Ache todas é pós-MVP; a tela pode reservar espaço para ativação futura.
+
+## Decisões da entrevista — estados
+
+Quando não houver drills salvos, oferecer a ação “Monte o seu”.

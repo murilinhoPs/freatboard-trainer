@@ -47,3 +47,7 @@ Nenhum comportamento implementado confirmado.
 
 - Oferecer temas Escuro, Claro e Seguir o sistema.
 - Disponibilizar português e inglês com internacionalização. Definir na implementação se o idioma será selecionável ou seguirá o sistema, conforme a opção mais simples na stack.
+
+## Decisões da entrevista — estados
+
+Se ajustes não puderem ser salvos, mostrar erro e permitir tentar novamente. Verificar possível falta de permissão do usuário ou do sistema.

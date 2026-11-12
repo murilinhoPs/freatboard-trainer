@@ -63,3 +63,7 @@ Nenhum comportamento implementado confirmado.
 ## Pendências
 
 > Pendente: confirmar estados vazios, carregamento e erros aplicáveis.
+
+## Decisões da entrevista — estados
+
+Quando todas as lições estiverem concluídas e não houver revisões pendentes, oferecer prática livre ou revisão, dando destaque à revisão.
