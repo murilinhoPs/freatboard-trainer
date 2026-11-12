@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import 'design/app_tokens.dart';
+import 'spike_board.dart';
 
 void main() => runApp(const FretboardApp());
 
@@ -35,6 +36,14 @@ class _FretboardAppState extends State<FretboardApp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Caderno neon', style: spikeTitle(text)),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => const SpikeBoardPage(),
+                          ),
+                        ),
+                        child: const Text('Abrir spike do braço'),
+                      ),
                       const SizedBox(height: 8),
                       Text(
                         'Amostra de temas e fontes',
