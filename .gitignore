@@ -7,3 +7,10 @@
 # Material de entrada do /preparar: fica fora do git e é limpo no fim do /preparar
 _import/*
 !_import/.gitkeep
+
+# Flutter / Dart workspace
+.dart_tool/
+.fvm/
+.pub/
+.pub-cache/
+**/build/

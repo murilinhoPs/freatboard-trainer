@@ -1,5 +1,4 @@
-# CI da stack do projeto. Placeholder: troque o passo "Testes da stack" pelos
-# comandos de lint e testes (AC da issue de setup).
+# CI da stack do projeto.
 #
 # Roda em todo pull_request, sem filtro de paths: o check "ci" é obrigatório no
 # ruleset da main, e um check obrigatório que não roda trava o PR.
@@ -36,6 +35,23 @@ jobs:
             echo "only=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Testes da stack
+      - name: Instalar Flutter
         if: steps.docs.outputs.only != 'true'
-        run: echo "configure os testes da stack em .github/workflows/ci.yml"
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.50.0'
+          channel: stable
+          cache: true
+
+      - name: Instalar dependências
+        if: steps.docs.outputs.only != 'true'
+        run: flutter pub get
+
+      - name: Análise estática
+        if: steps.docs.outputs.only != 'true'
+        run: flutter analyze
+
+      - name: Testes de widgets
+        if: steps.docs.outputs.only != 'true'
+        working-directory: app
+        run: flutter test
