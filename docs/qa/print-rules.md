@@ -39,7 +39,11 @@ cd ../<repo>-assets/issue-<N>/<sha7>
   done; } > print_sizes.txt
 ```
 
-O PR aponta para a pasta de prints que vale para o head final (seção Prints do PR template).
+O PR aponta para a pasta de prints que vale para o head final (seção Prints do PR template) e
+embute todos esses prints como imagens Markdown inline na própria descrição, para visualização
+direta no GitHub. O script `./scripts/open-pr.sh` insere imagens apontando para os PNGs públicos
+versionados na branch `pr-assets`, tanto ao abrir quanto ao atualizar o PR. Mantenha também o link
+versionado da pasta e o `print_sizes.txt` para rastreabilidade e validação do `pr-gate`.
 O check `pr-gate` confere que o `<sha7>` da pasta é prefixo do `commit:` do `print_sizes.txt` e
 que esse commit é o head do PR ou um ancestral dele com **só docs** mudando depois (como o
 commit do `done` no roadmap e o `Registra PR #M`, que vêm depois do `/qa`). Mudou código depois

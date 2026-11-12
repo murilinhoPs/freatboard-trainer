@@ -8,7 +8,8 @@
 #   Tipo (código / só docs, pelo diff) · O que entrou (--summary-file ou stdin)
 #   AC da issue · Testes · Prints · Registro · Co-authored-by (--coauthor, última linha)
 # Prints: --prints, ou a pasta pr-assets/issue-<N>/<sha7>/ mais recente que vale
-# para o head (o commit dos prints, ou um anterior com só docs mudando depois).
+# para o head (o commit dos prints, ou um anterior com só docs mudando depois),
+# com imagens Markdown apontando para os PNGs versionados em pr-assets.
 # PR só de docs (scripts/docs-only.sh) dispensa prints e testes.
 #
 # Depois de criar o PR, grava o número na coluna PR do roadmap num commit seguinte
@@ -16,8 +17,8 @@
 # corpo para esse commit. Os prints continuam valendo: depois deles só mudou docs.
 # Idempotente: se já existe PR aberto para a branch, só registra e imprime a URL.
 #
-# --update <pr>: depois de um push num PR aberto, reescreve só o "**Head:**" e a
-# pasta de prints do corpo (PATCH), sem mexer no resto.
+# --update <pr>: depois de um push num PR aberto, reescreve o "**Head:**", a
+# pasta de prints e as imagens inline do corpo (PATCH), sem mexer no resto.
 #
 # Uso: ./scripts/open-pr.sh <N> [--summary-file F] (--tests-file F | --tests "n/a: <motivo>")
 #                          [--prints "n/a: <motivo>"] [--coauthor "Nome <email>"]... < resumo.md
@@ -65,12 +66,20 @@ trap 'rm -rf "$TMP"' EXIT
 # Linha de prints para o head: --prints, ou a pasta mais recente que vale para ele.
 # prints_for <issue> <head>
 prints_for() {
-  local sha7
+  local sha7 path file
   if [ -n "$PRINTS" ]; then
     echo "$PRINTS"
   else
     sha7="$(prints_dir "$1" "$2")"
-    [ -z "$sha7" ] || echo "[pr-assets/issue-$1/$sha7/](https://github.com/$REPO/tree/pr-assets/issue-$1/$sha7)"
+    [ -z "$sha7" ] || {
+      path="issue-$1/$sha7"
+      echo "[pr-assets/$path/](https://github.com/$REPO/tree/pr-assets/$path)"
+      while IFS= read -r file; do
+        [ -n "$file" ] || continue
+        printf '\n![%s](https://raw.githubusercontent.com/%s/pr-assets/%s/%s)\n' \
+          "${file##*/}" "$REPO" "$path" "$file"
+      done < <(git ls-tree -r --name-only "origin/pr-assets:$path" 2>/dev/null | grep -E '\.png$' || true)
+    }
   fi
 }
 
@@ -86,10 +95,19 @@ update_body() {
   if [ -z "$new_prints" ] && [ -n "$old_prints" ]; then
     echo "aviso: $old_prints não vale para o head ${head:0:7} (mudou código depois dos prints): teste de novo ou passe --prints \"n/a: <motivo>\" (o pr-gate vai falhar)." >&2
   fi
-  awk -v head="$head" -v prints="$new_prints" '
+  printf '%s\n' "$new_prints" > "$TMP/prints.md"
+  awk -v head="$head" -v prints_file="$TMP/prints.md" '
     /^\*\*Head:\*\*/ { print "**Head:** " head; done_head = 1; next }
     /^## / { skip = 0 }
-    /^## Prints/ && prints != "" { print; print ""; print prints; print ""; skip = 1; next }
+    /^## Prints/ && prints_file != "" {
+      print
+      print ""
+      while ((getline line < prints_file) > 0) print line
+      close(prints_file)
+      print ""
+      skip = 1
+      next
+    }
     skip { next }
     { print }
     END { if (!done_head) exit 3 }
