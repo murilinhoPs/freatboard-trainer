@@ -1,6 +1,6 @@
 ---
 updated: 2026-11-11
-fase: entrevista
+fase: pronto
 ---
 
 # Preparo do projeto

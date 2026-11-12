@@ -62,17 +62,17 @@ Referência principal: Fretboard Trainer (iOS).
 
 | ID | Feature | Prioridade | Spec | Área |
 |---|---|---|---|---|
-| F1 | Braço interativo | Must | [specs/braco-interativo.md](specs/braco-interativo.md) | Pendente |
-| F2 | Lições de Notes | Must | [specs/licoes-notes.md](specs/licoes-notes.md) | Pendente |
-| F3 | Tipos de pergunta | Must | [specs/tipos-pergunta.md](specs/tipos-pergunta.md) | Pendente |
-| F4 | Revisão espaçada | Must | [specs/revisao-espacada.md](specs/revisao-espacada.md) | Pendente |
-| F5 | Sessão do dia | Must | [specs/sessao-do-dia.md](specs/sessao-do-dia.md) | Pendente |
-| F6 | Progresso | Must | [specs/progresso.md](specs/progresso.md) | Pendente |
-| F7 | Build your own | Must | [specs/build-your-own.md](specs/build-your-own.md) | Pendente |
-| F8 | Speed round | Must | [specs/speed-round.md](specs/speed-round.md) | Pendente |
-| F9 | Your drills | Must | [specs/your-drills.md](specs/your-drills.md) | Pendente |
-| F10 | Settings | Must | [specs/settings.md](specs/settings.md) | Pendente |
-| F11 | Afinações alternativas | Must | [specs/afinacoes-alternativas.md](specs/afinacoes-alternativas.md) | Pendente |
+| F1 | Braço interativo | Must | [specs/braco-interativo.md](specs/braco-interativo.md) | <área a definir> |
+| F2 | Lições de Notes | Must | [specs/licoes-notes.md](specs/licoes-notes.md) | <área a definir> |
+| F3 | Tipos de pergunta | Must | [specs/tipos-pergunta.md](specs/tipos-pergunta.md) | <área a definir> |
+| F4 | Revisão espaçada | Must | [specs/revisao-espacada.md](specs/revisao-espacada.md) | <área a definir> |
+| F5 | Sessão do dia | Must | [specs/sessao-do-dia.md](specs/sessao-do-dia.md) | <área a definir> |
+| F6 | Progresso | Must | [specs/progresso.md](specs/progresso.md) | <área a definir> |
+| F7 | Build your own | Must | [specs/build-your-own.md](specs/build-your-own.md) | <área a definir> |
+| F8 | Speed round | Must | [specs/speed-round.md](specs/speed-round.md) | <área a definir> |
+| F9 | Your drills | Must | [specs/your-drills.md](specs/your-drills.md) | <área a definir> |
+| F10 | Settings | Must | [specs/settings.md](specs/settings.md) | <área a definir> |
+| F11 | Afinações alternativas | Must | [specs/afinacoes-alternativas.md](specs/afinacoes-alternativas.md) | <área a definir> |
 
 ## Design, métricas e plataformas
 
