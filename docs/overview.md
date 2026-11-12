@@ -131,7 +131,7 @@ class SessionResult { int answered; double firstTryRate; Duration time; }
 
 ## Glossário
 
-> Pendente: confirmar termos e definições do domínio.
+Termos iniciais: posição, corda, casa, lição, revisão e drill. Detalhar definições durante a implementação.
 
 ## Falha de persistência
 
@@ -142,3 +142,7 @@ Se progresso ou ajustes não puderem ser salvos, mostrar erro e permitir tentar 
 Progresso, configurações e treinos salvos ficam no dispositivo; o MVP não possui conta nem sincronização. Enquanto os dados locais carregam, mostrar shimmer.
 
 Persistência confirmada: [ADR 0001 — Drift e SQLite](adr/0001-persistencia-local-drift.md).
+
+## Integrações externas
+
+O MVP não usa APIs externas, autenticação nem serviços online. Pacotes locais integram a stack.

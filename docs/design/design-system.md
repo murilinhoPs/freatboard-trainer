@@ -565,4 +565,4 @@ Marcadores de 30 com o nome da nota em `noteMarker`.
 ## Decisões da entrevista
 
 - Telas Must ainda sem mockup podem seguir este design system.
-- Escolha da fonte de fallback para símbolos musicais fica para o spike; usuário pediu prioridade para “#”. Confirmar se significa o símbolo ♯ ou uso literal de # antes de definir notação.
+- Escolha da fonte de fallback para símbolos musicais fica para o spike; priorizar suporte ao símbolo musical ♯; a notação usa F♯, não F#.
