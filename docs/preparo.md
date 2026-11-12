@@ -17,12 +17,12 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 |---|------|-------|--------|----------------------------|---------|-----------|
 | 1 | Visão, problema e público | trava | tem | PRD.md §§1–3 | prd.md |  |
 | 2 | Features com IDs e MoSCoW | trava | tem | PRD.md §§5–7; entrevista rodada 1 | prd.md (Features) | |
-| 3 | Decisões técnicas: stack, plataformas, hospedagem, banco | trava | parcial | PRD.md §§10–11 | overview.md + ADRs | Fonte de áudio e fallback |
+| 3 | Decisões técnicas: stack, plataformas, hospedagem, banco | trava | parcial | PRD.md §§10–11 | overview.md + ADRs | Fonte de áudio e fallback ficam para o spike |
 | 4 | Fluxos de usuário com erros e estados vazios | trava | parcial | notes-practice.md §§2–8; telas.md §§2–3 | specs/ | Estados vazios e carregamento |
 | 5 | Modelo de dados e glossário | trava | parcial | notes-practice.md §13 | overview.md + specs | Glossário e persistência |
 | 6 | Integrações externas (APIs, auth, limites) | trava | parcial | PRD.md §§5–6, 11 | specs + ADRs | Confirmar integrações e limites |
 | 7 | Design system e tokens | trava | tem | design-system.md §§2–11 | design/design-system.md + tokens.json (PDF em design/, depois do .md) |  |
-| 8 | Telas ou mockups das features Must | trava | parcial | telas.md §§2–6 | assets/design/ (imagens); PDF em design/; specs (Referência) | Algumas telas P0 não desenhadas |
+| 8 | Telas ou mockups das features Must | trava | parcial | telas.md §§2–6 | assets/design/ (imagens); PDF em design/; specs (Referência) | Telas P0 ausentes podem seguir o design system; mocks não exigidos |
 | 9 | Requisitos não funcionais | ajuda | tem | PRD.md §§8, 11–12 | prd.md + specs |  |
 | 10 | Textos da interface (microcopy, erros) | ajuda | parcial | telas.md §§2–3 | specs | Estados não desenhados |
 | 11 | Logo, ícones, fontes | ajuda | parcial | design-system.md §§4, 8 | assets/design/ (imagens) + tokens.json | Logo e arquivos de fontes |
@@ -88,3 +88,5 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 - 2026-11-11: rodada 2 — sessão concluída oferece revisão em destaque e prática livre; revisão sem pendências vira prática livre; lista vazia oferece Monte o seu; falha ao salvar informa erro, permite nova tentativa e verifica possíveis permissões.
 
 - 2026-11-11: rodada 3 — progresso inicial vazio com convite; shimmer no carregamento; aviso de áudio indisponível sem impedir uso; progresso, configurações e treinos locais, sem conta nem sincronização.
+
+- 2026-11-11: rodada 4 — fonte de áudio e fallback para símbolos ficam para spike; prioridade para “#” a esclarecer; telas Must sem mockup seguem design system; Drift/SQLite confirmado (ADR 0001).

@@ -561,3 +561,8 @@ Marcadores de 30 com o nome da nota em `noteMarker`.
 - Títulos de acerto variam; o de erro é sempre "Quase" (nunca "Errado").
 - Números: "13 de 25 lições", "90% de acerto de primeira", horários em 24 h ("19:00").
 - Sem emoji na interface; ícones de traço no lugar.
+
+## Decisões da entrevista
+
+- Telas Must ainda sem mockup podem seguir este design system.
+- Escolha da fonte de fallback para símbolos musicais fica para o spike; usuário pediu prioridade para “#”. Confirmar se significa o símbolo ♯ ou uso literal de # antes de definir notação.

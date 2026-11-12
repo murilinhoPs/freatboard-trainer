@@ -140,3 +140,5 @@ Se progresso ou ajustes não puderem ser salvos, mostrar erro e permitir tentar 
 ## Dados locais
 
 Progresso, configurações e treinos salvos ficam no dispositivo; o MVP não possui conta nem sincronização. Enquanto os dados locais carregam, mostrar shimmer.
+
+Persistência confirmada: [ADR 0001 — Drift e SQLite](adr/0001-persistencia-local-drift.md).
