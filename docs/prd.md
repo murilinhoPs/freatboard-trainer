@@ -78,7 +78,7 @@ Referência principal: Fretboard Trainer (iOS).
 
 ## 8. Design e experiência
 
-Direção visual: **"Caderno neon"**. Fonte da verdade: [`design-system.md`](design-system.md).
+Direção visual: **"Caderno neon"**. Fonte da verdade: [`design/design-system.md`](design/design-system.md).
 
 ### 8.1 Princípios de design
 1. **O braço é o protagonista.** Nada na tela compete com ele em cor, brilho ou movimento.
@@ -90,8 +90,8 @@ Direção visual: **"Caderno neon"**. Fonte da verdade: [`design-system.md`](des
 ### 8.2 Cores semânticas (resumo)
 | Papel | Token | Uso |
 |---|---|---|
-| Acento | `accent` | Botão primário, seleção, progresso, rótulos de seção |
-| Alvo | `target` (amarelo, igual nos 2 temas) | Marcador "?", tags ("~5 min", "Foco"), streak |
+| Acento | `accent` | Botão primário, seleção e progresso |
+| Alvo | `target` (amarelo, igual nos 2 temas) | Marcador "?", streak e estrelas da lição |
 | Acerto / conhecida | `ok` + `ok-soft` | Nota certa, painel de acerto, card "Feito", posição conhecida |
 | Erro | `err` + `err-soft` | Nota errada, painel de erro, ações destrutivas |
 | Aprendendo | `learn` | Só contorno e texto no mapa |
@@ -100,8 +100,8 @@ Direção visual: **"Caderno neon"**. Fonte da verdade: [`design-system.md`](des
 Não existe cor de "aviso". Os valores por tema estão no JSON de tokens do design system.
 
 ### 8.3 Tipografia
-- **Space Grotesk** (500/700): títulos, nomes de nota, números, botões
-- **Atkinson Hyperlegible** (400/700): texto corrido, chips, rótulos, abas
+- **Space Grotesk** (700): títulos, nomes de nota, números, botões
+- **Atkinson Hyperlegible** (400): texto corrido, chips, rótulos, abas
 - As duas têm licença OFL e vão **embutidas como assets** (sem baixar em runtime). Escala de 12 a 40 px; nada abaixo de 12.
 - ⚠️ Nenhuma das duas tem os glifos **♯ ♭**: é preciso definir uma fonte de fallback com esses símbolos.
 
@@ -132,7 +132,7 @@ Não existe cor de "aviso". Os valores por tema estão no JSON de tokens do desi
 
 ### 8.8 Escrita
 - PT-BR, segunda pessoa, curto ("Você tocou D.", "Toque no braço")
-- Acerto com títulos variados; erro **sempre "Quase"**, nunca "Errado"
+- Sem exclamação na interface; acerto com títulos variados; erro **sempre "Quase"**, nunca "Errado"
 - ♯ (U+266F) e ♭ (U+266D) tipográficos, nunca "#"/"b"; horários em 24 h
 - **Sem emoji na interface**: ícones de traço no lugar
 

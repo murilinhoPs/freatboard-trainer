@@ -12,7 +12,28 @@ updated: 2026-11-11
 
 ## Rotas/Telas
 
+## 14 · Paisagem · Pergunta
 
+Tema escuro · "Ache o C♯ na corda A" · pág. 18
+
+![Paisagem · Pergunta · "Ache o C♯ na corda A" · tema escuro](../assets/design/paisagem-pergunta-escuro.png)
+
+**Objetivo**
+
+- Validar o layout expandido da pergunta (paisagem ou tablet).
+
+**Elementos**
+
+- Topo: "✕" e barra de progresso em 60%, largura total.
+- Braço à esquerda (60% da largura), casas 1 a 7, com a corda A inteira destacada (corda-alvo).
+- Painel à direita (40%), num card: rótulo "Sua vez", pergunta "Ache o C♯ na corda A" (28 px, "C♯" e "A" com marca-texto) e "Toque no braço".
+- Sem barra de abas (a lição ocupa a tela toda).
+
+**Estado e comportamento**
+
+- O usuário responde tocando numa casa da corda destacada (área de toque = a célula inteira). Não há botões de nota neste tipo de pergunta.
+- O feedback (09 ou 11) substitui o conteúdo do painel da direita; o braço mostra o resultado como em retrato.
+- No desktop, o hover destaca a casa sob o cursor. Sem atalhos de teclado.
 
 ## Estados e ações
 

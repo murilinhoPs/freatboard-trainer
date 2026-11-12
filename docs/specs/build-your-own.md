@@ -12,26 +12,37 @@ updated: 2026-11-11
 
 ## Rotas/Telas
 
-### 2.4 Monte o seu
+## 04 · Monte o seu
 
-![Monte o seu](../assets/design/monte-o-seu-mais-opcoes-aberto-escuro.png)
+Tema escuro · "Mais opções" aberto, drill salvo · pág. 5
 
-**O que é:** formulário para criar um drill personalizado. Tela com rolagem; o botão **▶ Começar** fica fixo no rodapé.
+![Monte o seu · "Mais opções" aberto, drill salvo · tema escuro](../assets/design/monte-o-seu-mais-opcoes-aberto-escuro.png)
 
-**Como funciona:**
-- **Tipo:** Notas · Ache todas (outras "em breve"). Embaixo, descrição do tipo e o link **Aprender primeiro** (abre a lição correspondente).
-- **Cordas:** E A D G B e — seleção **múltipla** (pelo menos uma).
-- **Notas:** Naturais / Sustenidos.
-- **Casas:** 0–5 · **0–12** (padrão) · 5–12 · 12–17 · 12–22 · Braço todo — seleção única.
-- **Quantidade:** 10 · **20** · 40.
-- **Mais opções** (card recolhível; fechado mostra o resumo "Padrão · 3 s"; o screenshot mostra aberto):
-  - Afinação: Padrão, Drop D, Meio tom abaixo, DADGAD, Open G.
-  - Direção: As duas, Achar a nota, Nomear a nota.
-  - Tempo: Sem tempo, 2 s, **3 s**, 5 s.
-- **Salvar como:** campo + botão **Salvar**.
-  - Sucesso (desenhado): "✓ Salvo nos seus drills." O drill aparece em Praticar → Seus drills.
-  - Erro (não desenhado): "Dê um nome ao drill primeiro." com o campo em destaque de erro.
-- **▶ Começar** usa as opções atuais, salvo ou não.
+A tela rola; a imagem mostra a tela inteira.
+
+**Objetivo**
+
+- Criar um drill personalizado escolhendo cordas, notas, casas, quantidade e opções avançadas.
+
+**Elementos**
+
+- Topo: botão voltar (44 px) e título "Monte o seu" (24 px). A tela rola; a imagem mostra a tela inteira em duas partes.
+- "Tipo": chips "Notas" (selecionado), "Ache todas" e "Intervalos · em breve" (desativado); texto "Ache a nota no braço ou diga o nome da nota marcada." e link "Aprender primeiro".
+- "Cordas": chips "E", "A", "D" (selecionados), "G", "B", "e" — seleção múltipla.
+- "Notas": "Naturais" (selecionado), "Sustenidos".
+- "Casas": "0–5", "0–12" (selecionado), "5–12", "12–17", "12–22", "Braço todo".
+- "Quantidade": "10", "20" (selecionado), "40".
+- Card "Mais opções", aberto, com resumo "Padrão · 3 s" e chevron: "Afinação" (Padrão selecionado, Drop D, Meio tom abaixo, DADGAD, Open G); "Direção" (As duas selecionado, Achar a nota, Nomear a nota); "Tempo" (Sem tempo, 2 s, 3 s selecionado, 5 s).
+- "Salvar como": campo de texto (52 px) com "Cordas graves até a 12" e botão secundário "Salvar"; abaixo, mensagem de sucesso com ✓ verde "Salvo nos seus drills".
+- Rodapé fixo com botão primário "Começar" (ícone play, largura total).
+
+**Estado e comportamento**
+
+- Chips selecionados ficam em acento com contorno; os demais em superfície com borda clara.
+- Cordas aceitam várias escolhas (pelo menos uma); os outros grupos aceitam uma.
+- "Mais opções" recolhe e expande; fechado mostra só o resumo "Padrão · 3 s".
+- "Salvar" com nome adiciona o drill em 03 → Seus drills e mostra "Salvo nos seus drills". Sem nome, mostra "Dê um nome ao drill primeiro" [a confirmar: estado de erro não desenhado].
+- "Começar" inicia o drill com as opções atuais, salvo ou não. "Aprender primeiro" abre a lição correspondente (07).
 
 ## Estados e ações
 

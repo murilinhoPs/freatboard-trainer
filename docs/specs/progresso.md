@@ -12,22 +12,55 @@ updated: 2026-11-11
 
 ## Rotas/Telas
 
-### 2.5 Progresso
+## 05 · Progresso
 
-![Progresso](../assets/design/progresso-posicao-selecionada-escuro.png)
+Tema escuro · Casas 0–12, posição selecionada · pág. 6
 
-**O que é:** o mapa de tudo que o usuário já sabe no braço.
+![Progresso · Casas 0–12, posição selecionada · tema escuro](../assets/design/progresso-posicao-selecionada-escuro.png)
 
-**Como funciona:**
-- Dois números: "**42 de 78** notas que você sabe" e "**12 de 65** lições feitas". (78 = 6 cordas × 13 posições de 0 a 12.)
-- Segmentado **Casas 0–12 / Braço todo** muda o trecho do mapa.
-- **Seu braço:** cada posição mostra
-  - **Conhecida** = círculo preenchido verde (intervalo de revisão ≥ 1 semana);
-  - **Aprendendo** = só contorno ciano;
-  - **Vazia** = ainda não vista.
-  - Legenda embaixo.
-- Em retrato o mapa **rola na horizontal**.
-- **Detalhe da posição:** tocar numa nota marca a posição (anel duplo) e mostra o card embaixo: nota, "Corda A, casa 3", "9 de 10 acertos · próxima revisão em 5 dias".
+**Objetivo**
+
+- Mostrar no mapa do braço quais notas o usuário já sabe, quais está aprendendo e quais ainda não viu.
+
+**Elementos**
+
+- Título "Progresso" (28 px).
+- Dois cards lado a lado: "42 de 78" · "notas que você sabe" e "12 de 65" · "lições feitas".
+- Controle segmentado (44 px): "Casas 0–12" (ativo) e "Braço todo".
+- Card "Seu braço" com o mapa das casas 0 a 12 (650 px de largura, rola na horizontal): círculos verdes preenchidos = conhecida; círculos com contorno ciano = aprendendo; vazio = não vista. Legenda "Conhecida", "Aprendendo", "Vazio = não vista".
+- Card de detalhe: marcador verde de 40 px "C", "Corda A, casa 3" e "9 de 10 acertos · próxima revisão em 5 dias".
+- Barra de abas com "Progresso" ativa.
+
+**Estado e comportamento**
+
+- A posição corda A, casa 3 está selecionada (anel duplo em volta do marcador) e o card de detalhe mostra os dados dela.
+- Conhecida = intervalo de revisão de pelo menos uma semana.
+- Tocar noutra posição troca o detalhe. "Braço todo" mostra as casas 0–22.
+
+Tema claro · pág. 7: mesma tela em tema claro (`../assets/design/progresso-posicao-selecionada-claro.png`).
+
+## 15 · Paisagem · Progresso
+
+Tema escuro · Casas 0–12 · pág. 19
+
+![Paisagem · Progresso · Casas 0–12 · tema escuro](../assets/design/paisagem-progresso-escuro.png)
+
+**Objetivo**
+
+- Validar o layout expandido do Progresso, com o braço inteiro visível.
+
+**Elementos**
+
+- Rail lateral de 76 px com as 4 abas: "Início", "Praticar", "Progresso" (ativa), "Ajustes".
+- Linha do topo: título "Progresso" (24 px), "42 de 78 notas que você sabe", "12 de 65 lições" e o segmentado "Casas 0–12" (ativo) / "Braço todo".
+- Mapa das casas 0 a 12 inteiro, sem rolagem, com as mesmas marcações de 05.
+- Legenda "Conhecida", "Aprendendo", "Vazio = não vista".
+
+**Estado e comportamento**
+
+- Nenhuma posição selecionada.
+- Tocar numa posição mostra o detalhe [a confirmar: em paisagem, popover sobre o mapa, não desenhado].
+- "Braço todo" pode exigir rolagem ou casas mais estreitas [a confirmar].
 
 ## Estados e ações
 

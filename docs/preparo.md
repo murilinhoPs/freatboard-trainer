@@ -1,6 +1,6 @@
 ---
-updated: 2026-11-11
-fase: pronto
+updated: 2026-11-12
+fase: entrevista
 ---
 
 # Preparo do projeto
@@ -92,3 +92,5 @@ Nível: **trava** (sem isso o /planejar não roda) · **ajuda** (pode ficar para
 - 2026-11-11: rodada 4 — fonte de áudio e fallback para símbolos ficam para spike; prioridade para “#” a esclarecer; telas Must sem mockup seguem design system; Drift/SQLite confirmado (ADR 0001).
 
 - 2026-11-11: rodada 5 — notação F♯ com símbolo musical; sem APIs externas, autenticação ou serviços online; glossário inicial aceito; sons, fallback, textos e detalhes de telas ficam para spike ou implementação.
+
+- 2026-11-12: revisão de design importada; pendentes interpretação das exceções de peso Atkinson e uso de `target` nas estrelas.
