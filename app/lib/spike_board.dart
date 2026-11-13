@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:material_ui/material_ui.dart';
+import 'package:flutter_soloud/flutter_soloud.dart';
 
 import 'design/app_tokens.dart';
 
@@ -16,6 +17,49 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
   int start = 0;
   bool leftHanded = false;
   (int, int)? selected;
+  AudioSource? audio;
+  bool audioUnavailable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAudio();
+  }
+
+  Future<void> _loadAudio() async {
+    try {
+      await SoLoud.instance.init();
+      final source = await SoLoud.instance.loadAsset(
+        'assets/audio/pluck-a2.wav',
+      );
+      if (!mounted) {
+        SoLoud.instance.deinit();
+        return;
+      }
+      setState(() => audio = source);
+    } catch (_) {
+      if (mounted) setState(() => audioUnavailable = true);
+    }
+  }
+
+  @override
+  void dispose() {
+    if (SoLoud.instance.isInitialized) SoLoud.instance.deinit();
+    super.dispose();
+  }
+
+  void _select(int row, int fret) {
+    setState(() => selected = (row, fret));
+    final source = audio;
+    if (source != null) {
+      try {
+        SoLoud.instance.play(source);
+      } catch (_) {
+        setState(() => audioUnavailable = true);
+      }
+    }
+  }
+
   static const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
 
   @override
@@ -70,6 +114,13 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
                     ? 'Toque em uma célula'
                     : 'Corda ${strings[selected!.$1]} · casa ${selected!.$2}',
                 key: const ValueKey('selection'),
+              ),
+              Text(
+                audioUnavailable
+                    ? 'Áudio indisponível; continue sem som.'
+                    : audio == null
+                    ? 'Carregando áudio…'
+                    : 'Áudio de teste: mesma nota em todas as células',
               ),
               const SizedBox(height: 12),
               LayoutBuilder(
@@ -133,7 +184,7 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
         cursor: SystemMouseCursors.click,
         child: InkWell(
           key: ValueKey('cell-$row-$fret'),
-          onTap: () => setState(() => selected = (row, fret)),
+          onTap: () => _select(row, fret),
           child: Container(
             width: width,
             height: 44,
