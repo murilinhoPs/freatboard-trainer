@@ -8,7 +8,7 @@ updated: 2026-11-12
 
 ## Resumo
 
-> O braço definitivo ainda não está implementado. O spike atual oferece uma amostra de tokens e fontes com temas escuro, claro e sistema; veja [avaliação das fontes](../spike-fontes.md). O spike descartável também permite abrir um braço de seis cordas, tocar células, deslocar uma janela de seis casas entre 0 e 22 e espelhar horizontalmente para canhotos. A posição tocada é exibida na tela. O material abaixo descreve o produto proposto.
+> O braço definitivo ainda não está implementado. O spike atual oferece uma amostra de tokens e fontes com temas escuro, claro e sistema; veja [avaliação das fontes](../spike-fontes.md). O spike descartável também permite abrir um braço de seis cordas, tocar células, deslocar uma janela de seis casas entre 0 e 22 e espelhar horizontalmente para canhotos. A posição tocada é exibida na tela. Uma amostra sintética A2 pré-carregada soa ao tocar qualquer célula; o spike informa quando áudio está indisponível. Veja [evidências do spike](../spike-m0.md). O material abaixo descreve o produto proposto.
 
 ## Rotas/Telas
 
