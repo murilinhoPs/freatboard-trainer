@@ -104,7 +104,7 @@ class Instrument { final Tuning tuning; final int frets; }               // fret
 class Position { final int string; final int fret; }                    // string 0 = E grave
 PitchClass noteAt(Instrument i, Position p);
 List<Position> positionsOf(Instrument i, PitchClass n, FretRange r);
-Position? octaveOf(Instrument i, Position p);       // +2 cordas, +2 ou +3 trastes
+Position? octaveOf(Instrument i, Position p);       // corda mais próxima com +12 semitons
 List<PitchClass> countPath(PitchClass from, PitchClass to);
 int? inlayIndex(int fret);                          // 3,5,7,9,12… → 1º, 2º dot
 

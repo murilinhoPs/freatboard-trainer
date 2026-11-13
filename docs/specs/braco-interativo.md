@@ -40,7 +40,7 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 - `PitchClass` enumera as doze classes cromáticas começando em C.
 - `Tuning` guarda afinação com cordas da grave para a aguda; `standardGuitar` usa E–A–D–G–B–E e casas 0–22.
 - `noteAt` e `positionsOf` calculam notas e posições; posições/casas fora dos limites lançam `RangeError`.
-- `octaveOf` retorna posição duas cordas acima quando disponível, ou `null` quando não há posição válida.
+- `octaveOf` busca a posição exatamente uma oitava acima em qualquer corda mais aguda. Se houver mais de uma candidata, escolhe primeiro a corda mais próxima e depois a casa mais baixa; retorna `null` quando nenhuma posição existe dentro do instrumento.
 - `inlayIndex` retorna 0 sem marcador, 1 para marcador simples e 2 para marcador duplo nas casas 12 e 24.
 - `countPath` retorna classes cromáticas após a nota inicial até incluir a nota final; mesma nota produz caminho vazio.
 

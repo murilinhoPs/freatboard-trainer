@@ -38,13 +38,26 @@ void main() {
       ]);
     });
 
-    test('returns octave positions and null when no higher string exists', () {
+    test('returns nearest octave across strings and null when unavailable', () {
       expect(
         octaveOf(standardGuitar, const Position(string: 0, fret: 0)),
-        const Position(string: 2, fret: 2),
+        const Position(string: 1, fret: 7),
       );
       expect(
         octaveOf(standardGuitar, const Position(string: 4, fret: 12)),
+        isNull,
+      );
+      expect(
+        octaveOf(standardGuitar, const Position(string: 3, fret: 0)),
+        const Position(string: 4, fret: 8),
+      );
+      // Prefer nearest string; within that string, exact octave is unique.
+      expect(
+        octaveOf(standardGuitar, const Position(string: 2, fret: 0)),
+        const Position(string: 3, fret: 7),
+      );
+      expect(
+        octaveOf(standardGuitar, const Position(string: 5, fret: 22)),
         isNull,
       );
     });

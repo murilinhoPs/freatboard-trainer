@@ -117,25 +117,33 @@ List<Position> positionsOf(
   ];
 }
 
-/// Position two strings higher at same pitch, when within instrument bounds.
+/// Nearest higher-string position one octave above [position].
+/// Ties resolve to the lower fret, then the lower string index.
 Position? octaveOf(Instrument instrument, Position position) {
   _validatePosition(instrument, position);
-  final candidate = Position(string: position.string + 2, fret: position.fret);
-  if (candidate.string < instrument.tuning.openStrings.length &&
-      candidate.fret <= instrument.frets &&
-      noteAt(instrument, candidate) == noteAt(instrument, position)) {
-    return candidate;
-  }
-  for (final fretDelta in [2, 3]) {
-    final fret = position.fret + fretDelta;
-    if (position.string + 2 < instrument.tuning.openStrings.length &&
-        fret <= instrument.frets) {
-      final candidate = Position(string: position.string + 2, fret: fret);
-      if (noteAt(instrument, candidate) == noteAt(instrument, position))
-        return candidate;
-    }
-  }
-  return null;
+  final sourceOffset =
+      PitchClass.values.indexOf(
+        instrument.tuning.openStrings[position.string],
+      ) +
+      position.fret;
+  final candidates = [
+    for (
+      var string = position.string + 1;
+      string < instrument.tuning.openStrings.length;
+      string++
+    )
+      for (var fret = 0; fret <= instrument.frets; fret++)
+        if (PitchClass.values.indexOf(instrument.tuning.openStrings[string]) +
+                fret -
+                sourceOffset ==
+            12)
+          Position(string: string, fret: fret),
+  ];
+  candidates.sort((a, b) {
+    final stringDistance = a.string.compareTo(b.string);
+    return stringDistance != 0 ? stringDistance : a.fret.compareTo(b.fret);
+  });
+  return candidates.firstOrNull;
 }
 
 /// Physical inlay number at fret; zero means no marker.
