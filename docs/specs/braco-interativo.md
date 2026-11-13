@@ -44,9 +44,15 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 - **Viewport dinâmico** ✅: o braço não aparece inteiro durante uma pergunta. O app mostra uma janela de ~5 a 6 trastes em volta do alvo (vimos janelas 0–5, 5–9, 7–12, 9–15) e escolhe a janela a cada pergunta. Com 22 trastes isso vira obrigatório.
 - **Faixa visível ≠ faixa de perguntas**: o braço é desenhado no mínimo até a **casa 15** (ou até o fim da faixa do drill, se ela passar do 15). As perguntas ficam dentro da faixa do drill (padrão 0–12). Assim as notas perto da casa 12 sempre têm contexto visual dos dois lados.
 
-## Critérios de aceite vigentes
+## Critérios de aceite planejados para M1
 
-Nenhum comportamento implementado confirmado.
+Os critérios abaixo descrevem o trabalho planejado; o braço definitivo ainda não está implementado.
+
+- AC-F1-01: `fretboard_core` calcula a nota em cada posição das 6 cordas e casas 0–22 na afinação padrão, e lista todas as posições de uma nota nessa faixa.
+- AC-F1-02: o núcleo calcula oitavas, marcadores do braço e caminho de contagem entre notas, cobrindo limites e cordas/casas inválidas com testes unitários.
+- AC-F1-03: explicações geradas para as perguntas de nota cobrem os exemplos documentados e têm snapshots estáveis.
+- AC-F1-04: braço definitivo permite tocar a célula inteira, exibe janela dinâmica de casas, mantém contexto visual até a casa 15 e espelha horizontalmente no modo canhoto sem inverter cordas.
+- AC-F1-05: braço funciona em compacto e expandido; Linux desktop cobre interação por mouse/hover e Android cobre toque, sem depender de áudio para responder.
 
 ## Pendências
 

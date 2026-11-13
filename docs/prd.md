@@ -62,7 +62,7 @@ Referência principal: Fretboard Trainer (iOS).
 
 | ID | Feature | Prioridade | Spec | Área |
 |---|---|---|---|---|
-| F1 | Braço interativo | Must | [specs/braco-interativo.md](specs/braco-interativo.md) | <área a definir> |
+| F1 | Braço interativo | Must | [specs/braco-interativo.md](specs/braco-interativo.md) | `area:core` (lógica); `area:design` (visual) |
 | F2 | Lições de Notes | Must | [specs/licoes-notes.md](specs/licoes-notes.md) | <área a definir> |
 | F3 | Tipos de pergunta | Must | [specs/tipos-pergunta.md](specs/tipos-pergunta.md) | <área a definir> |
 | F4 | Revisão espaçada | Must | [specs/revisao-espacada.md](specs/revisao-espacada.md) | <área a definir> |
