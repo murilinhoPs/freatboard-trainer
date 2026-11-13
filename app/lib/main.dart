@@ -42,7 +42,7 @@ class _FretboardAppState extends State<FretboardApp> {
                             builder: (_) => const SpikeBoardPage(),
                           ),
                         ),
-                        child: const Text('Abrir spike do braço'),
+                        child: const Text('Abrir braço interativo'),
                       ),
                       const SizedBox(height: 8),
                       Text(

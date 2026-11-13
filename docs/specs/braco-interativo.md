@@ -1,6 +1,6 @@
 ---
 feature: F1
-area: area:core
+area: area:design
 updated: 2026-11-13
 ---
 
@@ -8,7 +8,7 @@ updated: 2026-11-13
 
 ## Resumo
 
-> `fretboard_core` fornece núcleo Dart puro para afinação padrão: notas e posições nas seis cordas e casas 0–22, oitavas, marcadores de casa e caminho cromático de contagem. O spike atual oferece uma amostra de tokens e fontes com temas escuro, claro e sistema; veja [avaliação das fontes](../spike-fontes.md). O spike descartável também permite abrir um braço de seis cordas, tocar células, deslocar uma janela de seis casas entre 0 e 22 e espelhar horizontalmente para canhotos. Veja [evidências do spike](../spike-m0.md). O braço definitivo ainda não está implementado.
+> `fretboard_core` fornece núcleo Dart puro para afinação padrão: notas e posições nas seis cordas e casas 0–22, oitavas, marcadores de casa, caminho cromático e explicações. O braço interativo definitivo apresenta notas nas células, seleção por toque/click, janela ajustável de seis casas e espelhamento para canhotos sem inverter as cordas. O áudio não é necessário para selecionar uma posição.
 
 ## Rotas/Telas
 
@@ -47,6 +47,7 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 - Mensagem de ausência de nota intermediária só é usada quando âncora e alvo diferem por um semitom cromático; mesma classe de nota gera explicação explícita de notas iguais.
 - Contagem usa nomes de nota com sustenidos e indica quando duas notas adjacentes não têm nota entre elas.
 - Texto de oitava deriva a distância real entre cordas e casas da afinação configurada; texto de marcador distingue dot simples e duplo.
+- O braço exibe seis cordas com nomes de nota, seleciona célula inteira e informa corda, casa e nota. Janela mostra seis casas e percorre toda faixa 0–22 (começo 0–17), garantindo posições e contexto até casa 15. Canhoto espelha casas e pestana, mantendo ordem vertical das cordas. Hover realça célula em desktop; seleção não depende de som.
 
 ## 1. Navegação
 
@@ -57,12 +58,12 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 
 ## Critérios de aceite planejados para M1
 
-Os critérios abaixo descrevem o trabalho planejado; o braço definitivo ainda não está implementado.
+Os critérios abaixo descrevem o trabalho planejado para M1.
 
 - AC-F1-01: `fretboard_core` calcula a nota em cada posição das 6 cordas e casas 0–22 na afinação padrão, e lista todas as posições de uma nota nessa faixa.
 - AC-F1-02: o núcleo calcula oitavas, marcadores do braço e caminho de contagem entre notas, cobrindo limites e cordas/casas inválidas com testes unitários.
 - AC-F1-03: explicações geradas para perguntas/posições de nota cobrem os padrões documentados de contagem, oitava e marcador, distinguem mesma nota de semitom adjacente, e têm snapshots estáveis.
-- AC-F1-04: braço definitivo permite tocar a célula inteira, exibe janela dinâmica de casas, mantém contexto visual até a casa 15 e espelha horizontalmente no modo canhoto sem inverter cordas.
+- AC-F1-04: braço definitivo permite tocar/clicar célula inteira, exibe janela dinâmica de casas, mantém contexto visual até a casa 15 e espelha horizontalmente no modo canhoto sem inverter cordas.
 - AC-F1-05: braço funciona em compacto e expandido; Linux desktop cobre interação por mouse/hover e Android cobre toque, sem depender de áudio para responder.
 
 ## Pendências

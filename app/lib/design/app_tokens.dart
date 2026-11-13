@@ -214,6 +214,7 @@ ThemeData spikeTheme(Brightness brightness) {
     brightness: brightness,
     colorScheme: scheme,
     scaffoldBackgroundColor: colors['bg'],
+    splashFactory: InkRipple.splashFactory,
     fontFamily: 'Atkinson Hyperlegible',
     fontFamilyFallback: musicFallback,
     extensions: [tokens],
