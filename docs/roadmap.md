@@ -86,3 +86,12 @@ sempre a próxima. Linhas são criadas por `./scripts/new-issue.sh` e o status m
 | 2 | #5 | [feat] Preparar temas, tokens e fontes para o spike | done | specs/braco-interativo.md | #10 |
 | 3 | #6 | [feat] Prototipar interação com o braço | done | specs/braco-interativo.md | #12 |
 | 4 | #7 | [feat] Validar áudio e registrar evidências do spike | done | specs/braco-interativo.md | #13 |
+
+### M1 — Núcleo de teoria e braço
+
+| Ordem | Issue | Título | Status | Spec | PR |
+|---|---|---|---|---|---|
+| 5 | #14 | [feat] Implementar núcleo de notas e posições do braço | todo | specs/braco-interativo.md | |
+| 6 | #15 | [feat] Gerar explicações de teoria para respostas | todo | specs/braco-interativo.md | |
+| 7 | #16 | [feat] Implementar braço interativo definitivo | todo | specs/braco-interativo.md | |
+| 8 | #11 | [chore] Ajustar alinhamento vertical de ♯ e ♭ | todo | specs/braco-interativo.md | |

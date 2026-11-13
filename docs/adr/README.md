@@ -7,6 +7,7 @@ Cada arquivo `NNNN-<slug>.md` registra uma decisão técnica duradoura: por que 
 | # | Título | Status | Data |
 |---|---|---|---|
 | 0001 | [Persistência local com Drift e SQLite](0001-persistencia-local-drift.md) | Aceita | 2026-11-11 |
+| 0002 | [Avançar ao M1 com validações de áudio pendentes](0002-go-no-go-m0.md) | Aceita | 2026-11-13 |
 
 Mantenha este índice em dia ao criar um ADR ou mudar o status de um.
 
