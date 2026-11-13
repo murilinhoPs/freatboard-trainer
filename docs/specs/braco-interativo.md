@@ -1,14 +1,14 @@
 ---
 feature: F1
-area: pendente
-updated: 2026-11-12
+area: area:core
+updated: 2026-11-13
 ---
 
 # F1 · Braço interativo
 
 ## Resumo
 
-> O braço definitivo ainda não está implementado. O spike atual oferece uma amostra de tokens e fontes com temas escuro, claro e sistema; veja [avaliação das fontes](../spike-fontes.md). O spike descartável também permite abrir um braço de seis cordas, tocar células, deslocar uma janela de seis casas entre 0 e 22 e espelhar horizontalmente para canhotos. A posição tocada é exibida na tela. Uma amostra sintética A2 pré-carregada soa ao tocar qualquer célula; o spike informa quando áudio está indisponível. Veja [evidências do spike](../spike-m0.md). O material abaixo descreve o produto proposto.
+> `fretboard_core` fornece núcleo Dart puro para afinação padrão: notas e posições nas seis cordas e casas 0–22, oitavas, marcadores de casa e caminho cromático de contagem. O spike atual oferece uma amostra de tokens e fontes com temas escuro, claro e sistema; veja [avaliação das fontes](../spike-fontes.md). O spike descartável também permite abrir um braço de seis cordas, tocar células, deslocar uma janela de seis casas entre 0 e 22 e espelhar horizontalmente para canhotos. Veja [evidências do spike](../spike-m0.md). O braço definitivo ainda não está implementado.
 
 ## Rotas/Telas
 
@@ -36,6 +36,13 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 - No desktop, o hover destaca a casa sob o cursor. Sem atalhos de teclado.
 
 ## Estados e ações
+
+- `PitchClass` enumera as doze classes cromáticas começando em C.
+- `Tuning` guarda afinação com cordas da grave para a aguda; `standardGuitar` usa E–A–D–G–B–E e casas 0–22.
+- `noteAt` e `positionsOf` calculam notas e posições; posições/casas fora dos limites lançam `RangeError`.
+- `octaveOf` busca a posição exatamente uma oitava acima em qualquer corda mais aguda. Se houver mais de uma candidata, escolhe primeiro a corda mais próxima e depois a casa mais baixa; retorna `null` quando nenhuma posição existe dentro do instrumento.
+- `inlayIndex` retorna 0 sem marcador, 1 para marcador simples e 2 para marcador duplo nas casas 12 e 24.
+- `countPath` retorna classes cromáticas após a nota inicial até incluir a nota final; mesma nota produz caminho vazio.
 
 ## 1. Navegação
 
