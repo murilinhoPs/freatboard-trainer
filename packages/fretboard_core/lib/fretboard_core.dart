@@ -164,3 +164,81 @@ List<PitchClass> countPath(PitchClass from, PitchClass to) {
       PitchClass.values[(start + i) % 12],
   ];
 }
+
+/// Explanation strategy selected for a note answer.
+enum ExplanationKind { count, octave, inlay }
+
+/// Feedback explanation for a target position.
+final class Explanation {
+  const Explanation(this.kind, this.text);
+
+  final ExplanationKind kind;
+  final String text;
+
+  @override
+  bool operator ==(Object other) =>
+      other is Explanation && other.kind == kind && other.text == text;
+
+  @override
+  int get hashCode => Object.hash(kind, text);
+}
+
+String _noteName(PitchClass note) => switch (note) {
+  PitchClass.cs => 'C♯',
+  PitchClass.ds => 'D♯',
+  PitchClass.fs => 'F♯',
+  PitchClass.gs => 'G♯',
+  PitchClass.as_ => 'A♯',
+  _ => note.name.toUpperCase(),
+};
+
+String _stringName(Instrument instrument, int string) {
+  final note = _noteName(instrument.tuning.openStrings[string]);
+  return note == 'E' && string == instrument.tuning.openStrings.length - 1
+      ? 'high E'
+      : note;
+}
+
+/// Generate stable, localized-neutral explanation using one available strategy.
+/// Count is preferred when [anchor] is supplied, then octave, then inlay.
+Explanation explainPosition(
+  Instrument instrument,
+  Position target, {
+  Position? anchor,
+}) {
+  final note = noteAt(instrument, target);
+  if (anchor != null) {
+    final anchorNote = noteAt(instrument, anchor);
+    final path = countPath(anchorNote, note);
+    final sequence = [anchorNote, ...path].map(_noteName).join(' → ');
+    final between = path.length <= 1
+        ? '${_noteName(anchorNote)} and ${_noteName(note)} have no note between them'
+        : 'Count up from ${_noteName(anchorNote)} on fret ${anchor.fret}: $sequence';
+    return Explanation(ExplanationKind.count, between);
+  }
+  final octave = octaveOf(instrument, target);
+  if (octave != null) {
+    final stringDistance = octave.string - target.string;
+    final fretDistance = octave.fret - target.fret;
+    final direction = fretDistance >= 0 ? 'higher' : 'lower';
+    final delta = fretDistance.abs();
+    final stringUnit = stringDistance == 1 ? 'string' : 'strings';
+    final fretUnit = delta == 1 ? 'fret' : 'frets';
+    return Explanation(
+      ExplanationKind.octave,
+      "It's the octave of ${_noteName(note)} on the ${_stringName(instrument, target.string)} string (fret ${target.fret}): $stringDistance $stringUnit up, $delta $fretUnit $direction.",
+    );
+  }
+  final marker = inlayIndex(target.fret);
+  if (marker > 0) {
+    final ordinal = marker == 2 ? 'second' : 'first';
+    return Explanation(
+      ExplanationKind.inlay,
+      '${_noteName(note)} sits on the $ordinal dot of the ${_stringName(instrument, target.string)} string, fret ${target.fret}.',
+    );
+  }
+  return Explanation(
+    ExplanationKind.count,
+    '${_noteName(note)} is on the ${_stringName(instrument, target.string)} string, fret ${target.fret}.',
+  );
+}

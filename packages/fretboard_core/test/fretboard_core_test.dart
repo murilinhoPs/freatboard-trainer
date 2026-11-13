@@ -96,5 +96,44 @@ void main() {
       );
       expect(() => inlayIndex(-1), throwsRangeError);
     });
+
+    test('generates stable count, octave, and inlay explanation snapshots', () {
+      expect(
+        explainPosition(
+          standardGuitar,
+          const Position(string: 3, fret: 2),
+          anchor: const Position(string: 3, fret: 0),
+        ),
+        const Explanation(
+          ExplanationKind.count,
+          'Count up from G on fret 0: G → G♯ → A',
+        ),
+      );
+      expect(
+        explainPosition(standardGuitar, const Position(string: 3, fret: 0)),
+        const Explanation(
+          ExplanationKind.octave,
+          "It's the octave of G on the G string (fret 0): 1 string up, 8 frets higher.",
+        ),
+      );
+      expect(
+        explainPosition(standardGuitar, const Position(string: 5, fret: 5)),
+        const Explanation(
+          ExplanationKind.inlay,
+          'A sits on the first dot of the high E string, fret 5.',
+        ),
+      );
+    });
+
+    test('explains adjacent semitones without intermediate note', () {
+      expect(
+        explainPosition(
+          standardGuitar,
+          const Position(string: 0, fret: 1),
+          anchor: const Position(string: 0, fret: 0),
+        ).text,
+        'E and F have no note between them',
+      );
+    });
   });
 }

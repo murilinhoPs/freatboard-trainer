@@ -43,6 +43,9 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 - `octaveOf` busca a posição exatamente uma oitava acima em qualquer corda mais aguda. Se houver mais de uma candidata, escolhe primeiro a corda mais próxima e depois a casa mais baixa; retorna `null` quando nenhuma posição existe dentro do instrumento.
 - `inlayIndex` retorna 0 sem marcador, 1 para marcador simples e 2 para marcador duplo nas casas 12 e 24.
 - `countPath` retorna classes cromáticas após a nota inicial até incluir a nota final; mesma nota produz caminho vazio.
+- `explainPosition` gera explicação estável usando contagem quando há âncora; sem âncora, usa oitava disponível; sem oitava, usa marcador de casa; por fim, informa nota, corda e casa.
+- Contagem usa nomes de nota com sustenidos e indica quando duas notas adjacentes não têm nota entre elas.
+- Texto de oitava deriva a distância real entre cordas e casas da afinação configurada; texto de marcador distingue dot simples e duplo.
 
 ## 1. Navegação
 
@@ -57,6 +60,7 @@ Os critérios abaixo descrevem o trabalho planejado; o braço definitivo ainda n
 
 - AC-F1-01: `fretboard_core` calcula a nota em cada posição das 6 cordas e casas 0–22 na afinação padrão, e lista todas as posições de uma nota nessa faixa.
 - AC-F1-02: o núcleo calcula oitavas, marcadores do braço e caminho de contagem entre notas, cobrindo limites e cordas/casas inválidas com testes unitários.
+- AC-F1-03: explicações geradas para posições de nota cobrem contagem, oitava e marcador nos exemplos documentados, com snapshots estáveis.
 - AC-F1-03: explicações geradas para as perguntas de nota cobrem os exemplos documentados e têm snapshots estáveis.
 - AC-F1-04: braço definitivo permite tocar a célula inteira, exibe janela dinâmica de casas, mantém contexto visual até a casa 15 e espelha horizontalmente no modo canhoto sem inverter cordas.
 - AC-F1-05: braço funciona em compacto e expandido; Linux desktop cobre interação por mouse/hover e Android cobre toque, sem depender de áudio para responder.
