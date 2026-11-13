@@ -134,6 +134,22 @@ void main() {
         ).text,
         'E and F have no note between them',
       );
+      expect(
+        explainPosition(
+          standardGuitar,
+          const Position(string: 0, fret: 0),
+          anchor: const Position(string: 0, fret: 12),
+        ).text,
+        'Both positions are E.',
+      );
+      expect(
+        explainPosition(
+          standardGuitar,
+          const Position(string: 0, fret: 11),
+          anchor: const Position(string: 0, fret: 0),
+        ).text,
+        'E and D♯ have no note between them',
+      );
     });
   });
 }

@@ -209,9 +209,20 @@ Explanation explainPosition(
   final note = noteAt(instrument, target);
   if (anchor != null) {
     final anchorNote = noteAt(instrument, anchor);
+    final chromaticDistance =
+        (PitchClass.values.indexOf(note) -
+            PitchClass.values.indexOf(anchorNote) +
+            12) %
+        12;
+    if (chromaticDistance == 0) {
+      return Explanation(
+        ExplanationKind.count,
+        'Both positions are ${_noteName(note)}.',
+      );
+    }
     final path = countPath(anchorNote, note);
     final sequence = [anchorNote, ...path].map(_noteName).join(' → ');
-    final between = path.length <= 1
+    final between = chromaticDistance == 1 || chromaticDistance == 11
         ? '${_noteName(anchorNote)} and ${_noteName(note)} have no note between them'
         : 'Count up from ${_noteName(anchorNote)} on fret ${anchor.fret}: $sequence';
     return Explanation(ExplanationKind.count, between);
