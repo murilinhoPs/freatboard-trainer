@@ -145,4 +145,17 @@ void main() {
       }
     });
   }
+
+  test('♯ e ♭ têm ajuste próprio, centrado na altura das maiúsculas', () {
+    final sharpTitle = musicGlyphRise('♯', 'Space Grotesk');
+    final flatTitle = musicGlyphRise('♭', 'Space Grotesk');
+    expect(sharpTitle, closeTo(0.219, 0.001));
+    expect(flatTitle, closeTo(0.070, 0.001));
+    expect(sharpTitle, greaterThan(flatTitle));
+    expect(
+      musicGlyphRise('♯', null),
+      musicGlyphRise('♯', 'Atkinson Hyperlegible'),
+    );
+    expect(musicGlyphRise('♭', null), closeTo(0.054, 0.001));
+  });
 }
