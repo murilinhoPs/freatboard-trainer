@@ -198,7 +198,7 @@ class MusicText extends StatelessWidget {
             ),
             child: Text(
               match.group(0)!,
-              style: style.copyWith(fontFamily: 'Noto Music'),
+              style: effective.copyWith(fontFamily: 'Noto Music'),
             ),
           ),
         ),
