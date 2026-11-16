@@ -145,4 +145,28 @@ void main() {
       }
     });
   }
+
+  test('♯ e ♭ têm ajuste próprio, centrado na altura das maiúsculas', () {
+    final sharpTitle = musicGlyphRise('♯', 'Space Grotesk');
+    final flatTitle = musicGlyphRise('♭', 'Space Grotesk');
+    expect(sharpTitle, closeTo(0.219, 0.001));
+    expect(flatTitle, closeTo(0.070, 0.001));
+    expect(sharpTitle, greaterThan(flatTitle));
+    expect(
+      musicGlyphRise('♯', null),
+      musicGlyphRise('♯', 'Atkinson Hyperlegible'),
+    );
+    expect(musicGlyphRise('♭', null), closeTo(0.054, 0.001));
+  });
+
+  testWidgets('corpo do MusicText resolve Atkinson pelo tema', (tester) async {
+    await tester.pumpWidget(const FretboardApp());
+    final body = find.byWidgetPredicate(
+      (widget) => widget is MusicText && widget.data == 'Notas: C♯ e D♭',
+    );
+    expect(body, findsOneWidget);
+    final effective = DefaultTextStyle.of(tester.element(body)).style
+        .merge(tester.widget<MusicText>(body).style);
+    expect(effective.fontFamily, 'Atkinson Hyperlegible');
+  });
 }
