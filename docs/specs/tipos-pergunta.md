@@ -1,7 +1,7 @@
 ---
 feature: F3
 area: pendente
-updated: 2026-11-11
+updated: 2026-11-16
 ---
 
 # F3 · Tipos de pergunta
@@ -33,7 +33,7 @@ Tema escuro · Pergunta "Que nota é essa?" · pág. 10
 **Estado e comportamento**
 
 - Um toque numa opção responde, sem confirmação, e a nota soa. "D♯" (certa) abre 09; as outras abrem 11.
-- "Dica" mostra uma frase de ajuda sem dar a resposta [a confirmar: visual da dica não desenhado].
+- "Dica" mostra texto curto de ajuda sem revelar a resposta; o visual da dica não foi desenhado.
 - Outros tipos de pergunta usam o mesmo layout trocando o texto e a interação: "Ache o A na corda G", "Ache o B na casa 12" e "Toque na corda B solta" respondem tocando no braço (ver 14).
 
 Tema claro · pág. 11: mesma tela em tema claro (`../assets/design/licao-treinar-claro.png`).
@@ -139,12 +139,12 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 | Find on string | "Find **A** on the **B** string" / "…on the **high E** string" | Tocar no traste; a corda-alvo fica destacada |
 | Find at fret | "Find **B** at the **12th fret**" | Tocar na corda certa daquele traste |
 | Open string | "Tap the open **B** string" | Círculos de corda solta aparecem depois da pestana |
-| Name the note | "What note is this?" + marcador **?** | Botões: 4 (PRACTICE) ou 7 (demais) |
+| Name the note | "What note is this?" + marcador **?** | Botões: 4 em PRACTICE; 7 para naturais ou 12 para lição com acidentes em YOUR TURN |
 
 **Feedback**
 - **Acerto**: card verde com título variado sem exclamação ("Certo", "Boa", "Isso aí", "Mandou bem") e "É um X" A nota fica verde, e uma linha sai da pestana até ela.
-- **Erro (tocou errado)**: "Not quite · You tapped G♯." A tocada aparece em vermelho e a correta em verde.
-- **Erro (tempo esgotado)**: "Not quite · It's A." (sem "You tapped")
+- **Erro (tocou errado)**: "Not quite · You tapped G♯." A tocada aparece em rosa/vermelho e a correta com contorno tracejado; o feedback informa a resposta correta.
+- **Erro (tempo esgotado)**: "Not quite · It's A." (sem "You tapped"); aplica-se a drills, fora do M2.
 - **Explicação do erro**, gerada a partir de 3 padrões:
   1. *Contagem a partir de uma âncora*: "Count up from G on fret 8: G → G♯ → A". Se não há nota entre as duas, avisa: "B and C have no note between them".
   2. *Oitava*: "It's the octave of A on the D string (fret 7): **two strings up, two frets higher**". Quando a oitava cruza a corda B, vira **três** trastes.
@@ -153,9 +153,19 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 
 > Os três padrões são computáveis no núcleo de teoria. Não precisa escrever explicação à mão para cada posição.
 
-## Critérios de aceite vigentes
+## Critérios de aceite de planejamento — M2
 
-Nenhum comportamento implementado confirmado.
+Os critérios abaixo descrevem o resultado planejado; não afirmam implementação vigente.
+
+- **AC-F3-01:** Find on string pede uma nota em uma corda destacada e aceita resposta por toque na célula do braço; a avaliação compara a posição tocada ao alvo.
+- **AC-F3-02:** Find at fret pede uma nota em uma casa indicada e aceita toque na corda correspondente; a avaliação compara a posição tocada ao alvo.
+- **AC-F3-03:** Open string pede uma corda solta e apresenta as posições de corda solta após a pestana; o toque é avaliado contra a corda solicitada.
+- **AC-F3-04:** Name the note apresenta um alvo marcado com "?" e aceita resposta por botão: quatro opções em Treinar; em Sua vez, sete naturais quando a lição usa apenas naturais e doze opções cromáticas quando usa acidentes.
+- **AC-F3-05:** Um toque responde sem confirmação. Em Treinar, Dica mostra texto curto de ajuda sem revelar a resposta; em Sua vez, não há Dica nem referências.
+- **AC-F3-06:** Acerto apresenta nota correta e marcador verde no braço; Treinar mostra explicação e Sua vez apresenta feedback curto. Continuar avança à próxima pergunta ou conclusão conforme a fila.
+- **AC-F3-07:** Erro apresenta a resposta tocada em rosa/vermelho, a posição correta tracejada no braço e texto que informa a resposta correta e sua explicação. Entendi avança, mantendo o alvo errado na fila conforme AC-F2-05.
+- **AC-F3-08:** No layout expandido, o braço e o painel de pergunta aparecem lado a lado; feedback substitui o conteúdo do painel. A célula inteira responde ao toque e, no desktop, hover destaca a célula.
+- **AC-F3-09:** Flutter tests verificam rótulos semânticos e ações das opções, células e controles de dica e feedback, em estados aplicáveis. Validação de acessibilidade na árvore do dispositivo não é exigida para M2.
 
 ## Pendências
 
