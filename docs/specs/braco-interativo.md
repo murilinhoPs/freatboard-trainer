@@ -47,7 +47,7 @@ Tema escuro · "Ache o C♯ na corda A" · pág. 18
 - Mensagem de ausência de nota intermediária só é usada quando âncora e alvo diferem por um semitom cromático; mesma classe de nota gera explicação explícita de notas iguais.
 - Contagem usa nomes de nota com sustenidos e indica quando duas notas adjacentes não têm nota entre elas.
 - Texto de oitava deriva a distância real entre cordas e casas da afinação configurada; texto de marcador distingue dot simples e duplo.
-- O braço exibe seis cordas com nomes de nota, seleciona célula inteira e informa corda, casa e nota. Janela mostra seis casas e percorre toda faixa 0–22 (começo 0–17), garantindo posições e contexto até casa 15. Canhoto espelha casas e pestana, mantendo ordem vertical das cordas. Hover realça célula em desktop; seleção não depende de som.
+- O braço exibe seis cordas com nomes de nota calculados na afinação padrão E–A–D–G–B–E, seleciona célula inteira e informa corda, casa e nota. Janela mostra seis casas e percorre toda faixa 0–22 (começo 0–17), garantindo posições e contexto até casa 15; números das casas permanecem visíveis em compacto e landscape. Canhoto espelha casas e pestana, mantendo ordem vertical das cordas, e anuncia seu estado por acessibilidade. Hover realça célula em desktop; seleção não depende de som.
 
 ## 1. Navegação
 

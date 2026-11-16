@@ -1,9 +1,51 @@
+import 'dart:ui' show Tristate;
+
+import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fretboard_trainer/design/app_tokens.dart';
 import 'package:fretboard_trainer/spike_board.dart';
 import 'package:material_ui/material_ui.dart';
 
 void main() {
+  testWidgets('uses standard tuning and labels the handedness switch', (
+    tester,
+  ) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: spikeTheme(Brightness.dark)
+            .copyWith(splashFactory: InkRipple.splashFactory),
+        home: const SpikeBoardPage(),
+      ),
+    );
+    await tester.tap(find.byKey(const ValueKey('cell-4-2')));
+    await tester.pump();
+    expect(find.text('Corda A · casa 2 · B'), findsOneWidget);
+    expect(find.text('Canhoto'), findsOneWidget);
+    final switchFinder = find.bySemanticsLabel('Canhoto');
+    expect(switchFinder, findsWidgets);
+    final accessibleSwitch = switchFinder.last;
+    final initialData = tester.getSemantics(accessibleSwitch).getSemanticsData();
+    expect(initialData.hasAction(SemanticsAction.tap), isTrue);
+    expect(initialData.flagsCollection.isToggled, Tristate.isFalse);
+    await tester.tap(accessibleSwitch);
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .getSemantics(accessibleSwitch)
+          .getSemanticsData()
+          .flagsCollection
+          .isToggled,
+      Tristate.isTrue,
+    );
+    await tester.tap(find.byKey(const ValueKey('cell-4-0')));
+    await tester.pump();
+    expect(find.text('Corda A · casa 0 · A'), findsOneWidget);
+  });
+
   testWidgets('voltar em paisagem retorna à tela anterior', (tester) async {
     tester.view.devicePixelRatio = 1;
     tester.view.physicalSize = const Size(844, 390);

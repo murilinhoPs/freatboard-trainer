@@ -14,6 +14,7 @@ class SpikeBoardPage extends StatefulWidget {
 }
 
 class _SpikeBoardPageState extends State<SpikeBoardPage> {
+  // fretboard_core indexes strings from low to high; the UI draws high to low.
   static const _strings = ['e', 'B', 'G', 'D', 'A', 'E'];
   static const _names = [
     'C',
@@ -36,7 +37,10 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
   (int, int)? _hovered;
 
   String _note(int string, int fret) {
-    final pitch = noteAt(standardGuitar, Position(string: string, fret: fret));
+    final pitch = noteAt(
+      standardGuitar,
+      Position(string: _strings.length - string - 1, fret: fret),
+    );
     return _names[PitchClass.values.indexOf(pitch)];
   }
 
@@ -83,10 +87,25 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
                     icon: const Icon(Icons.chevron_right),
                     tooltip: 'Próxima janela',
                   ),
-                  const Text('Canhoto'),
-                  Switch(
-                    value: _leftHanded,
-                    onChanged: (value) => setState(() => _leftHanded = value),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Canhoto'),
+                      const SizedBox(width: 4),
+                      Semantics(
+                        label: 'Canhoto',
+                        enabled: true,
+                        toggled: _leftHanded,
+                        onTap: () => setState(() => _leftHanded = !_leftHanded),
+                        child: ExcludeSemantics(
+                          child: Switch(
+                            value: _leftHanded,
+                            onChanged: (value) =>
+                                setState(() => _leftHanded = value),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -97,7 +116,7 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
                 key: const ValueKey('selection'),
                 style: TextStyle(color: tokens.color('text')),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: landscape ? 4 : 12),
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
@@ -134,7 +153,7 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
                                 for (final fret in displayed)
                                   SizedBox(
                                     width: cellWidth,
-                                    height: 24,
+                                    height: landscape ? 24 : 32,
                                     child: Center(
                                       child: Text(
                                         '$fret',
