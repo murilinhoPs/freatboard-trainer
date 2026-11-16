@@ -1,6 +1,8 @@
 /// Pure Dart music theory primitives for the standard guitar fretboard.
 library;
 
+export 'src/notes_curriculum.dart';
+
 /// Chromatic pitch class, ordered by semitone from C.
 enum PitchClass { c, cs, d, ds, e, f, fs, g, gs, a, as_, b }
 

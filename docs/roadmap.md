@@ -100,7 +100,7 @@ sempre a próxima. Linhas são criadas por `./scripts/new-issue.sh` e o status m
 
 | Ordem | Issue | Título | Status | Spec | PR |
 |---|---|---|---|---|---|
-| 9 | #22 | [feat] Definir currículo Notes 0–12 | todo | specs/licoes-notes.md | |
+| 9 | #22 | [feat] Definir currículo Notes 0–12 | done | specs/licoes-notes.md | #31 |
 | 10 | #23 | [feat] Implementar fluxo e fila de erros da lição | todo | specs/licoes-notes.md | |
 | 11 | #24 | [feat] Gerar e avaliar quatro tipos de pergunta | todo | specs/tipos-pergunta.md | |
 | 12 | #25 | [feat] Exibir etapa Aprender e confirmação de saída | todo | specs/licoes-notes.md | |
