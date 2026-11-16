@@ -97,6 +97,31 @@ Em todas as telas: barra de progresso no topo e **X** para sair ✅
 - "**Next up:** D, E and F on the G string".
 - Botões: **Done**. Nos drills também aparece **Again**, que repete o mesmo drill.
 
+## Currículo Notes 0–12 (afinação padrão)
+
+18 lições em ordem sequencial, cobrindo as 6 cordas (0 = E grave até 5 = e aguda) e todas as 78 posições das casas 0–12 (naturais e sustenidos, 13 posições por corda):
+
+| Ordem | ID | Corda | Tipo | Notas e casas |
+|---|---|---|---|---|
+| 1 | `notes-e-low-nat-1` | 0 (E grave) | Naturais | E (0), F (1), G (3), A (5) |
+| 2 | `notes-e-low-nat-2` | 0 (E grave) | Naturais | B (7), C (8), D (10), E (12) |
+| 3 | `notes-e-low-sharp` | 0 (E grave) | Sustenidos | F♯ (2), G♯ (4), A♯ (6), C♯ (9), D♯ (11) |
+| 4 | `notes-a-nat-1` | 1 (A) | Naturais | A (0), B (2), C (3), D (5) |
+| 5 | `notes-a-nat-2` | 1 (A) | Naturais | E (7), F (8), G (10), A (12) |
+| 6 | `notes-a-sharp` | 1 (A) | Sustenidos | A♯ (1), C♯ (4), D♯ (6), F♯ (9), G♯ (11) |
+| 7 | `notes-d-nat-1` | 2 (D) | Naturais | D (0), E (2), F (3), G (5) |
+| 8 | `notes-d-nat-2` | 2 (D) | Naturais | A (7), B (9), C (10), D (12) |
+| 9 | `notes-d-sharp` | 2 (D) | Sustenidos | D♯ (1), F♯ (4), G♯ (6), A♯ (8), C♯ (11) |
+| 10 | `notes-g-nat-1` | 3 (G) | Naturais | G (0), A (2), B (4), C (5) |
+| 11 | `notes-g-nat-2` | 3 (G) | Naturais | D (7), E (9), F (10), G (12) |
+| 12 | `notes-g-sharp` | 3 (G) | Sustenidos | G♯ (1), A♯ (3), C♯ (6), D♯ (8), F♯ (11) |
+| 13 | `notes-b-nat-1` | 4 (B) | Naturais | B (0), C (1), D (3), E (5) |
+| 14 | `notes-b-nat-2` | 4 (B) | Naturais | F (6), G (8), A (10), B (12) |
+| 15 | `notes-b-sharp` | 4 (B) | Sustenidos | C♯ (2), D♯ (4), F♯ (7), G♯ (9), A♯ (11) |
+| 16 | `notes-e-high-nat-1` | 5 (e aguda) | Naturais | E (0), F (1), G (3), A (5) |
+| 17 | `notes-e-high-nat-2` | 5 (e aguda) | Naturais | B (7), C (8), D (10), E (12) |
+| 18 | `notes-e-high-sharp` | 5 (e aguda) | Sustenidos | F♯ (2), G♯ (4), A♯ (6), C♯ (9), D♯ (11) |
+
 ## Critérios de aceite de planejamento — M2
 
 Os critérios abaixo descrevem o resultado planejado; não afirmam implementação vigente.
