@@ -26,21 +26,22 @@ void main() {
     expect(find.text('Corda A · casa 2 · B'), findsOneWidget);
     expect(find.text('Canhoto'), findsOneWidget);
     final switchFinder = find.bySemanticsLabel('Canhoto');
-    expect(switchFinder, findsWidgets);
-    final accessibleSwitch = switchFinder.last;
-    final initialData = tester.getSemantics(accessibleSwitch).getSemanticsData();
+    expect(switchFinder, findsOneWidget);
+    final accessibleSwitch = switchFinder;
+    final initialData = tester
+        .getSemantics(accessibleSwitch)
+        .getSemanticsData();
     expect(initialData.hasAction(SemanticsAction.tap), isTrue);
+    expect(initialData.flagsCollection.isEnabled, Tristate.isTrue);
     expect(initialData.flagsCollection.isToggled, Tristate.isFalse);
-    await tester.tap(accessibleSwitch);
+    await tester.tap(find.byType(Switch));
     await tester.pumpAndSettle();
-    expect(
-      tester
-          .getSemantics(accessibleSwitch)
-          .getSemanticsData()
-          .flagsCollection
-          .isToggled,
-      Tristate.isTrue,
-    );
+    final toggledData = tester
+        .getSemantics(accessibleSwitch)
+        .getSemanticsData();
+    expect(toggledData.hasAction(SemanticsAction.tap), isTrue);
+    expect(toggledData.flagsCollection.isEnabled, Tristate.isTrue);
+    expect(toggledData.flagsCollection.isToggled, Tristate.isTrue);
     await tester.tap(find.byKey(const ValueKey('cell-4-0')));
     await tester.pump();
     expect(find.text('Corda A · casa 0 · A'), findsOneWidget);

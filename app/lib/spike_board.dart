@@ -87,25 +87,19 @@ class _SpikeBoardPageState extends State<SpikeBoardPage> {
                     icon: const Icon(Icons.chevron_right),
                     tooltip: 'Próxima janela',
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text('Canhoto'),
-                      const SizedBox(width: 4),
-                      Semantics(
-                        label: 'Canhoto',
-                        enabled: true,
-                        toggled: _leftHanded,
-                        onTap: () => setState(() => _leftHanded = !_leftHanded),
-                        child: ExcludeSemantics(
-                          child: Switch(
-                            value: _leftHanded,
-                            onChanged: (value) =>
-                                setState(() => _leftHanded = value),
-                          ),
+                  MergeSemantics(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text('Canhoto'),
+                        const SizedBox(width: 4),
+                        Switch(
+                          value: _leftHanded,
+                          onChanged: (value) =>
+                              setState(() => _leftHanded = value),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
