@@ -180,7 +180,7 @@ final List<Lesson> notesCurriculum = List.unmodifiable([
       LearnStep(
         title: 'B e C juntos nas casas 7 e 8',
         description:
-            'Dois semitons não têm casa no meio: B fica na casa 7 e C logo ao lado, na casa 8.',
+            'Entre B e C há apenas um semitom (sem casa no meio): B fica na casa 7 e C logo ao lado, na casa 8.',
         highlightedPositions: const [
           Position(string: 0, fret: 7),
           Position(string: 0, fret: 8),
@@ -418,9 +418,9 @@ final List<Lesson> notesCurriculum = List.unmodifiable([
     hint: 'E (2) e F (3) ficam juntos; G fica na casa 5.',
     steps: [
       LearnStep(
-        title: 'Oitava e contagem a partir de D',
+        title: 'Uníssono e contagem a partir de D',
         description:
-            'D solta (0) é a oitava da casa 5 da corda A. Suba um tom para E (2) e 1 casa para F (3).',
+            'D solta (0) é a mesma nota (mesma oitava) da casa 5 da corda A. Suba um tom para E (2) e 1 casa para F (3).',
         highlightedPositions: const [
           Position(string: 2, fret: 0),
           Position(string: 2, fret: 2),

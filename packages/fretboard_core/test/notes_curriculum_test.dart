@@ -134,5 +134,22 @@ void main() {
       expect(findNotesLessonById('unknown-lesson'), isNull);
       expect(() => notesCurriculum.removeLast(), throwsUnsupportedError);
     });
+
+    test('uses accurate theory phrasing for B-C semitone and D unison reference', () {
+      final eLowNat2 = findNotesLessonById('notes-e-low-nat-2')!;
+      expect(eLowNat2.steps.first.description, contains('um semitom'));
+      expect(
+        eLowNat2.steps.first.description.toLowerCase(),
+        isNot(contains('dois semitons')),
+      );
+
+      final dNat1 = findNotesLessonById('notes-d-nat-1')!;
+      expect(dNat1.steps.first.description, contains('mesma nota'));
+      expect(dNat1.steps.first.description, contains('mesma oitava'));
+      expect(
+        dNat1.steps.first.description.toLowerCase(),
+        isNot(contains('é a oitava')),
+      );
+    });
   });
 }
