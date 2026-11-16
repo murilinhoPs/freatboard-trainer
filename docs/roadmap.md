@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-11
+updated: 2026-11-16
 ---
 
 # Roadmap
@@ -95,3 +95,16 @@ sempre a próxima. Linhas são criadas por `./scripts/new-issue.sh` e o status m
 | 6 | #15 | [feat] Gerar explicações de teoria para respostas | done | specs/braco-interativo.md | #19 |
 | 7 | #16 | [feat] Implementar braço interativo definitivo | done | specs/braco-interativo.md | #20 |
 | 8 | #11 | [chore] Ajustar alinhamento vertical de ♯ e ♭ | done | specs/braco-interativo.md | #21 |
+
+### M2 — Motor de lição
+
+| Ordem | Issue | Título | Status | Spec | PR |
+|---|---|---|---|---|---|
+| 9 | #22 | [feat] Definir currículo Notes 0–12 | todo | specs/licoes-notes.md | |
+| 10 | #23 | [feat] Implementar fluxo e fila de erros da lição | todo | specs/licoes-notes.md | |
+| 11 | #24 | [feat] Gerar e avaliar quatro tipos de pergunta | todo | specs/tipos-pergunta.md | |
+| 12 | #25 | [feat] Exibir etapa Aprender e confirmação de saída | todo | specs/licoes-notes.md | |
+| 13 | #26 | [feat] Exibir perguntas, referências e dica | todo | specs/licoes-notes.md | |
+| 14 | #27 | [feat] Exibir feedback de acerto e erro | todo | specs/tipos-pergunta.md | |
+| 15 | #28 | [feat] Exibir conclusão da lição e estrelas | todo | specs/licoes-notes.md | |
+| 16 | #29 | [feat] Integrar fluxo da lição no layout expandido | todo | specs/tipos-pergunta.md | |
