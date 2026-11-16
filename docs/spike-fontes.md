@@ -6,7 +6,7 @@ Avaliação em macOS via CoreText: Space Grotesk e Atkinson não possuem U+266F 
 
 Origem: [Google Fonts](https://github.com/google/fonts), diretórios `ofl/spacegrotesk`, `ofl/atkinsonhyperlegible` e `ofl/notomusic`. Arquivos e licenças estão em `app/assets/fonts/`.
 
-No spike, `MusicText` eleva os glifos musicais em 16% do tamanho da fonte para aproximar suas linhas de base das letras. O texto completo é preservado para acessibilidade. O ajuste visual foi avaliado no simulador iOS; confirmar no Linux.
+**Superado pela #11:** o spike inicial elevava ♯ e ♭ em 16% do tamanho da fonte; esse ajuste único foi substituído pelo ajuste por glifo e por família efetiva (o corpo herda Atkinson do tema) descrito em "Alinhamento vertical de ♯ e ♭ (#11)". O texto completo é preservado para acessibilidade. O ajuste visual foi avaliado no simulador iOS; confirmar no Linux.
 
 ## Alinhamento vertical de ♯ e ♭ (#11)
 

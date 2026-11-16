@@ -177,6 +177,8 @@ class MusicText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Família e tamanho efetivos: o corpo herda Atkinson do tema.
+    final effective = DefaultTextStyle.of(context).style.merge(style);
     final spans = <InlineSpan>[];
     final symbols = RegExp('[♯♭]');
     var start = 0;
@@ -191,8 +193,8 @@ class MusicText extends StatelessWidget {
           child: Transform.translate(
             offset: Offset(
               0,
-              -(style.fontSize ?? 14) *
-                  musicGlyphRise(match.group(0)!, style.fontFamily),
+              -(effective.fontSize ?? 14) *
+                  musicGlyphRise(match.group(0)!, effective.fontFamily),
             ),
             child: Text(
               match.group(0)!,
