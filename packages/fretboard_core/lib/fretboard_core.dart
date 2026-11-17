@@ -1,6 +1,7 @@
 /// Pure Dart music theory primitives for the standard guitar fretboard.
 library;
 
+export 'src/lesson_session.dart';
 export 'src/notes_curriculum.dart';
 
 /// Chromatic pitch class, ordered by semitone from C.
