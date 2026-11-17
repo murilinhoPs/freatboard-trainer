@@ -287,16 +287,25 @@ QuestionEvaluation evaluatePositionAnswer(
     );
   }
   final inst = instrument ?? standardGuitar;
-  // Validate tapped position is within instrument bounds.
-  noteAt(inst, tapped);
+  final tappedNote = noteAt(inst, tapped);
 
-  final isCorrect = tapped == question.target;
+  final isCorrect = switch (question) {
+    FindOnString(:final string, :final note) =>
+      tapped.string == string && tappedNote == note,
+    FindAtFret(:final fret, :final note) =>
+      tapped.fret == fret && tappedNote == note,
+    OpenString(:final string) =>
+      tapped.string == string && tapped.fret == 0,
+    NameNote() => throw StateError('Unreachable'),
+  };
+
+  final explainedPosition = isCorrect ? tapped : question.target;
   return QuestionEvaluation(
     isCorrect: isCorrect,
     target: question.target,
     targetNote: question.targetNote,
     tappedPosition: tapped,
-    explanation: explainPosition(inst, question.target, anchor: anchor),
+    explanation: explainPosition(inst, explainedPosition, anchor: anchor),
   );
 }
 
@@ -325,8 +334,14 @@ QuestionEvaluation evaluateNoteAnswer(
   );
 }
 
-int _deterministicSeed(int seed, Position target, LessonPhase phase) =>
-    Object.hash(seed, target.string, target.fret, phase.index) & 0x7fffffff;
+int _deterministicSeed(int seed, Position target, LessonPhase phase) {
+  var hash = 0x811c9dc5;
+  for (final value in [seed, target.string, target.fret, phase.index]) {
+    hash ^= value & 0xffffffff;
+    hash = (hash * 0x01000193) & 0xffffffff;
+  }
+  return hash & 0x7fffffff;
+}
 
 List<PitchClass> _buildNameNoteOptions({
   required PitchClass correctNote,

@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:fretboard_core/fretboard_core.dart';
 import 'package:test/test.dart';
 
@@ -47,6 +49,30 @@ void main() {
         const Position(string: 1, fret: 0),
       );
       expect(wrongString.isCorrect, isFalse);
+
+      // Octave repetition on the same string (fret 0 and fret 12) satisfies the prompt.
+      final octaveQuestion =
+          generateQuestionForTarget(
+                target: const Position(string: 0, fret: 0),
+                phase: LessonPhase.practice,
+                includesAccidentals: false,
+                kind: QuestionKind.findOnString,
+              )
+              as FindOnString;
+      expect(
+        evaluatePositionAnswer(
+          octaveQuestion,
+          const Position(string: 0, fret: 12),
+        ).isCorrect,
+        isTrue,
+      );
+      expect(
+        evaluatePositionAnswer(
+          octaveQuestion,
+          const Position(string: 5, fret: 0),
+        ).isCorrect,
+        isFalse,
+      );
     });
 
     test('FindAtFret targets note at fret and evaluates tapped position', () {
@@ -66,11 +92,19 @@ void main() {
       expect(question.isBoardTapQuestion, isTrue);
 
       expect(evaluatePositionAnswer(question, target).isCorrect, isTrue);
-      // Same pitch class B on high e at fret 7 is a different target position.
+      // Same pitch class B on high e at fret 7 also satisfies "B at the 7th fret".
       expect(
         evaluatePositionAnswer(
           question,
           const Position(string: 5, fret: 7),
+        ).isCorrect,
+        isTrue,
+      );
+      // Different note at fret 7 (E on A string) is wrong.
+      expect(
+        evaluatePositionAnswer(
+          question,
+          const Position(string: 1, fret: 7),
         ).isCorrect,
         isFalse,
       );
@@ -206,7 +240,7 @@ void main() {
       );
     });
 
-    test('generates deterministic questions across targets and phases', () {
+    test('generates deterministic questions across targets, phases, and isolates', () async {
       final naturalLesson = findNotesLessonById('notes-g-nat-1')!;
       final sharpLesson = findNotesLessonById('notes-a-sharp')!;
 
@@ -222,6 +256,33 @@ void main() {
       );
       expect(run1, run2);
       expect(run1, hasLength(naturalLesson.targets.length));
+
+      final isolateRun = await Isolate.run(
+        () => generateLessonPhaseQuestions(
+          lesson: findNotesLessonById('notes-g-nat-1')!,
+          phase: LessonPhase.practice,
+          seed: 7,
+        ),
+      );
+      expect(isolateRun, run1);
+
+      final practiceNameMain = generateQuestionForTarget(
+        target: const Position(string: 1, fret: 3),
+        phase: LessonPhase.practice,
+        includesAccidentals: false,
+        kind: QuestionKind.nameNote,
+        seed: 42,
+      );
+      final practiceNameIsolate = await Isolate.run(
+        () => generateQuestionForTarget(
+          target: const Position(string: 1, fret: 3),
+          phase: LessonPhase.practice,
+          includesAccidentals: false,
+          kind: QuestionKind.nameNote,
+          seed: 42,
+        ),
+      );
+      expect(practiceNameIsolate, practiceNameMain);
 
       final sharpRun = generateLessonPhaseQuestions(
         lesson: sharpLesson,
