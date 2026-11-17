@@ -3,6 +3,7 @@ library;
 
 export 'src/lesson_session.dart';
 export 'src/notes_curriculum.dart';
+export 'src/questions.dart';
 
 /// Chromatic pitch class, ordered by semitone from C.
 enum PitchClass { c, cs, d, ds, e, f, fs, g, gs, a, as_, b }
