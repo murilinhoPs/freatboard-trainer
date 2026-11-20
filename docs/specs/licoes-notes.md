@@ -36,9 +36,9 @@ Tema escuro · Explicação 1 de 2 · pág. 9
 - O passo vem da lição: rótulo "Aprender · n de N", título, texto e posições. A imagem acima é a referência visual, não um texto fixo.
 - Notas da lição são círculos preenchidos (`accent`); referências são círculos só com contorno. A janela mostra 6 casas cobrindo essas posições.
 - A barra do topo mostra o passo atual sobre o total de passos de Aprender (1 de 2 preenche metade).
-- "Ouvir" toca as notas destacadas, em ordem. Se o áudio falhar, a lição continua.
+- "Ouvir" toca as notas destacadas, em ordem. Um novo Ouvir, Continuar ou Sair interrompe a sequência que ainda estiver tocando. Se o áudio falhar, a lição continua.
 - "Continuar" avança para o próximo passo. No último, a fase passa a Treinar: a tela deixa de mostrar o passo e passa a indicar Treinar. As perguntas ficam fora desta tela.
-- "✕" abre "Sair da sessão?" com "Esta rodada não será salva." Cancelar volta ao mesmo passo. Sair fecha a rodada sem salvar e sem concluí-la.
+- "✕" e o voltar do sistema abrem "Sair da sessão?" com "Esta rodada não será salva." Cancelar volta ao mesmo passo. Sair fecha a rodada sem salvar e sem concluí-la.
 
 ## 12 · Fim da lição
 
@@ -67,7 +67,7 @@ Tema escuro · 2 de 3 estrelas · pág. 16
 | Estado | Quando acontece | O que o usuário vê |
 |---|---|---|
 | Aprender | A sessão está na fase Aprender | Passo n de N, notas no braço, Ouvir e Continuar |
-| Confirmação de saída | Toque em ✕ durante a lição | "Sair da sessão?" e "Esta rodada não será salva.", com Cancelar e Sair |
+| Confirmação de saída | Toque em ✕ ou voltar do sistema | "Sair da sessão?" e "Esta rodada não será salva.", com Cancelar e Sair |
 | Treinar iniciado | Continuar no último passo de Aprender | O passo some e a fase Treinar começa, ainda sem as perguntas |
 | Rodada abandonada | Sair na confirmação | A lição fecha no mesmo passo, sem concluir e sem salvar |
 
@@ -75,9 +75,9 @@ Tema escuro · 2 de 3 estrelas · pág. 16
 
 | Ação | Resultado |
 |---|---|
-| Ouvir | Reproduz, em ordem, as notas destacadas do passo atual |
-| Continuar | Avança o passo ou, no último, inicia Treinar |
-| ✕ | Abre a confirmação de saída |
+| Ouvir | Reproduz, em ordem, as notas do passo e interrompe a sequência anterior |
+| Continuar | Interrompe o som e avança o passo ou, no último, inicia Treinar |
+| ✕ ou voltar do sistema | Abre a confirmação de saída |
 | Cancelar | Fecha a confirmação e retoma o mesmo passo |
 | Sair | Abandona a rodada sem salvar |
 

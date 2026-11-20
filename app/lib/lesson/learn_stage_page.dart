@@ -31,18 +31,30 @@ class LearnStagePage extends StatefulWidget {
 }
 
 class _LearnStagePageState extends State<LearnStagePage> {
+  bool _confirming = false;
+
+  @override
+  void dispose() {
+    widget.player.stop();
+    super.dispose();
+  }
+
   void _listen() {
     final step = widget.session.currentLearnStep;
     if (step == null) return;
+    widget.player.stop();
     widget.player.play(step.highlightedPositions);
   }
 
   void _continue() {
+    widget.player.stop();
     widget.session.advanceLearn();
     setState(() {});
   }
 
   Future<void> _confirmExit() async {
+    if (_confirming || !mounted) return;
+    _confirming = true;
     final tokens = Theme.of(context).extension<AppTokens>()!;
     final leave = await showDialog<bool>(
       context: context,
@@ -72,19 +84,30 @@ class _LearnStagePageState extends State<LearnStagePage> {
         );
       },
     );
-    if (leave == true && mounted) widget.onAbandoned();
+    _confirming = false;
+    if (leave == true && mounted) {
+      widget.player.stop();
+      widget.onAbandoned();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final tokens = Theme.of(context).extension<AppTokens>()!;
     final session = widget.session;
-    return Scaffold(
-      backgroundColor: tokens.color('bg'),
-      body: SafeArea(
-        child: session.phase == LessonPhase.learn
-            ? _learn(tokens, session)
-            : _trainHandoff(tokens),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        _confirmExit();
+      },
+      child: Scaffold(
+        backgroundColor: tokens.color('bg'),
+        body: SafeArea(
+          child: session.phase == LessonPhase.learn
+              ? _learn(tokens, session)
+              : _trainHandoff(tokens),
+        ),
       ),
     );
   }

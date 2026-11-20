@@ -1,5 +1,6 @@
 import 'dart:ui' show Tristate;
 
+import 'package:flutter/services.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fretboard_core/fretboard_core.dart';
@@ -150,6 +151,89 @@ void main() {
     semantics.dispose();
   });
 
+  testWidgets('voltar do sistema pede a mesma confirmação', (tester) async {
+    final semantics = tester.ensureSemantics();
+    var abandoned = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: spikeTheme(Brightness.dark),
+        home: Builder(
+          builder: (context) => TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => LearnStagePage(
+                    session: session,
+                    player: player,
+                    onAbandoned: () {
+                      abandoned = true;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              );
+            },
+            child: const Text('abrir'),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('abrir'));
+    await tester.pumpAndSettle();
+
+    await _systemBack();
+    await tester.pumpAndSettle();
+    expect(find.text('Sair da sessão?'), findsOneWidget);
+    expect(find.text('Aprender · 1 de 2'), findsOneWidget);
+    expect(abandoned, isFalse);
+
+    await tester.tap(find.text('Cancelar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Sair da sessão?'), findsNothing);
+    expect(find.text('Aprender · 1 de 2'), findsOneWidget);
+    expect(find.text('abrir'), findsNothing);
+    expect(abandoned, isFalse);
+
+    await _systemBack();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sair'));
+    await tester.pumpAndSettle();
+    expect(abandoned, isTrue);
+    expect(find.text('abrir'), findsOneWidget);
+    expect(find.text('Aprender · 1 de 2'), findsNothing);
+    expect(session.isCompleted, isFalse);
+    semantics.dispose();
+  });
+
+  testWidgets('Ouvir de novo, Continuar e Sair interrompem a sequência', (
+    tester,
+  ) async {
+    final semantics = tester.ensureSemantics();
+    await _pump(tester, session, player);
+    await tester.tap(find.text('Ouvir'));
+    await tester.pump();
+    expect(player.stops, 1);
+    expect(player.plays, hasLength(1));
+
+    await tester.tap(find.text('Ouvir'));
+    await tester.pump();
+    expect(player.stops, 2);
+    expect(player.plays, hasLength(2));
+
+    await tester.tap(find.text('Continuar'));
+    await tester.pump();
+    expect(player.stops, 3);
+    expect(find.text('Aprender · 2 de 2'), findsOneWidget);
+
+    await tester.tap(find.bySemanticsLabel('Sair da lição'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sair'));
+    await tester.pumpAndSettle();
+    expect(player.stops, greaterThanOrEqualTo(4));
+    expect(player.plays, hasLength(2));
+    semantics.dispose();
+  });
+
   for (final (size, layout) in [
     (const Size(390, 844), 'compacto'),
     (const Size(844, 390), 'expandido'),
@@ -215,9 +299,24 @@ class _HostState extends State<_Host> {
 
 final class _RecordingPlayer implements NoteSequencePlayer {
   final plays = <List<Position>>[];
+  int stops = 0;
+
+  @override
+  void stop() => stops++;
 
   @override
   Future<void> play(List<Position> positions) async {
     plays.add(List<Position>.of(positions));
   }
+}
+
+Future<void> _systemBack() {
+  return TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .handlePlatformMessage(
+        'flutter/navigation',
+        const JSONMessageCodec().encodeMessage(<String, dynamic>{
+          'method': 'popRoute',
+        }),
+        (ByteData? _) {},
+      );
 }
