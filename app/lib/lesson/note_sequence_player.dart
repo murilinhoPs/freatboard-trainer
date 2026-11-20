@@ -120,7 +120,11 @@ final class SoloudNoteSequencePlayer implements NoteSequencePlayer {
 
   @override
   Future<void> play(List<Position> positions) async {
+    // Claim the generation before the first await. stop() during the cut
+    // must invalidate this run; a later start() would look current again.
+    final generation = _gate.start();
     await _cut();
+    if (!_gate.isCurrent(generation)) return;
     try {
       await playNoteSequence(_gate, positions, (position, still) async {
         await _cut();

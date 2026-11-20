@@ -103,6 +103,28 @@ void main() {
     expect(backend.stopped, [0]);
     expect(backend.started, 1);
   });
+
+  test('stop durante o corte pendente não inicia a sequência', () async {
+    final backend = _PendingStopBackend();
+    final player = SoloudNoteSequencePlayer(
+      backend: backend,
+      gap: Duration.zero,
+    );
+
+    await player.play(const [first]);
+    expect(backend.started, 1);
+
+    final next = player.play(const [second]);
+    await pumpEventQueue();
+    expect(backend.pendingStops, 1);
+    expect(backend.started, 1);
+
+    player.stop();
+    backend.releaseStops();
+    await next;
+
+    expect(backend.started, 1);
+  });
 }
 
 final class _HoldingBackend implements NoteVoiceBackend {
@@ -123,6 +145,31 @@ final class _HoldingBackend implements NoteVoiceBackend {
       final id = voice as int;
       active.remove(id);
       stopped.add(id);
+    }
+  }
+}
+
+final class _PendingStopBackend implements NoteVoiceBackend {
+  final _stops = <Completer<void>>[];
+  int started = 0;
+
+  int get pendingStops => _stops.where((stop) => !stop.isCompleted).length;
+
+  @override
+  Future<Object> start(Position position) async {
+    return started++;
+  }
+
+  @override
+  Future<void> stop(Iterable<Object> voices) {
+    final done = Completer<void>();
+    _stops.add(done);
+    return done.future;
+  }
+
+  void releaseStops() {
+    for (final stop in _stops) {
+      if (!stop.isCompleted) stop.complete();
     }
   }
 }
