@@ -1,14 +1,14 @@
 ---
 feature: F2
 area: pendente
-updated: 2026-11-16
+updated: 2026-11-20
 ---
 
 # F2 · Lições de Notes
 
 ## Resumo
 
-> Pendente: confirmar comportamento vigente; material descreve produto proposto.
+Uma lição de Notes percorre Aprender, Treinar e Sua vez no núcleo, com o currículo das casas 0–12. A etapa Aprender mostra o passo atual: notas da lição e de referência no braço, texto com notas e casas marcadas, Ouvir e Continuar. Sair pede confirmação e abandona a rodada sem salvar. As telas de pergunta, feedback e conclusão ainda não existem.
 
 ## Rotas/Telas
 
@@ -33,9 +33,12 @@ Tema escuro · Explicação 1 de 2 · pág. 9
 
 **Estado e comportamento**
 
-- "Ouvir" toca as notas destacadas em sequência.
-- "Continuar" vai para a explicação 2 de 2 e depois para 08.
-- "✕" pede confirmação para sair; Cancelar retoma a lição e Sair a abandona sem salvar.
+- O passo vem da lição: rótulo "Aprender · n de N", título, texto e posições. A imagem acima é a referência visual, não um texto fixo.
+- Notas da lição são círculos preenchidos (`accent`); referências são círculos só com contorno. A janela mostra 6 casas cobrindo essas posições.
+- A barra do topo mostra o passo atual sobre o total de passos de Aprender (1 de 2 preenche metade).
+- "Ouvir" toca as notas destacadas, em ordem. Se o áudio falhar, a lição continua.
+- "Continuar" avança para o próximo passo. No último, a fase passa a Treinar: a tela deixa de mostrar o passo e passa a indicar Treinar. As perguntas ficam fora desta tela.
+- "✕" abre "Sair da sessão?" com "Esta rodada não será salva." Cancelar volta ao mesmo passo. Sair fecha a rodada sem salvar e sem concluí-la.
 
 ## 12 · Fim da lição
 
@@ -59,7 +62,24 @@ Tema escuro · 2 de 3 estrelas · pág. 16
 - Estrelas: 3 com 95% ou mais de acerto de primeira, 2 com 80% ou mais, 1 abaixo disso.
 - No M2, "Continuar" volta à lista ou seletor de lições; integração com a sessão diária fica para M4.
 
-## Estados e ações
+## Estados
+
+| Estado | Quando acontece | O que o usuário vê |
+|---|---|---|
+| Aprender | A sessão está na fase Aprender | Passo n de N, notas no braço, Ouvir e Continuar |
+| Confirmação de saída | Toque em ✕ durante a lição | "Sair da sessão?" e "Esta rodada não será salva.", com Cancelar e Sair |
+| Treinar iniciado | Continuar no último passo de Aprender | O passo some e a fase Treinar começa, ainda sem as perguntas |
+| Rodada abandonada | Sair na confirmação | A lição fecha no mesmo passo, sem concluir e sem salvar |
+
+## Ações
+
+| Ação | Resultado |
+|---|---|
+| Ouvir | Reproduz, em ordem, as notas destacadas do passo atual |
+| Continuar | Avança o passo ou, no último, inicia Treinar |
+| ✕ | Abre a confirmação de saída |
+| Cancelar | Fecha a confirmação e retoma o mesmo passo |
+| Sair | Abandona a rodada sem salvar |
 
 ## 3. Fluxo de uma lição
 
@@ -122,20 +142,23 @@ Em todas as telas: barra de progresso no topo e **X** para sair ✅
 | 17 | `notes-e-high-nat-2` | 5 (e aguda) | Naturais | B (7), C (8), D (10), E (12) |
 | 18 | `notes-e-high-sharp` | 5 (e aguda) | Sustenidos | F♯ (2), G♯ (4), A♯ (6), C♯ (9), D♯ (11) |
 
+## Critérios de aceite vigentes
+
+- **AC-F2-03:** Aprender apresenta os passos da lição e notas destacadas; Continuar avança entre passos e depois para Treinar; Ouvir reproduz as notas destacadas em sequência.
+- **AC-F2-09:** O comando de saída durante a lição abre confirmação com Cancelar e Sair; Cancelar retorna à lição e Sair abandona a rodada sem salvar.
+- **AC-F2-10:** Flutter tests verificam rótulos semânticos e ações dos controles de lição, incluindo saída e confirmação. Validação de acessibilidade na árvore do dispositivo não é exigida para M2.
+
 ## Critérios de aceite de planejamento — M2
 
-Os critérios abaixo descrevem o resultado planejado; não afirmam implementação vigente.
+AC-F2-03, AC-F2-09 e AC-F2-10 estão na seção vigente. Os demais seguem como planejamento.
 
 - **AC-F2-01:** O currículo de Notes abrange as casas 0–12, corda por corda, com notas naturais e sustenidos. O detalhamento de cada lição será definido na issue do currículo.
 - **AC-F2-02:** Uma lição percorre Aprender, Treinar e Sua vez, nessa ordem, e apresenta a conclusão após responder corretamente os alvos pendentes.
-- **AC-F2-03:** Aprender apresenta os passos da lição e notas destacadas; Continuar avança entre passos e depois para Treinar; Ouvir reproduz as notas destacadas em sequência.
 - **AC-F2-04:** Em Treinar aparecem referências e dica; Sua vez não apresenta referências nem dica. O acerto em Treinar traz explicação; em Sua vez, feedback curto.
 - **AC-F2-05:** Uma resposta errada retorna ao fim da fila da mesma lição e continua sendo reapresentada após cada erro até ser respondida corretamente.
 - **AC-F2-06:** Cada alvo conta uma vez no percentual de primeira tentativa: conta como acerto somente se sua primeira resposta na lição for correta; reapresentações não alteram essa contagem. O percentual é acertos de primeira divididos pelo total de alvos da lição, vezes 100.
 - **AC-F2-07:** A conclusão apresenta as notas novas no braço, o percentual de acerto de primeira e três estrelas: 3 para percentual ≥ 95%, 2 para ≥ 80% e < 95%, 1 para < 80%.
 - **AC-F2-08:** Na conclusão, Continuar volta à lista ou seletor de lições no M2; não abre Session done.
-- **AC-F2-09:** O comando de saída durante a lição abre confirmação com Cancelar e Sair; Cancelar retorna à lição e Sair abandona a rodada sem salvar.
-- **AC-F2-10:** Flutter tests verificam rótulos semânticos e ações dos controles de lição, incluindo saída e confirmação. Validação de acessibilidade na árvore do dispositivo não é exigida para M2.
 
 ## Pendências
 
