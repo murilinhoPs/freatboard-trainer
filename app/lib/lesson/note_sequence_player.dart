@@ -42,58 +42,40 @@ Future<void> playNoteSequence(
   }
 }
 
-/// Plays [positions] in order by pitching the bundled A2 pluck.
+/// Starts one note and later stops voices that are still sounding.
 ///
-/// Init or device failures are swallowed. ADR 0002: the app stays usable
-/// when audio is unavailable.
-final class SoloudNoteSequencePlayer implements NoteSequencePlayer {
-  final NoteSequenceGate _gate = NoteSequenceGate();
+/// A voice may outlive the gap between notes. Callers keep every id they
+/// receive until [stop].
+abstract interface class NoteVoiceBackend {
+  Future<Object> start(Position position);
+
+  Future<void> stop(Iterable<Object> voices);
+}
+
+/// SoLoud backend. The bundled pluck is about one second long.
+final class SoloudVoiceBackend implements NoteVoiceBackend {
   AudioSource? _source;
-  SoundHandle? _handle;
 
   @override
-  void stop() {
-    _gate.stop();
-    _silence();
+  Future<Object> start(Position position) async {
+    final source = await _load();
+    final handle = SoLoud.instance.play(
+      source,
+      scale: playbackScaleFor(position),
+    );
+    return _SoloudVoice(handle);
   }
 
   @override
-  Future<void> play(List<Position> positions) async {
-    _silence();
-    try {
-      await playNoteSequence(_gate, positions, (position, still) async {
-        final source = await _load();
-        if (!still()) return;
-        final handle = SoLoud.instance.play(
-          source,
-          scale: playbackScaleFor(position),
-        );
-        _handle = handle;
-        await Future<void>.delayed(const Duration(milliseconds: 320));
-        if (!still()) {
-          await _silenceHandle(handle);
-          return;
-        }
-        if (_handle == handle) _handle = null;
-      });
-    } on Object {
-      // Missing backend, asset, or device. Ouvir stays silent.
-    }
-  }
-
-  void _silence() {
-    final handle = _handle;
-    _handle = null;
-    if (handle == null) return;
-    unawaited(_silenceHandle(handle));
-  }
-
-  Future<void> _silenceHandle(SoundHandle handle) async {
+  Future<void> stop(Iterable<Object> voices) async {
     if (!SoLoud.instance.isInitialized) return;
-    try {
-      await SoLoud.instance.stop(handle);
-    } on Object {
-      // The voice may already have ended.
+    for (final voice in voices) {
+      if (voice is! _SoloudVoice) continue;
+      try {
+        await SoLoud.instance.stop(voice.handle);
+      } on Object {
+        // The voice may already have ended.
+      }
     }
   }
 
@@ -106,5 +88,91 @@ final class SoloudNoteSequencePlayer implements NoteSequencePlayer {
     final source = await SoLoud.instance.loadAsset('assets/audio/pluck-a2.wav');
     _source = source;
     return source;
+  }
+}
+
+/// Plays [positions] in order by pitching the bundled A2 pluck.
+///
+/// Voices stay tracked after the gap, because the sample is longer than the
+/// gap. The next note, [stop], and a new [play] cut every voice still held.
+/// Init or device failures are swallowed. ADR 0002: the app stays usable
+/// when audio is unavailable.
+final class SoloudNoteSequencePlayer implements NoteSequencePlayer {
+  SoloudNoteSequencePlayer({
+    NoteVoiceBackend? backend,
+    this.gap = const Duration(milliseconds: 320),
+  }) : _backend = backend ?? SoloudVoiceBackend();
+
+  final NoteVoiceBackend _backend;
+  final Duration gap;
+  final NoteSequenceGate _gate = NoteSequenceGate();
+  final List<Object> _voices = [];
+  final List<_Gap> _gaps = [];
+
+  @override
+  void stop() {
+    _gate.stop();
+    unawaited(_cut());
+    for (final gap in List<_Gap>.of(_gaps)) {
+      gap.cancel();
+    }
+  }
+
+  @override
+  Future<void> play(List<Position> positions) async {
+    await _cut();
+    try {
+      await playNoteSequence(_gate, positions, (position, still) async {
+        await _cut();
+        if (!still()) return;
+        final voice = await _backend.start(position);
+        if (!still()) {
+          await _backend.stop([voice]);
+          return;
+        }
+        _voices.add(voice);
+        await _wait(gap);
+      });
+    } on Object {
+      // Missing backend, asset, or device. Ouvir stays silent.
+    }
+  }
+
+  Future<void> _cut() {
+    if (_voices.isEmpty) return Future<void>.value();
+    final voices = List<Object>.of(_voices);
+    _voices.clear();
+    return _backend.stop(voices);
+  }
+
+  Future<void> _wait(Duration duration) {
+    if (duration <= Duration.zero) return Future<void>.value();
+    final gap = _Gap(duration);
+    _gaps.add(gap);
+    return gap.done.future.whenComplete(() => _gaps.remove(gap));
+  }
+}
+
+final class _SoloudVoice {
+  _SoloudVoice(this.handle);
+
+  final SoundHandle handle;
+}
+
+final class _Gap {
+  _Gap(Duration duration) {
+    _timer = Timer(duration, _finish);
+  }
+
+  final Completer<void> done = Completer<void>();
+  late final Timer _timer;
+
+  void cancel() {
+    _timer.cancel();
+    _finish();
+  }
+
+  void _finish() {
+    if (!done.isCompleted) done.complete();
   }
 }

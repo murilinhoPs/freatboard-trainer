@@ -36,7 +36,7 @@ Tema escuro · Explicação 1 de 2 · pág. 9
 - O passo vem da lição: rótulo "Aprender · n de N", título, texto e posições. A imagem acima é a referência visual, não um texto fixo.
 - Notas da lição são círculos preenchidos (`accent`); referências são círculos só com contorno. A janela mostra 6 casas cobrindo essas posições.
 - A barra do topo mostra o passo atual sobre o total de passos de Aprender (1 de 2 preenche metade).
-- "Ouvir" toca as notas destacadas, em ordem. Um novo Ouvir, Continuar ou Sair interrompe a sequência que ainda estiver tocando. Se o áudio falhar, a lição continua.
+- "Ouvir" toca as notas destacadas, em ordem. Cada nota nova corta as que ainda soam, mesmo depois do intervalo entre elas. Um novo Ouvir, Continuar ou Sair também corta essas vozes. Se o áudio falhar, a lição continua.
 - "Continuar" avança para o próximo passo. No último, a fase passa a Treinar: a tela deixa de mostrar o passo e passa a indicar Treinar. As perguntas ficam fora desta tela.
 - "✕" e o voltar do sistema abrem "Sair da sessão?" com "Esta rodada não será salva." Cancelar volta ao mesmo passo. Sair fecha a rodada sem salvar e sem concluí-la.
 
