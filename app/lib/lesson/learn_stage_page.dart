@@ -101,12 +101,15 @@ class _LearnStagePageState extends State<LearnStagePage> {
         if (didPop) return;
         _confirmExit();
       },
-      child: Scaffold(
-        backgroundColor: tokens.color('bg'),
-        body: SafeArea(
-          child: session.phase == LessonPhase.learn
-              ? _learn(tokens, session)
-              : _trainHandoff(tokens),
+      child: _IosEdgeBack(
+        onBack: _confirmExit,
+        child: Scaffold(
+          backgroundColor: tokens.color('bg'),
+          body: SafeArea(
+            child: session.phase == LessonPhase.learn
+                ? _learn(tokens, session)
+                : _trainHandoff(tokens),
+          ),
         ),
       ),
     );
@@ -162,7 +165,7 @@ class _LearnStagePageState extends State<LearnStagePage> {
               const SizedBox(width: 12),
               Expanded(
                 child: _LessonButton(
-                  label: 'Continuar',
+                  label: index + 1 == total ? 'Começar a treinar' : 'Continuar',
                   primary: true,
                   onPressed: _continue,
                 ),
@@ -291,7 +294,55 @@ class _LessonCopy extends StatelessWidget {
     if (start < text.length) {
       spans.add(TextSpan(text: text.substring(start)));
     }
-    return Text.rich(TextSpan(style: style, children: spans));
+    return Semantics(
+      container: true,
+      label: text,
+      excludeSemantics: true,
+      child: Text.rich(TextSpan(style: style, children: spans)),
+    );
+  }
+}
+
+/// iOS recognizes the edge swipe inside Flutter and skips it when [PopScope]
+/// blocks the pop. A short inward drag from that edge opens the same dialog.
+class _IosEdgeBack extends StatefulWidget {
+  const _IosEdgeBack({required this.onBack, required this.child});
+
+  final VoidCallback onBack;
+  final Widget child;
+
+  @override
+  State<_IosEdgeBack> createState() => _IosEdgeBackState();
+}
+
+class _IosEdgeBackState extends State<_IosEdgeBack> {
+  Offset? _start;
+
+  @override
+  Widget build(BuildContext context) {
+    if (Theme.of(context).platform != TargetPlatform.iOS) return widget.child;
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) {
+        final width = context.size?.width ?? 0;
+        final fromStart = Directionality.of(context) == TextDirection.rtl
+            ? width - event.localPosition.dx
+            : event.localPosition.dx;
+        _start = fromStart <= 24 ? event.localPosition : null;
+      },
+      onPointerUp: (event) {
+        final start = _start;
+        _start = null;
+        if (start == null) return;
+        final delta = event.localPosition - start;
+        final inward = Directionality.of(context) == TextDirection.rtl
+            ? -delta.dx
+            : delta.dx;
+        if (inward >= 64 && inward > delta.dy.abs()) widget.onBack();
+      },
+      onPointerCancel: (_) => _start = null,
+      child: widget.child,
+    );
   }
 }
 
@@ -317,6 +368,18 @@ class _LessonButton extends StatelessWidget {
     final foreground = primary
         ? tokens.color('onAccent')
         : tokens.color('text');
+    final labelText = Text(
+      label,
+      maxLines: 1,
+      style: TextStyle(
+        fontFamily: 'Space Grotesk',
+        fontFamilyFallback: musicFallback,
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+        height: 1,
+        color: foreground,
+      ),
+    );
     final button = Material(
       color: background,
       shape: RoundedRectangleBorder(
@@ -337,17 +400,12 @@ class _LessonButton extends StatelessWidget {
               mainAxisSize: primary ? MainAxisSize.max : MainAxisSize.min,
               children: [
                 if (icon != null) ...[icon!, const SizedBox(width: 8)],
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontFamily: 'Space Grotesk',
-                    fontFamilyFallback: musicFallback,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    height: 1,
-                    color: foreground,
-                  ),
-                ),
+                if (primary)
+                  Flexible(
+                    child: FittedBox(fit: BoxFit.scaleDown, child: labelText),
+                  )
+                else
+                  labelText,
               ],
             ),
           ),

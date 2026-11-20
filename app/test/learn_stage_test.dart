@@ -50,6 +50,14 @@ void main() {
         .getSemanticsData();
     expect(progress.label, 'Progresso da lição');
     expect(progress.value, '1 de 2');
+
+    final description = lesson.steps.first.description;
+    final copy = tester
+        .getSemantics(find.bySemanticsLabel(description))
+        .getSemanticsData();
+    expect(copy.label, description);
+    expect(find.bySemanticsLabel(RegExp(r'^A corda $')), findsNothing);
+    expect(find.bySemanticsLabel(RegExp(r'^casa 1$')), findsNothing);
     semantics.dispose();
   });
 
@@ -122,7 +130,14 @@ void main() {
     await tester.pumpAndSettle();
     expect(player.plays.last, lesson.steps[1].highlightedPositions);
 
-    await tester.tap(find.text('Continuar'));
+    expect(find.text('Continuar'), findsNothing);
+    final trainButton = tester
+        .getSemantics(find.bySemanticsLabel('Começar a treinar'))
+        .getSemanticsData();
+    expect(trainButton.label, 'Começar a treinar');
+    expect(trainButton.hasAction(SemanticsAction.tap), isTrue);
+    expect(trainButton.flagsCollection.isButton, isTrue);
+    await tester.tap(find.text('Começar a treinar'));
     await tester.pumpAndSettle();
     expect(session.phase, LessonPhase.practice);
     expect(find.bySemanticsLabel('Treinar'), findsOneWidget);
@@ -205,6 +220,41 @@ void main() {
     semantics.dispose();
   });
 
+  testWidgets('deslizar da borda no iOS pede a mesma confirmação', (
+    tester,
+  ) async {
+    final semantics = tester.ensureSemantics();
+    var abandoned = false;
+    await _pump(
+      tester,
+      session,
+      player,
+      platform: TargetPlatform.iOS,
+      onAbandoned: () => abandoned = true,
+    );
+
+    await _swipeFromEdge(tester);
+    await tester.pumpAndSettle();
+    expect(find.text('Sair da sessão?'), findsOneWidget);
+    expect(find.text('Aprender · 1 de 2'), findsOneWidget);
+    expect(abandoned, isFalse);
+
+    await tester.tap(find.text('Cancelar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Sair da sessão?'), findsNothing);
+    expect(find.text('Aprender · 1 de 2'), findsOneWidget);
+    expect(abandoned, isFalse);
+
+    await _swipeFromEdge(tester);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sair'));
+    await tester.pumpAndSettle();
+    expect(abandoned, isTrue);
+    expect(find.text('rodada abandonada'), findsOneWidget);
+    expect(session.isCompleted, isFalse);
+    semantics.dispose();
+  });
+
   testWidgets('Ouvir de novo, Continuar e Sair interrompem a sequência', (
     tester,
   ) async {
@@ -249,6 +299,10 @@ void main() {
         await _pump(tester, session, player, brightness: brightness);
         expect(find.text('Aprender · 1 de 2'), findsOneWidget);
         expect(tester.takeException(), isNull);
+        await tester.tap(find.text('Continuar'));
+        await tester.pumpAndSettle();
+        expect(find.text('Começar a treinar'), findsOneWidget);
+        expect(tester.takeException(), isNull);
       });
     }
   }
@@ -260,13 +314,21 @@ Future<void> _pump(
   NoteSequencePlayer player, {
   VoidCallback? onAbandoned,
   Brightness brightness = Brightness.dark,
+  TargetPlatform? platform,
 }) async {
+  final theme = spikeTheme(brightness);
   await tester.pumpWidget(
     MaterialApp(
-      theme: spikeTheme(brightness),
+      theme: platform == null ? theme : theme.copyWith(platform: platform),
       home: _Host(session: session, player: player, onAbandoned: onAbandoned),
     ),
   );
+}
+
+Future<void> _swipeFromEdge(WidgetTester tester) async {
+  final gesture = await tester.startGesture(const Offset(8, 300));
+  await gesture.moveBy(const Offset(140, 0));
+  await gesture.up();
 }
 
 class _Host extends StatefulWidget {

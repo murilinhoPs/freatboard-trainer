@@ -37,8 +37,9 @@ Tema escuro · Explicação 1 de 2 · pág. 9
 - Notas da lição são círculos preenchidos (`accent`); referências são círculos só com contorno. A janela mostra 6 casas cobrindo essas posições.
 - A barra do topo mostra o passo atual sobre o total de passos de Aprender (1 de 2 preenche metade).
 - "Ouvir" toca as notas destacadas, em ordem. Cada nota nova corta as que ainda soam, mesmo depois do intervalo entre elas. Um novo Ouvir, Continuar ou Sair também corta essas vozes. Se o áudio falhar, a lição continua.
-- "Continuar" avança para o próximo passo. No último, a fase passa a Treinar: a tela deixa de mostrar o passo e passa a indicar Treinar. As perguntas ficam fora desta tela.
-- "✕" e o voltar do sistema abrem "Sair da sessão?" com "Esta rodada não será salva." Cancelar volta ao mesmo passo. Sair fecha a rodada sem salvar e sem concluí-la.
+- "Continuar" avança para o próximo passo. No último passo o botão diz "Começar a treinar" e a fase passa a Treinar: a tela deixa de mostrar o passo e passa a indicar Treinar. As perguntas ficam fora desta tela.
+- O texto da explicação é um único rótulo para o leitor de tela, mesmo com notas e casas destacadas.
+- "✕", o voltar do sistema e o deslizar da borda no iOS abrem "Sair da sessão?" com "Esta rodada não será salva." Cancelar volta ao mesmo passo. Sair fecha a rodada sem salvar e sem concluí-la.
 
 ## 12 · Fim da lição
 
@@ -67,8 +68,8 @@ Tema escuro · 2 de 3 estrelas · pág. 16
 | Estado | Quando acontece | O que o usuário vê |
 |---|---|---|
 | Aprender | A sessão está na fase Aprender | Passo n de N, notas no braço, Ouvir e Continuar |
-| Confirmação de saída | Toque em ✕ ou voltar do sistema | "Sair da sessão?" e "Esta rodada não será salva.", com Cancelar e Sair |
-| Treinar iniciado | Continuar no último passo de Aprender | O passo some e a fase Treinar começa, ainda sem as perguntas |
+| Confirmação de saída | Toque em ✕, voltar do sistema ou deslizar da borda no iOS | "Sair da sessão?" e "Esta rodada não será salva.", com Cancelar e Sair |
+| Treinar iniciado | Começar a treinar no último passo de Aprender | O passo some e a fase Treinar começa, ainda sem as perguntas |
 | Rodada abandonada | Sair na confirmação | A lição fecha no mesmo passo, sem concluir e sem salvar |
 
 ## Ações
@@ -76,8 +77,9 @@ Tema escuro · 2 de 3 estrelas · pág. 16
 | Ação | Resultado |
 |---|---|
 | Ouvir | Reproduz, em ordem, as notas do passo e interrompe a sequência anterior |
-| Continuar | Interrompe o som e avança o passo ou, no último, inicia Treinar |
-| ✕ ou voltar do sistema | Abre a confirmação de saída |
+| Continuar | Interrompe o som e avança o passo |
+| Começar a treinar | No último passo, interrompe o som e inicia Treinar |
+| ✕, voltar do sistema ou deslizar da borda no iOS | Abre a confirmação de saída |
 | Cancelar | Fecha a confirmação e retoma o mesmo passo |
 | Sair | Abandona a rodada sem salvar |
 
