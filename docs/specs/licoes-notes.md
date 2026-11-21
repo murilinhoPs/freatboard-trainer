@@ -8,7 +8,7 @@ updated: 2026-11-20
 
 ## Resumo
 
-Uma lição de Notes percorre Aprender, Treinar e Sua vez no núcleo, com o currículo das casas 0–12. A etapa Aprender mostra o passo atual: notas da lição e de referência no braço, texto com notas e casas marcadas, Ouvir e Continuar. Sair pede confirmação e abandona a rodada sem salvar. As telas de pergunta, feedback e conclusão ainda não existem.
+Uma lição de Notes percorre Aprender, Treinar e Sua vez no núcleo, com o currículo das casas 0–12. A etapa Aprender mostra o passo atual: notas da lição e de referência no braço, texto com notas e casas marcadas, Ouvir e Continuar. As fases Treinar e Sua vez exibem as perguntas da lição: Treinar mostra notas de referência e o controle Dica; Sua vez oculta referências e Dica. Sair pede confirmação e abandona a rodada sem salvar. Os painéis de feedback pós-resposta e a tela detalhada de conclusão ainda não existem.
 
 ## Rotas/Telas
 
@@ -69,7 +69,9 @@ Tema escuro · 2 de 3 estrelas · pág. 16
 |---|---|---|
 | Aprender | A sessão está na fase Aprender | Passo n de N, notas no braço, Ouvir e Continuar |
 | Confirmação de saída | Toque em ✕, voltar do sistema ou deslizar da borda no iOS | "Sair da sessão?" e "Esta rodada não será salva.", com Cancelar e Sair |
-| Treinar iniciado | Começar a treinar no último passo de Aprender | O passo some e a fase Treinar começa, ainda sem as perguntas |
+| Treinar | Começar a treinar no último passo de Aprender | Pergunta atual com notas de referência no braço e link Dica |
+| Dica aberta | Toque em Dica durante Treinar | Exibe o texto curto da dica da lição sem revelar a resposta |
+| Sua vez | Todos os alvos de Treinar respondidos | Pergunta atual sem referências e sem Dica |
 | Rodada abandonada | Sair na confirmação | A lição fecha no mesmo passo, sem concluir e sem salvar |
 
 ## Ações
@@ -79,6 +81,8 @@ Tema escuro · 2 de 3 estrelas · pág. 16
 | Ouvir | Reproduz, em ordem, as notas do passo e interrompe a sequência anterior |
 | Continuar | Interrompe o som e avança o passo |
 | Começar a treinar | No último passo, interrompe o som e inicia Treinar |
+| Dica | Em Treinar, alterna a exibição do texto curto de ajuda |
+| Tocar opção ou célula do braço | Responde imediatamente sem confirmação, toca a nota e avança na fila |
 | ✕, voltar do sistema ou deslizar da borda no iOS | Abre a confirmação de saída |
 | Cancelar | Fecha a confirmação e retoma o mesmo passo |
 | Sair | Abandona a rodada sem salvar |

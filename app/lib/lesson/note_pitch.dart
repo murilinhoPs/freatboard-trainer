@@ -34,10 +34,13 @@ String stringLabel(int string) => switch (string) {
   _ => throw RangeError.index(string, openStringMidi, 'string'),
 };
 
+/// Note spelling for a [PitchClass] using sharp notation.
+String pitchSpelling(PitchClass pitch) =>
+    noteSpellings[PitchClass.values.indexOf(pitch)];
+
 /// Note spelling at [position] on the standard guitar.
 String noteSpelling(Position position) {
-  final pitch = noteAt(standardGuitar, position);
-  return noteSpellings[PitchClass.values.indexOf(pitch)];
+  return pitchSpelling(noteAt(standardGuitar, position));
 }
 
 /// Playback speed that shifts the A2 sample to the pitch at [position].
