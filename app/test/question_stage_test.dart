@@ -6,6 +6,7 @@ import 'package:fretboard_core/fretboard_core.dart';
 import 'package:fretboard_trainer/design/app_tokens.dart';
 import 'package:fretboard_trainer/lesson/learn_stage_page.dart';
 import 'package:fretboard_trainer/lesson/note_sequence_player.dart';
+import 'package:fretboard_trainer/lesson/question_board.dart';
 import 'package:fretboard_trainer/lesson/question_stage_view.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -15,7 +16,8 @@ void main() {
   testWidgets(
     'Treinar mostra referências e dica sem revelar resposta; Sua vez oculta ambos',
     (tester) async {
-      final lesson = notesCurriculum[2]; // Sustenidos na corda E grave (com várias refs)
+      final lesson =
+          notesCurriculum[2]; // Sustenidos na corda E grave (com várias refs)
       final session = LessonSession(lesson);
       for (var i = 0; i < lesson.steps.length; i++) {
         session.advanceLearn();
@@ -29,20 +31,21 @@ void main() {
         session: session,
         player: player,
         onAnswerEvaluated: results.add,
-        questionBuilder: ({
-          required target,
-          required phase,
-          required includesAccidentals,
-          required attemptIndex,
-        }) {
-          return generateQuestionForTarget(
-            target: target,
-            phase: phase,
-            includesAccidentals: includesAccidentals,
-            kind: QuestionKind.nameNote,
-            seed: attemptIndex,
-          );
-        },
+        questionBuilder:
+            ({
+              required target,
+              required phase,
+              required includesAccidentals,
+              required attemptIndex,
+            }) {
+              return generateQuestionForTarget(
+                target: target,
+                phase: phase,
+                includesAccidentals: includesAccidentals,
+                kind: QuestionKind.nameNote,
+                seed: attemptIndex,
+              );
+            },
       );
 
       expect(find.text('Treino'), findsOneWidget);
@@ -138,18 +141,19 @@ void main() {
       tester,
       session: session,
       player: _RecordingPlayer(),
-      questionBuilder: ({
-        required target,
-        required phase,
-        required includesAccidentals,
-        required attemptIndex,
-      }) => generateQuestionForTarget(
-        target: target,
-        phase: phase,
-        includesAccidentals: includesAccidentals,
-        kind: QuestionKind.nameNote,
-        seed: attemptIndex,
-      ),
+      questionBuilder:
+          ({
+            required target,
+            required phase,
+            required includesAccidentals,
+            required attemptIndex,
+          }) => generateQuestionForTarget(
+            target: target,
+            phase: phase,
+            includesAccidentals: includesAccidentals,
+            kind: QuestionKind.nameNote,
+            seed: attemptIndex,
+          ),
     );
 
     expect(find.text('Sua vez'), findsOneWidget);
@@ -189,30 +193,31 @@ void main() {
         session: session,
         player: player,
         onAnswerEvaluated: results.add,
-        questionBuilder: ({
-          required target,
-          required phase,
-          required includesAccidentals,
-          required attemptIndex,
-        }) {
-          final kind = kinds[attemptIndex % kinds.length];
-          if (kind == QuestionKind.openString && target.fret != 0) {
-            return generateQuestionForTarget(
-              target: target,
-              phase: phase,
-              includesAccidentals: includesAccidentals,
-              kind: QuestionKind.findOnString,
-              seed: attemptIndex,
-            );
-          }
-          return generateQuestionForTarget(
-            target: target,
-            phase: phase,
-            includesAccidentals: includesAccidentals,
-            kind: kind,
-            seed: attemptIndex,
-          );
-        },
+        questionBuilder:
+            ({
+              required target,
+              required phase,
+              required includesAccidentals,
+              required attemptIndex,
+            }) {
+              final kind = kinds[attemptIndex % kinds.length];
+              if (kind == QuestionKind.openString && target.fret != 0) {
+                return generateQuestionForTarget(
+                  target: target,
+                  phase: phase,
+                  includesAccidentals: includesAccidentals,
+                  kind: QuestionKind.findOnString,
+                  seed: attemptIndex,
+                );
+              }
+              return generateQuestionForTarget(
+                target: target,
+                phase: phase,
+                includesAccidentals: includesAccidentals,
+                kind: kind,
+                seed: attemptIndex,
+              );
+            },
       );
 
       // 1. OpenString (target: string 0, fret 0, que também é referência da lição 1)
@@ -281,7 +286,8 @@ void main() {
   );
 
   test('Dica nunca revela a resposta na lição 2 nem em nenhuma lição do currículo', () {
-    final lesson2 = notesCurriculum[1]; // notes-e-low-nat-2: B(7), C(8), D(10), E(12)
+    final lesson2 =
+        notesCurriculum[1]; // notes-e-low-nat-2: B(7), C(8), D(10), E(12)
     for (final target in lesson2.targets) {
       final nameQ = generateQuestionForTarget(
         target: target,
@@ -313,8 +319,9 @@ void main() {
         );
         final nameHint = buildQuestionHint(lesson, nameQ);
         expect(
-          RegExp('(?<![A-Za-z])${RegExp.escape(_pitchLabel(nameQ.targetNote))}(?![A-Za-z♯])')
-              .hasMatch(nameHint),
+          RegExp(
+            '(?<![A-Za-z])${RegExp.escape(_pitchLabel(nameQ.targetNote))}(?![A-Za-z♯])',
+          ).hasMatch(nameHint),
           isFalse,
           reason: '${lesson.id} NameNote $target -> $nameHint',
         );
@@ -354,18 +361,19 @@ void main() {
       tester,
       session: session,
       player: _RecordingPlayer(),
-      questionBuilder: ({
-        required target,
-        required phase,
-        required includesAccidentals,
-        required attemptIndex,
-      }) => generateQuestionForTarget(
-        target: target,
-        phase: phase,
-        includesAccidentals: includesAccidentals,
-        kind: QuestionKind.findOnString,
-        seed: attemptIndex,
-      ),
+      questionBuilder:
+          ({
+            required target,
+            required phase,
+            required includesAccidentals,
+            required attemptIndex,
+          }) => generateQuestionForTarget(
+            target: target,
+            phase: phase,
+            includesAccidentals: includesAccidentals,
+            kind: QuestionKind.findOnString,
+            seed: attemptIndex,
+          ),
     );
 
     final cellFinder = find.byKey(const ValueKey('question-cell-0-1'));
@@ -406,18 +414,19 @@ void main() {
           session: session,
           player: _RecordingPlayer(),
           brightness: brightness,
-          questionBuilder: ({
-            required target,
-            required phase,
-            required includesAccidentals,
-            required attemptIndex,
-          }) => generateQuestionForTarget(
-            target: target,
-            phase: phase,
-            includesAccidentals: includesAccidentals,
-            kind: QuestionKind.nameNote,
-            seed: attemptIndex,
-          ),
+          questionBuilder:
+              ({
+                required target,
+                required phase,
+                required includesAccidentals,
+                required attemptIndex,
+              }) => generateQuestionForTarget(
+                target: target,
+                phase: phase,
+                includesAccidentals: includesAccidentals,
+                kind: QuestionKind.nameNote,
+                seed: attemptIndex,
+              ),
         );
 
         expect(find.text('Sua vez'), findsOneWidget);
@@ -425,6 +434,84 @@ void main() {
         expect(tester.takeException(), isNull);
       });
     }
+  }
+
+  test(
+    'questionFretWindow mantém referência distante (>= 6 casas) visível',
+    () {
+      const ref5 = Position(string: 0, fret: 5);
+      const target12 = Position(string: 0, fret: 12);
+      final qName = generateQuestionForTarget(
+        target: target12,
+        phase: LessonPhase.practice,
+        includesAccidentals: false,
+        kind: QuestionKind.nameNote,
+        seed: 0,
+      );
+      expect(questionFretWindow(qName, const [ref5]), [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+      ]);
+      expect(questionFretWindow(qName, const []), [10, 11, 12, 13, 14, 15]);
+    },
+  );
+
+  for (final (size, layout) in [
+    (const Size(390, 844), 'compacto'),
+    (const Size(844, 390), 'expandido'),
+  ]) {
+    testWidgets(
+      'Treinar mantém referência na casa 5 visível para alvo na casa 12 ($layout)',
+      (tester) async {
+        tester.view.devicePixelRatio = 1;
+        tester.view.physicalSize = size;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        final lesson = notesCurriculum[1]; // ref casa 5, alvo casa 12
+        final session = LessonSession(lesson);
+        for (var i = 0; i < lesson.steps.length; i++) {
+          session.advanceLearn();
+        }
+        const target12 = Position(string: 0, fret: 12);
+
+        await _pumpLesson(
+          tester,
+          session: session,
+          player: _RecordingPlayer(),
+          questionBuilder:
+              ({
+                required target,
+                required phase,
+                required includesAccidentals,
+                required attemptIndex,
+              }) => generateQuestionForTarget(
+                target: target12,
+                phase: phase,
+                includesAccidentals: includesAccidentals,
+                kind: QuestionKind.findOnString,
+                seed: attemptIndex,
+              ),
+        );
+
+        expect(find.byKey(const ValueKey('question-cell-0-5')), findsOneWidget);
+        expect(
+          find.byKey(const ValueKey('question-cell-0-12')),
+          findsOneWidget,
+        );
+        expect(
+          find.bySemanticsLabel('Corda E grave, casa 5, nota de referência A'),
+          findsOneWidget,
+        );
+        expect(tester.takeException(), isNull);
+      },
+    );
   }
 }
 

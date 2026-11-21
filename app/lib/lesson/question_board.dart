@@ -10,6 +10,35 @@ const _visualStrings = ['e', 'B', 'G', 'D', 'A', 'E'];
 const _windowSize = 6;
 const _inlayFrets = {3, 5, 7, 9, 12};
 
+/// Fret numbers shown for [question], always keeping at least one reference
+/// fret in view when [references] is non-empty.
+List<int> questionFretWindow(Question question, List<Position> references) {
+  if (question is OpenString) {
+    return [for (var i = 0; i < _windowSize; i++) i];
+  }
+  final targetFret = question.target.fret;
+  final included = <int>[
+    targetFret,
+    for (final ref in references)
+      if ((ref.fret - targetFret).abs() < _windowSize) ref.fret,
+  ];
+  if (included.length == 1 && references.isNotEmpty) {
+    final sorted = [...references]
+      ..sort(
+        (a, b) =>
+            (a.fret - targetFret).abs().compareTo((b.fret - targetFret).abs()),
+      );
+    included.add(sorted.first.fret);
+  }
+  final minFret = included.reduce((a, b) => a < b ? a : b);
+  final maxFret = included.reduce((a, b) => a > b ? a : b);
+  if (maxFret - minFret < _windowSize) {
+    final start = learnFretWindowStart(included);
+    return [for (var i = 0; i < _windowSize; i++) start + i];
+  }
+  return [for (var f = minFret; f <= maxFret; f++) f];
+}
+
 /// Interactive fretboard for Practice and Your Turn questions.
 class QuestionBoard extends StatefulWidget {
   const QuestionBoard({
@@ -42,15 +71,7 @@ class _QuestionBoardState extends State<QuestionBoard> {
   Widget build(BuildContext context) {
     final tokens = Theme.of(context).extension<AppTokens>()!;
     final question = widget.question;
-    final start = question is OpenString
-        ? 0
-        : learnFretWindowStart([
-            question.target.fret,
-            for (final ref in widget.references)
-              if ((ref.fret - question.target.fret).abs() < _windowSize)
-                ref.fret,
-          ]);
-    final frets = [for (var i = 0; i < _windowSize; i++) start + i];
+    final frets = questionFretWindow(question, widget.references);
     final tapEnabled =
         question.isBoardTapQuestion && widget.onPositionTap != null;
 
@@ -60,39 +81,70 @@ class _QuestionBoardState extends State<QuestionBoard> {
       label: 'Braço da pergunta',
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final cellWidth = ((constraints.maxWidth - 26) / _windowSize).clamp(
-            44.0,
-            96.0,
+          final availableWidth = (constraints.maxWidth - 26).clamp(
+            0.0,
+            double.infinity,
           );
-          return Column(
+          final cellWidth = (availableWidth / frets.length).clamp(44.0, 96.0);
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              for (var row = 0; row < _visualStrings.length; row++)
-                _stringRow(
-                  visualRow: row,
-                  frets: frets,
-                  cellWidth: cellWidth,
-                  tokens: tokens,
-                  tapEnabled: tapEnabled,
-                ),
               ExcludeSemantics(
-                child: Row(
+                child: Column(
                   children: [
-                    const SizedBox(width: 26),
-                    for (final fret in frets)
+                    for (var row = 0; row < _visualStrings.length; row++)
                       SizedBox(
-                        width: cellWidth,
-                        height: 28,
+                        width: 26,
+                        height: 40,
                         child: Center(
                           child: Text(
-                            '$fret',
+                            _visualStrings[row],
                             style: TextStyle(
                               color: tokens.color('muted'),
-                              fontSize: 12,
+                              fontSize: 13,
                             ),
                           ),
                         ),
                       ),
+                    const SizedBox(height: 28),
                   ],
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      for (var row = 0; row < _visualStrings.length; row++)
+                        _stringRow(
+                          visualRow: row,
+                          frets: frets,
+                          cellWidth: cellWidth,
+                          tokens: tokens,
+                          tapEnabled: tapEnabled,
+                        ),
+                      ExcludeSemantics(
+                        child: Row(
+                          children: [
+                            for (final fret in frets)
+                              SizedBox(
+                                width: cellWidth,
+                                height: 28,
+                                child: Center(
+                                  child: Text(
+                                    '$fret',
+                                    style: TextStyle(
+                                      color: tokens.color('muted'),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -117,18 +169,6 @@ class _QuestionBoardState extends State<QuestionBoard> {
         : 3.0;
     return Row(
       children: [
-        ExcludeSemantics(
-          child: SizedBox(
-            width: 26,
-            height: 40,
-            child: Center(
-              child: Text(
-                _visualStrings[visualRow],
-                style: TextStyle(color: tokens.color('muted'), fontSize: 13),
-              ),
-            ),
-          ),
-        ),
         for (final fret in frets)
           _cell(
             visualRow: visualRow,
@@ -154,14 +194,11 @@ class _QuestionBoardState extends State<QuestionBoard> {
   }) {
     final question = widget.question;
     final position = Position(string: coreString, fret: fret);
-    final isNameTarget =
-        question is NameNote && question.target == position;
-    final isReference =
-        !isNameTarget && widget.references.contains(position);
+    final isNameTarget = question is NameNote && question.target == position;
+    final isReference = !isNameTarget && widget.references.contains(position);
     final isHighlightedString =
         question is FindOnString && question.string == coreString;
-    final isHighlightedFret =
-        question is FindAtFret && question.fret == fret;
+    final isHighlightedFret = question is FindAtFret && question.fret == fret;
     final isOpenCircle = question is OpenString && fret == 0;
     final isHovered = tapEnabled && _hovered == position;
 
