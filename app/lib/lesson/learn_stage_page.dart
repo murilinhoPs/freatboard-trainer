@@ -5,6 +5,15 @@ import '../design/app_tokens.dart';
 import '../design/music_text.dart';
 import 'learn_board.dart';
 import 'note_sequence_player.dart';
+import 'question_stage_view.dart';
+
+typedef QuestionBuilder =
+    Question Function({
+      required Position target,
+      required LessonPhase phase,
+      required bool includesAccidentals,
+      required int attemptIndex,
+    });
 
 final _highlightPattern = RegExp(
   r'casa\s+\d+|\(\d+\)|(?<![A-Za-z])[A-G]♯?(?![A-Za-z])',
@@ -17,6 +26,9 @@ class LearnStagePage extends StatefulWidget {
     required this.session,
     required this.player,
     required this.onAbandoned,
+    this.onAnswerEvaluated,
+    this.onCompleted,
+    this.questionBuilder,
     super.key,
   });
 
@@ -26,17 +38,68 @@ class LearnStagePage extends StatefulWidget {
   /// Called when the person confirms Sair. Nothing is persisted.
   final VoidCallback onAbandoned;
 
+  /// Called immediately after each answer is evaluated (without confirmation).
+  final ValueChanged<QuestionAnswerResult>? onAnswerEvaluated;
+
+  /// Called when the session finishes Practice and Your Turn.
+  final VoidCallback? onCompleted;
+
+  /// Optional generator override for deterministic widget tests.
+  final QuestionBuilder? questionBuilder;
+
   @override
   State<LearnStagePage> createState() => _LearnStagePageState();
 }
 
 class _LearnStagePageState extends State<LearnStagePage> {
   bool _confirming = false;
+  int _attemptIndex = 0;
+  Question? _currentQuestion;
+
+  @override
+  void initState() {
+    super.initState();
+    _syncQuestion();
+  }
+
+  @override
+  void didUpdateWidget(covariant LearnStagePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != widget.session) {
+      _attemptIndex = 0;
+      _syncQuestion();
+    }
+  }
 
   @override
   void dispose() {
     widget.player.stop();
     super.dispose();
+  }
+
+  void _syncQuestion() {
+    final session = widget.session;
+    final target = session.currentTarget;
+    if (target == null ||
+        (session.phase != LessonPhase.practice &&
+            session.phase != LessonPhase.yourTurn)) {
+      _currentQuestion = null;
+      return;
+    }
+    final builder = widget.questionBuilder;
+    _currentQuestion = builder != null
+        ? builder(
+            target: target,
+            phase: session.phase,
+            includesAccidentals: session.lesson.includesAccidentals,
+            attemptIndex: _attemptIndex,
+          )
+        : generateQuestionForTarget(
+            target: target,
+            phase: session.phase,
+            includesAccidentals: session.lesson.includesAccidentals,
+            seed: _attemptIndex,
+          );
   }
 
   void _listen() {
@@ -49,6 +112,48 @@ class _LearnStagePageState extends State<LearnStagePage> {
   void _continue() {
     widget.player.stop();
     widget.session.advanceLearn();
+    _syncQuestion();
+    setState(() {});
+  }
+
+  void _handleOptionSelected(PitchClass selected) {
+    final question = _currentQuestion;
+    if (question is! NameNote) return;
+    widget.player.stop();
+    if (selected == question.targetNote) {
+      widget.player.play([question.target]);
+    }
+    final evaluation = evaluateNoteAnswer(question, selected);
+    _recordEvaluation(question, evaluation);
+  }
+
+  void _handlePositionTapped(Position tapped) {
+    final question = _currentQuestion;
+    if (question == null || !question.isBoardTapQuestion) return;
+    widget.player.stop();
+    widget.player.play([tapped]);
+    final evaluation = evaluatePositionAnswer(question, tapped);
+    _recordEvaluation(question, evaluation);
+  }
+
+  void _recordEvaluation(Question question, QuestionEvaluation evaluation) {
+    final session = widget.session;
+    final previousPhase = session.phase;
+    final outcome = session.submitAnswer(isCorrect: evaluation.isCorrect);
+    widget.onAnswerEvaluated?.call(
+      QuestionAnswerResult(
+        question: question,
+        evaluation: evaluation,
+        phase: previousPhase,
+        outcome: outcome,
+        usesLongFeedback: previousPhase == LessonPhase.practice,
+      ),
+    );
+    if (session.isCompleted) {
+      widget.onCompleted?.call();
+    }
+    _attemptIndex++;
+    _syncQuestion();
     setState(() {});
   }
 
@@ -106,9 +211,14 @@ class _LearnStagePageState extends State<LearnStagePage> {
         child: Scaffold(
           backgroundColor: tokens.color('bg'),
           body: SafeArea(
-            child: session.phase == LessonPhase.learn
-                ? _learn(tokens, session)
-                : _trainHandoff(tokens),
+            child: switch (session.phase) {
+              LessonPhase.learn => _learn(tokens, session),
+              LessonPhase.practice || LessonPhase.yourTurn => _questionStage(
+                tokens,
+                session,
+              ),
+              LessonPhase.completed => _completedStage(tokens),
+            },
           ),
         ),
       ),
@@ -177,18 +287,49 @@ class _LearnStagePageState extends State<LearnStagePage> {
     );
   }
 
-  Widget _trainHandoff(AppTokens tokens) {
+  Widget _questionStage(AppTokens tokens, LessonSession session) {
+    final total = session.totalTargets;
+    final doneInPhase = total - session.pendingTargets.length;
+    final phaseLabel =
+        session.phase == LessonPhase.practice ? 'Treino' : 'Sua vez';
+    final totalUnits = session.lesson.steps.length + total * 2;
+    final completedUnits =
+        session.lesson.steps.length +
+        (session.phase == LessonPhase.yourTurn ? total : 0) +
+        doneInPhase;
+    final factor = (completedUnits / totalUnits).clamp(0.0, 1.0);
     return Column(
       children: [
-        _topBar(tokens, value: 'Treinar', factor: 1),
+        _topBar(
+          tokens,
+          value: '$phaseLabel · ${doneInPhase + 1} de $total',
+          factor: factor,
+        ),
+        Expanded(
+          child: QuestionStageView(
+            lesson: session.lesson,
+            phase: session.phase,
+            question: _currentQuestion!,
+            onOptionSelected: _handleOptionSelected,
+            onPositionTapped: _handlePositionTapped,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _completedStage(AppTokens tokens) {
+    return Column(
+      children: [
+        _topBar(tokens, value: 'Lição concluída', factor: 1),
         Expanded(
           child: Center(
             child: Semantics(
               container: true,
-              label: 'Treinar',
+              label: 'Lição concluída',
               child: ExcludeSemantics(
                 child: Text(
-                  'Treinar',
+                  'Lição concluída',
                   style: _titleStyle(tokens.color('text'), 28),
                 ),
               ),

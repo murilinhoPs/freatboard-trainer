@@ -140,7 +140,8 @@ void main() {
     await tester.tap(find.text('Começar a treinar'));
     await tester.pumpAndSettle();
     expect(session.phase, LessonPhase.practice);
-    expect(find.bySemanticsLabel('Treinar'), findsOneWidget);
+    expect(find.text('Treino'), findsOneWidget);
+    expect(find.bySemanticsLabel('Dica'), findsOneWidget);
     expect(find.text('Ouvir'), findsNothing);
     expect(find.text('Aprender · 2 de 2'), findsNothing);
     expect(session.isCompleted, isFalse);
