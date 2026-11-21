@@ -20,6 +20,7 @@ class FretboardApp extends StatefulWidget {
 
 class _FretboardAppState extends State<FretboardApp> {
   ThemeMode mode = ThemeMode.dark;
+  int selectedLessonIndex = 0;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -50,13 +51,37 @@ class _FretboardAppState extends State<FretboardApp> {
                         ),
                         child: const Text('Abrir braço interativo'),
                       ),
+                      DropdownButton<int>(
+                        key: const ValueKey('lesson-picker'),
+                        isExpanded: true,
+                        value: selectedLessonIndex,
+                        dropdownColor: tokens.color('surface'),
+                        style: TextStyle(color: text, fontSize: 15),
+                        items: [
+                          for (var i = 0; i < notesCurriculum.length; i++)
+                            DropdownMenuItem<int>(
+                              value: i,
+                              child: MusicText(
+                                '${i + 1}. ${notesCurriculum[i].title}',
+                                style: TextStyle(color: text, fontSize: 15),
+                              ),
+                            ),
+                        ],
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() => selectedLessonIndex = value);
+                          }
+                        },
+                      ),
                       TextButton(
                         onPressed: () {
                           final navigator = Navigator.of(context);
                           navigator.push(
                             MaterialPageRoute<void>(
                               builder: (_) => LearnStagePage(
-                                session: LessonSession(notesCurriculum.first),
+                                session: LessonSession(
+                                  notesCurriculum[selectedLessonIndex],
+                                ),
                                 player: SoloudNoteSequencePlayer(),
                                 onAbandoned: () => navigator.pop(),
                               ),

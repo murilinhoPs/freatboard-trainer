@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fretboard_core/fretboard_core.dart';
 import 'package:fretboard_trainer/design/app_tokens.dart';
 import 'package:fretboard_trainer/main.dart';
 import 'package:material_ui/material_ui.dart';
@@ -168,5 +169,19 @@ void main() {
     final effective = DefaultTextStyle.of(tester.element(body)).style
         .merge(tester.widget<MusicText>(body).style);
     expect(effective.fontFamily, 'Atkinson Hyperlegible');
+  });
+
+  testWidgets('seletor de lição abre a lição escolhida pela UI', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const FretboardApp());
+    await tester.tap(find.byKey(const ValueKey('lesson-picker')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('2. ${notesCurriculum[1].title}').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Abrir etapa Aprender'));
+    await tester.pumpAndSettle();
+    expect(find.text(notesCurriculum[1].steps.first.title), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }
