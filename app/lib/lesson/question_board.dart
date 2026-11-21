@@ -57,14 +57,43 @@ class QuestionBoard extends StatefulWidget {
 }
 
 class _QuestionBoardState extends State<QuestionBoard> {
+  final ScrollController _scrollController = ScrollController();
   Position? _hovered;
+  double? _pendingTargetOffset;
+
+  @override
+  void initState() {
+    super.initState();
+    _scheduleScrollToTarget();
+  }
 
   @override
   void didUpdateWidget(covariant QuestionBoard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.question != widget.question) {
+    if (oldWidget.question != widget.question ||
+        oldWidget.references.length != widget.references.length) {
       _hovered = null;
+      _scheduleScrollToTarget();
     }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scheduleScrollToTarget() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_scrollController.hasClients) return;
+      final desired = _pendingTargetOffset;
+      if (desired == null) return;
+      final max = _scrollController.position.maxScrollExtent;
+      final clamped = desired.clamp(0.0, max);
+      if ((_scrollController.offset - clamped).abs() > 0.5) {
+        _scrollController.jumpTo(clamped);
+      }
+    });
   }
 
   @override
@@ -86,6 +115,71 @@ class _QuestionBoardState extends State<QuestionBoard> {
             double.infinity,
           );
           final cellWidth = (availableWidth / frets.length).clamp(44.0, 96.0);
+          final needsScroll = frets.length * cellWidth > availableWidth + 0.5;
+          if (needsScroll) {
+            final targetIdx = frets.indexOf(question.target.fret);
+            if (targetIdx >= 0) {
+              const rightPad = 8.0;
+              final targetRight = (targetIdx + 1) * cellWidth + rightPad;
+              _pendingTargetOffset = (targetRight - availableWidth).clamp(
+                0.0,
+                double.infinity,
+              );
+            } else {
+              _pendingTargetOffset = 0.0;
+            }
+          } else {
+            _pendingTargetOffset = null;
+          }
+
+          Widget scrollableBoard = SingleChildScrollView(
+            controller: _scrollController,
+            scrollDirection: Axis.horizontal,
+            padding: needsScroll
+                ? const EdgeInsets.only(right: 8, bottom: 8)
+                : EdgeInsets.zero,
+            child: Column(
+              children: [
+                for (var row = 0; row < _visualStrings.length; row++)
+                  _stringRow(
+                    visualRow: row,
+                    frets: frets,
+                    cellWidth: cellWidth,
+                    tokens: tokens,
+                    tapEnabled: tapEnabled,
+                  ),
+                ExcludeSemantics(
+                  child: Row(
+                    children: [
+                      for (final fret in frets)
+                        SizedBox(
+                          width: cellWidth,
+                          height: 28,
+                          child: Center(
+                            child: Text(
+                              '$fret',
+                              style: TextStyle(
+                                color: tokens.color('muted'),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+
+          if (needsScroll) {
+            scrollableBoard = Scrollbar(
+              controller: _scrollController,
+              thumbVisibility: true,
+              child: scrollableBoard,
+            );
+          }
+
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -110,43 +204,7 @@ class _QuestionBoardState extends State<QuestionBoard> {
                   ],
                 ),
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      for (var row = 0; row < _visualStrings.length; row++)
-                        _stringRow(
-                          visualRow: row,
-                          frets: frets,
-                          cellWidth: cellWidth,
-                          tokens: tokens,
-                          tapEnabled: tapEnabled,
-                        ),
-                      ExcludeSemantics(
-                        child: Row(
-                          children: [
-                            for (final fret in frets)
-                              SizedBox(
-                                width: cellWidth,
-                                height: 28,
-                                child: Center(
-                                  child: Text(
-                                    '$fret',
-                                    style: TextStyle(
-                                      color: tokens.color('muted'),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              Expanded(child: scrollableBoard),
             ],
           );
         },

@@ -513,6 +513,50 @@ void main() {
       },
     );
   }
+
+  testWidgets(
+    'marcador ? na casa 12 não fica cortado na borda direita no layout compacto',
+    (tester) async {
+      tester.view.devicePixelRatio = 1;
+      tester.view.physicalSize = const Size(390, 844);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final lesson = notesCurriculum[1];
+      final session = LessonSession(lesson);
+      for (var i = 0; i < lesson.steps.length; i++) {
+        session.advanceLearn();
+      }
+      const target12 = Position(string: 0, fret: 12);
+
+      await _pumpLesson(
+        tester,
+        session: session,
+        player: _RecordingPlayer(),
+        questionBuilder:
+            ({
+              required target,
+              required phase,
+              required includesAccidentals,
+              required attemptIndex,
+            }) => generateQuestionForTarget(
+              target: target12,
+              phase: phase,
+              includesAccidentals: includesAccidentals,
+              kind: QuestionKind.nameNote,
+              seed: attemptIndex,
+            ),
+      );
+      await tester.pumpAndSettle();
+
+      final boardRect = tester.getRect(find.byType(QuestionBoard));
+      final targetRect = tester.getRect(find.text('?'));
+      expect(targetRect.right, lessThanOrEqualTo(boardRect.right));
+      expect(targetRect.left, greaterThanOrEqualTo(boardRect.left));
+      expect(find.byType(Scrollbar), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
 }
 
 Future<void> _pumpLesson(
