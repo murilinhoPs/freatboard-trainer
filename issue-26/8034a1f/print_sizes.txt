@@ -1,6 +1,10 @@
 commit: 8034a1f98dde5b373772c7341f6cdab5838fb6c8
-ac-f2-04-sua-vez.png  1206x2622  eb2c5a0803f6c58229a52e8446f9afbb10ec6cac24bb2d061452ee9fc9f6e9ab
-ac-f2-04-treino.png  1206x2622  a9fa75cb04737fe39c7e0e35dda74d3c6a784b939b952487ebe63069205abaeb
-ac-f3-05-dica.png  1206x2622  fb2ca08f1ac377480e54d1a0397e8c58e05d27f7b6ae33924b1f325019bc7ccb
-ac-f3-05-macos.png  800x632  06040510077310b3691cbd90bc6a6db24d83691bb9d62c77c3d2a0d2ca5d42a3
-ac-f3-09-opcoes-macos.png  800x632  8a151bd729d6337ac1a0512a3b539d969d1b3e3d69552dd8da1808008e0160d4
+ac-f2-04-sua-vez-claro-expandido.png: 800x632
+ac-f2-04-sua-vez.png: 1206x2622
+ac-f2-04-treino-claro-expandido.png: 800x632
+ac-f2-04-treino.png: 1206x2622
+ac-f3-05-dica.png: 1206x2622
+ac-f3-05-find-at-fret-claro.png: 800x632
+ac-f3-05-macos.png: 800x632
+ac-f3-05-treino-claro-compacto.png: 390x844
+ac-f3-09-opcoes-macos.png: 800x632
