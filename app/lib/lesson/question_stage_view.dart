@@ -6,6 +6,55 @@ import '../design/music_text.dart';
 import 'note_pitch.dart';
 import 'question_board.dart';
 
+/// Short, target-safe hint for [question] in [lesson] without revealing the answer.
+String buildQuestionHint(Lesson lesson, Question question) {
+  final target = question.target;
+  return switch (question) {
+    NameNote() => _nameNoteHint(lesson, target),
+    FindOnString() => _findOnStringHint(lesson, target),
+    FindAtFret() =>
+      'Use as notas de referência e conte a partir das cordas soltas para achar a corda certa.',
+    OpenString() =>
+      'A corda solta fica na primeira posição, logo antes da pestana.',
+  };
+}
+
+String _nameNoteHint(Lesson lesson, Position target) {
+  if (target.fret == 0) {
+    return 'Pense no nome da corda solta nessa linha.';
+  }
+  if (lesson.includesAccidentals) {
+    return 'Use a nota natural uma casa abaixo como referência e suba uma casa.';
+  }
+  final sameStringRefs = lesson.referencePositions
+      .where((p) => p.string == target.string && p.fret != target.fret)
+      .toList();
+  if (sameStringRefs.isNotEmpty) {
+    sameStringRefs.sort(
+      (a, b) => (a.fret - target.fret).abs().compareTo(
+        (b.fret - target.fret).abs(),
+      ),
+    );
+    final nearest = sameStringRefs.first;
+    final diff = target.fret - nearest.fret;
+    final steps = diff.abs();
+    final unit = steps == 1 ? 'casa' : 'casas';
+    final dir = diff > 0 ? 'suba' : 'desça';
+    return 'Parta da referência ${noteSpelling(nearest)} e $dir $steps $unit na escala.';
+  }
+  return 'Conte os semitons e os tons na escala a partir de uma nota de referência.';
+}
+
+String _findOnStringHint(Lesson lesson, Position target) {
+  if (target.fret == 0) {
+    return 'Lembre-se da nota que dá nome à corda solta.';
+  }
+  if (lesson.includesAccidentals) {
+    return 'Encontre a nota natural anterior na mesma corda e suba uma casa.';
+  }
+  return 'Entre B–C e E–F não há casa no meio; entre as outras naturais há uma casa no meio.';
+}
+
 /// Result emitted when a user answers a question in Practice or Your Turn.
 final class QuestionAnswerResult {
   const QuestionAnswerResult({
@@ -209,7 +258,7 @@ class _QuestionStageViewState extends State<QuestionStageView> {
               ),
             ),
             child: MusicText(
-              widget.lesson.hint,
+              buildQuestionHint(widget.lesson, question),
               style: TextStyle(
                 color: tokens.color('text'),
                 fontSize: 14,

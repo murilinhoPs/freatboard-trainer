@@ -60,9 +60,25 @@ void main() {
       expect(hintSemantics.flagsCollection.isButton, isTrue);
       expect(hintSemantics.flagsCollection.isEnabled, Tristate.isTrue);
 
+      final firstPracticeTarget = session.currentTarget!;
+      final expectedHint = buildQuestionHint(
+        lesson,
+        generateQuestionForTarget(
+          target: firstPracticeTarget,
+          phase: LessonPhase.practice,
+          includesAccidentals: lesson.includesAccidentals,
+          kind: QuestionKind.nameNote,
+        ),
+      );
       await tester.tap(find.bySemanticsLabel('Dica'));
       await tester.pumpAndSettle();
-      expect(find.text(lesson.hint), findsOneWidget);
+      expect(find.text(expectedHint), findsOneWidget);
+      expect(
+        expectedHint.contains(
+          _pitchLabel(noteAt(standardGuitar, firstPracticeTarget)),
+        ),
+        isFalse,
+      );
 
       // Responder todas as perguntas de Treinar com 1 toque sem confirmação
       while (session.phase == LessonPhase.practice) {
@@ -82,7 +98,7 @@ void main() {
       expect(results.every((r) => r.usesLongFeedback), isTrue);
       expect(find.text('Sua vez'), findsOneWidget);
       expect(find.bySemanticsLabel('Dica'), findsNothing);
-      expect(find.text(lesson.hint), findsNothing);
+      expect(find.text(expectedHint), findsNothing);
       expect(
         find.bySemanticsLabel(RegExp(r'^Nota de referência, ')),
         findsNothing,
@@ -263,6 +279,70 @@ void main() {
       semantics.dispose();
     },
   );
+
+  test('Dica nunca revela a resposta na lição 2 nem em nenhuma lição do currículo', () {
+    final lesson2 = notesCurriculum[1]; // notes-e-low-nat-2: B(7), C(8), D(10), E(12)
+    for (final target in lesson2.targets) {
+      final nameQ = generateQuestionForTarget(
+        target: target,
+        phase: LessonPhase.practice,
+        includesAccidentals: lesson2.includesAccidentals,
+        kind: QuestionKind.nameNote,
+      );
+      final nameHint = buildQuestionHint(lesson2, nameQ);
+      expect(nameHint.contains(_pitchLabel(nameQ.targetNote)), isFalse);
+      expect(nameHint.contains('${target.fret}'), isFalse);
+
+      final stringQ = generateQuestionForTarget(
+        target: target,
+        phase: LessonPhase.practice,
+        includesAccidentals: lesson2.includesAccidentals,
+        kind: QuestionKind.findOnString,
+      );
+      final stringHint = buildQuestionHint(lesson2, stringQ);
+      expect(stringHint.contains('${target.fret}'), isFalse);
+    }
+
+    for (final lesson in notesCurriculum) {
+      for (final target in lesson.targets) {
+        final nameQ = generateQuestionForTarget(
+          target: target,
+          phase: LessonPhase.practice,
+          includesAccidentals: lesson.includesAccidentals,
+          kind: QuestionKind.nameNote,
+        );
+        final nameHint = buildQuestionHint(lesson, nameQ);
+        expect(
+          RegExp('(?<![A-Za-z])${RegExp.escape(_pitchLabel(nameQ.targetNote))}(?![A-Za-z♯])')
+              .hasMatch(nameHint),
+          isFalse,
+          reason: '${lesson.id} NameNote $target -> $nameHint',
+        );
+
+        final stringQ = generateQuestionForTarget(
+          target: target,
+          phase: LessonPhase.practice,
+          includesAccidentals: lesson.includesAccidentals,
+          kind: QuestionKind.findOnString,
+        );
+        final stringHint = buildQuestionHint(lesson, stringQ);
+        expect(
+          RegExp('(?<!\\d)${target.fret}(?!\\d)').hasMatch(stringHint),
+          isFalse,
+          reason: '${lesson.id} FindOnString $target -> $stringHint',
+        );
+
+        final fretQ = generateQuestionForTarget(
+          target: target,
+          phase: LessonPhase.practice,
+          includesAccidentals: lesson.includesAccidentals,
+          kind: QuestionKind.findAtFret,
+        );
+        final fretHint = buildQuestionHint(lesson, fretQ);
+        expect(fretHint, isNotEmpty);
+      }
+    }
+  });
 
   testWidgets('Hover no desktop destaca a célula sem erros', (tester) async {
     final lesson = notesCurriculum.first;
