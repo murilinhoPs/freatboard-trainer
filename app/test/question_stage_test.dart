@@ -199,23 +199,29 @@ void main() {
         },
       );
 
-      // 1. OpenString (target: string 0, fret 0)
+      // 1. OpenString (target: string 0, fret 0, que também é referência da lição 1)
       expect(find.text('Toque na corda E grave solta'), findsOneWidget);
       expect(find.text('Toque no braço'), findsOneWidget);
-      final openCellLabel = 'Corda E grave, casa 0 (solta)';
+      final openCellLabel =
+          'Corda E grave, casa 0 (solta), nota de referência E';
       final openSemantics = tester
           .getSemantics(find.bySemanticsLabel(openCellLabel))
           .getSemanticsData();
       expect(openSemantics.hasAction(SemanticsAction.tap), isTrue);
       expect(openSemantics.flagsCollection.isButton, isTrue);
-      expect(openSemantics.label.contains('nota'), isFalse);
+
+      // Célula não-referência não expõe a nota no rótulo
+      final nonRefOpen = tester
+          .getSemantics(find.bySemanticsLabel('Corda A, casa 0 (solta)'))
+          .getSemanticsData();
+      expect(nonRefOpen.label.contains('nota'), isFalse);
 
       await tester.tap(find.bySemanticsLabel(openCellLabel));
       await tester.pumpAndSettle();
       expect(results.last.evaluation.isCorrect, isTrue);
       expect(player.plays.last, [const Position(string: 0, fret: 0)]);
 
-      // 2. FindOnString (target: string 0, fret 1 -> F)
+      // 2. FindOnString (target: string 0, fret 1 -> F, sem referência)
       expect(find.text('Ache o F na corda E grave'), findsOneWidget);
       final fret1Label = 'Corda E grave, casa 1';
       final fret1Semantics = tester
@@ -223,14 +229,34 @@ void main() {
           .getSemanticsData();
       expect(fret1Semantics.hasAction(SemanticsAction.tap), isTrue);
       expect(fret1Semantics.flagsCollection.isButton, isTrue);
+      expect(fret1Semantics.label.contains('nota'), isFalse);
+      expect(
+        find.bySemanticsLabel(
+          'Corda E grave, casa 0 (solta), nota de referência E',
+        ),
+        findsOneWidget,
+      );
 
       await tester.tap(find.bySemanticsLabel(fret1Label));
       await tester.pumpAndSettle();
       expect(results.last.evaluation.isCorrect, isTrue);
 
-      // 3. FindAtFret (target: string 0, fret 3 -> G)
+      // 3. FindAtFret (target: string 0, fret 3 -> G, com referência na casa 0)
       expect(find.text('Ache o G na casa 3'), findsOneWidget);
-      await tester.tap(find.bySemanticsLabel('Corda E grave, casa 3'));
+      final fret3Label = 'Corda E grave, casa 3';
+      final fret3Semantics = tester
+          .getSemantics(find.bySemanticsLabel(fret3Label))
+          .getSemanticsData();
+      expect(fret3Semantics.hasAction(SemanticsAction.tap), isTrue);
+      expect(fret3Semantics.flagsCollection.isButton, isTrue);
+      expect(fret3Semantics.label.contains('nota'), isFalse);
+      expect(
+        find.bySemanticsLabel(
+          'Corda E grave, casa 0 (solta), nota de referência E',
+        ),
+        findsOneWidget,
+      );
+      await tester.tap(find.bySemanticsLabel(fret3Label));
       await tester.pumpAndSettle();
       expect(results.last.evaluation.isCorrect, isTrue);
 

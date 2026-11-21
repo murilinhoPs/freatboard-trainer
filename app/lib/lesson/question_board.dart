@@ -219,9 +219,12 @@ class _QuestionBoardState extends State<QuestionBoard> {
     );
 
     if (tapEnabled) {
-      final cellLabel = fret == 0
+      final baseLabel = fret == 0
           ? 'Corda ${stringLabel(coreString)}, casa 0 (solta)'
           : 'Corda ${stringLabel(coreString)}, casa $fret';
+      final cellLabel = isReference
+          ? '$baseLabel, nota de referência ${noteSpelling(position)}'
+          : baseLabel;
       content = MouseRegion(
         cursor: SystemMouseCursors.click,
         onEnter: (_) => setState(() => _hovered = position),
